@@ -1,0 +1,53 @@
+﻿@model MyBudget.ViewModels.TransactionFormViewModel
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@if (Model.Transaction != null)
+{
+    <h2>Изменить</h2>
+}
+else
+{
+    <h2>Добавить</h2>
+}
+
+
+@using (Html.BeginForm("Save", "Transactions"))
+{
+    <div class="form-group">
+        <label for="Name">Название</label>
+        @Html.TextBoxFor(m => m.Transaction.Name, new {@class="form-control" })
+    </div>
+
+    <div class="form-group">
+        <label for="CategoryId">Категория</label>
+        @Html.DropDownListFor(m => m.Transaction.CategoryId, new SelectList(Model.Categories,"Id","Name"),"", new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <label for="Amount">Сумма</label>
+        @Html.TextBoxFor(m => m.Transaction.Amount, new { @class = "form-control" })
+    </div>
+
+
+    <div class="form-group">
+        <label for="TransDate">Дата</label>
+        @Html.TextBoxFor(m => m.Transaction.TransDate,"{0:dd- MM-yyyy}", new { @class = "form-control" })
+
+
+    </div>
+    
+
+
+    <div class="form-group">
+        <label for="Description">Подробнее</label>
+        @Html.TextBoxFor(m => m.Transaction.Description, new { @class = "form-control" })
+    </div>
+    @Html.HiddenFor(m => m.Transaction.Id)
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+}
+

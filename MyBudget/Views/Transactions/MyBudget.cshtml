@@ -1,0 +1,94 @@
+﻿@model MyBudget.ViewModels.MyListViewModel
+@{
+    ViewBag.Title = "MyList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-7 text-center">
+                <h1><a href="#">&larr;</a> Январь <a href="#">&rarr;</a></h1>
+                <h4>2018</h4>
+            </div>
+            <div class="col-md-4 col-md-offset-1">
+                @Html.ActionLink("Добавить платеж", "TransactionForm", "Transactions","" ,new { @class= "btn btn-primary btn-lg btn-block my-add-btn" })                
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Наименование</th>
+                            <th scope="col">Сумма</th>
+                            <th scope="col" style="width: 60px;"></th>
+                            <th scope="col" style="width: 60px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var transaction in Model.MyTransactions)
+            {
+                            <tr>
+                                <td>
+                                    @Html.ActionLink(transaction.Name, "Edit", "Transactions", new { id = transaction.Id }, null)
+
+                                </td>
+                                <td>@transaction.Amount</td>
+                                <td>
+                                    <span class='glyphicon glyphicon-th-list'>@Html.ActionLink(" ", "Delete", "Transactions", new { id = transaction.Id }, null)</span>
+                                </td>
+                                <td>
+                                    <span class=''>@Html.ActionLink(" ", "Delete", "Transactions", new { id = transaction.Id }, new { @class= "glyphicon glyphicon-remove del-btn" })</span>
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>        
+    </div>
+
+    <div class="col-md-3 col-md-offset-1">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h4 class="panel-title">Остаток</h4>
+            </div>
+            <div class="panel-body"><h4>@Model.Rest</h4></div>
+        </div>
+
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h4 class="panel-title">Долги</h4>
+            </div>
+            <div class="panel-body">
+                <h4 class=""><a href="#">Кредит</a></h4> 40 000 / 80 000
+            </div>
+        </div>
+
+        <div class="panel panel-warning">
+            <div class="panel-heading"><h4 class="panel-title">Накопить</h4></div>
+            <div class="panel-body">
+                <h4>Legacy</h4> 400 000 / 3 000 000
+
+            </div>
+        </div>
+    </div>
+    <a href="#delDialog" data-toggle="modal">удалить</a>
+</div>
+
+
+<div class="modal fade" id="delDialog" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                Сообщение
+            </div>
+            <div class="modal-body">Удалить выделенную запись?</div>
+            <div class="modal-footer">
+                <button class="btn btn-success">Да</button>
+            </div>
+        </div>
+    </div>
+</div>

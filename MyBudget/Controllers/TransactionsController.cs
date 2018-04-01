@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MyBudget.Models;
+using MyBudget.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +10,89 @@ namespace MyBudget.Controllers
 {
     public class TransactionsController : Controller
     {
-        // GET: Transactions
-        public ActionResult MyList()
+        private ApplicationDbContext _context;
+
+        public TransactionsController()
         {
-            return View();
+            _context = new ApplicationDbContext();
+        }
+
+
+        // GET: Transactions
+        public ActionResult MyBudget()
+        {            
+
+            double rest = _context.Transactions.ToList().Sum(x => x.Amount); //Считаем остаток
+
+            var viewModel = new MyListViewModel
+            {
+                MyTransactions = _context.Transactions.ToList(),
+                Rest = rest
+            };
+            return View(viewModel);
+        }
+
+        public ActionResult TransactionForm()
+        {
+            var categories = _context.Categories.ToList();
+            var viewModel = new TransactionFormViewModel
+            {
+                Categories = categories
+            };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Save(Transaction transaction)
+        {
+            if (transaction.Id == 0)
+                _context.Transactions.Add(transaction);
+            else
+            {
+                var transactionInDb = _context.Transactions.Single(t => t.Id == transaction.Id);
+                transactionInDb.Name = transaction.Name;
+                transactionInDb.Amount = transaction.Amount;
+                transactionInDb.CategoryId = transaction.CategoryId;
+                transactionInDb.Description = transaction.Description;
+                transactionInDb.IsSpending = transaction.IsSpending;
+                transactionInDb.TransDate = transaction.TransDate;
+            }
+
+
+                _context.SaveChanges();
+
+            return RedirectToAction("MyBudget", "Transactions");
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var transaction = _context.Transactions.SingleOrDefault(c => c.Id == id);
+            if (transaction == null)
+                return HttpNotFound();
+            var viewModel = new TransactionFormViewModel
+            {
+                Transaction = transaction,
+                Categories = _context.Categories.ToList()
+            };
+
+            return View("TransactionForm",viewModel);
+        }
+
+        public ActionResult Delete(int id)
+        {
+            var transaction = _context.Transactions.SingleOrDefault(t => t.Id == id);            
+            if (transaction == null)
+                return HttpNotFound();
+
+            _context.Transactions.Remove(transaction);
+
+            _context.SaveChanges();
+            var viewModel = new MyListViewModel
+            {
+                MyTransactions = _context.Transactions.ToList()
+            };            
+
+            return View("MyBudget", viewModel);
         }
     }
 }
