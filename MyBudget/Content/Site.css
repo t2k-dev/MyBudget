@@ -32,3 +32,6 @@ textarea {
 
 .del-btn{ color:black;text-decoration:none}
 .del-btn:hover{color:red;text-decoration:none}
+
+.outcome-ln{color:red;}
+.income-ln{color:green;}

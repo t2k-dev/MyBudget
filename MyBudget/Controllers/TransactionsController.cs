@@ -18,16 +18,12 @@ namespace MyBudget.Controllers
         }
 
 
-        // GET: Transactions
+        //Главное окно
         public ActionResult MyBudget()
-        {            
-
-            double rest = _context.Transactions.ToList().Sum(x => x.Amount); //Считаем остаток
-
+        {                        
             var viewModel = new MyListViewModel
             {
-                MyTransactions = _context.Transactions.ToList(),
-                Rest = rest
+                MyTransactions = _context.Transactions.ToList()                
             };
             return View(viewModel);
         }
@@ -56,6 +52,7 @@ namespace MyBudget.Controllers
                 transactionInDb.Description = transaction.Description;
                 transactionInDb.IsSpending = transaction.IsSpending;
                 transactionInDb.TransDate = transaction.TransDate;
+                transactionInDb.IsSpending = transaction.IsSpending;
             }
 
 

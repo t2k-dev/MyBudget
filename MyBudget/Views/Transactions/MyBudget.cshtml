@@ -27,13 +27,24 @@
                     </thead>
                     <tbody>
                         @foreach (var transaction in Model.MyTransactions)
-            {
+                        {
                             <tr>
                                 <td>
                                     @Html.ActionLink(transaction.Name, "Edit", "Transactions", new { id = transaction.Id }, null)
 
                                 </td>
-                                <td>@transaction.Amount</td>
+                                <td>
+                                    @{
+                                        string lineClass = "";
+                                        if (transaction.IsSpending == true) { lineClass = "outcome-ln"; }
+                                        else { lineClass = "income-ln"; }
+
+                                    }                                        
+                                    
+                                    @Html.Label(@transaction.Amount.ToString(),new { @class= lineClass})
+
+                                    
+                                </td>
                                 <td>
                                     <span class='glyphicon glyphicon-th-list'>@Html.ActionLink(" ", "Delete", "Transactions", new { id = transaction.Id }, null)</span>
                                 </td>
