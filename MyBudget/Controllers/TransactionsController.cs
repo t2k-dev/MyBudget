@@ -20,10 +20,12 @@ namespace MyBudget.Controllers
 
         //Главное окно
         public ActionResult MyBudget()
-        {                        
+        {
             var viewModel = new MyListViewModel
             {
-                MyTransactions = _context.Transactions.ToList()                
+                MyTransactions = _context.Transactions.ToList(),                
+                MyGoals = _context.Goals.ToList()
+                
             };
             return View(viewModel);
         }
@@ -84,12 +86,7 @@ namespace MyBudget.Controllers
             _context.Transactions.Remove(transaction);
 
             _context.SaveChanges();
-            var viewModel = new MyListViewModel
-            {
-                MyTransactions = _context.Transactions.ToList()
-            };            
-
-            return View("MyBudget", viewModel);
+            return RedirectToAction("MyBudget", "Transactions");
         }
     }
 }

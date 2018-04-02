@@ -11,6 +11,7 @@ namespace MyBudget.ViewModels
     {
 
         public List<Transaction> MyTransactions { get; set; }
+        public List<Goal> MyGoals { get; set; }
         public double Rest {
             get {
                 return MyTransactions.Where(x => x.IsSpending == false).Sum(x => x.Amount) - MyTransactions.Where(x => x.IsSpending == true).Sum(x => x.Amount);

@@ -70,19 +70,45 @@
 
         <div class="panel panel-danger">
             <div class="panel-heading">
+                <div class="pull-right">@Html.ActionLink("Добавить", "DebtForm", "Goals")</div>
                 <h4 class="panel-title">Долги</h4>
+                
             </div>
             <div class="panel-body">
-                <h4 class=""><a href="#">Кредит</a></h4> 40 000 / 80 000
+                @foreach (var debt in Model.MyGoals.Where(x => x.IsDebt == true))
+                {
+                    <div>
+                        <div class="pull-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = debt.Id }, new { @class = "glyphicon glyphicon-remove del-btn" })</div>
+                        <div>
+                            <h4 class=""><a href="#">@debt.Name</a></h4>
+                            <span>@debt.CurAmount из</span>
+                            <span>@debt.Amount</span>
+
+                        </div>
+                    </div>
+                }
+                
             </div>
         </div>
 
         <div class="panel panel-warning">
-            <div class="panel-heading"><h4 class="panel-title">Накопить</h4></div>
-            <div class="panel-body">
-                <h4>Legacy</h4> 400 000 / 3 000 000
-
+            <div class="panel-heading">
+                <div class="pull-right">@Html.ActionLink("Добавить", "GoalForm", "Goals")</div>
+                <h4 class="panel-title">Накопить</h4>                
             </div>
+            <div class="panel-body">
+                @foreach (var goal in Model.MyGoals.Where(x => x.IsDebt == false))
+                {
+                    <div>
+                        <div class="pull-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = goal.Id }, new { @class = "glyphicon glyphicon-remove del-btn" })</div>
+
+                        <h4 class=""><a href="#">@goal.Name</a></h4>
+                        <span>@goal.CurAmount из</span>
+                        <span>@goal.Amount</span>
+                    </div>
+                }
+
+                    </div>
         </div>
     </div>
     <a href="#delDialog" data-toggle="modal">удалить</a>

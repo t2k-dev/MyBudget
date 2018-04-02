@@ -189,6 +189,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\GoalsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TransactionsController.cs" />
@@ -203,9 +204,14 @@
     <Compile Include="Migrations\201803220720071_PopulateCategories.Designer.cs">
       <DependentUpon>201803220720071_PopulateCategories.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804021428420_AddingGoals.cs" />
+    <Compile Include="Migrations\201804021428420_AddingGoals.Designer.cs">
+      <DependentUpon>201804021428420_AddingGoals.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Goal.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Transaction.cs" />
@@ -357,6 +363,8 @@
       <BrowseToURL>~/Transactions/MyBudget</BrowseToURL>
     </Content>
     <Content Include="Views\Transactions\TransactionForm.cshtml" />
+    <Content Include="Views\Goals\DebtForm.cshtml" />
+    <Content Include="Views\Goals\GoalForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -382,6 +390,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803220720071_PopulateCategories.resx">
       <DependentUpon>201803220720071_PopulateCategories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804021428420_AddingGoals.resx">
+      <DependentUpon>201804021428420_AddingGoals.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
