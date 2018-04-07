@@ -3,7 +3,7 @@
     ViewBag.Title = "MyList";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="container">
+<div class="row">
     <div class="col-md-8">
         <div class="row">
             <div class="col-md-7 text-center">
@@ -11,108 +11,110 @@
                 <h4>2018</h4>
             </div>
             <div class="col-md-4 col-md-offset-1">
-                @Html.ActionLink("Добавить платеж", "TransactionForm", "Transactions","" ,new { @class= "btn btn-primary btn-lg btn-block my-add-btn" })                
+                @Html.ActionLink("Добавить платеж", "TransactionForm", "Transactions","" ,new { @class= "btn btn-primary btn-lg btn-block my-add-btn" })
             </div>
         </div>
         <div class="row">
-            <div>
-                <table class="table">
-                    <thead>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Наименование</th>
+                        <th scope="col" style="width:25%;text-align:right;">Сумма</th>
+                        <th scope="col" style="width: 60px;"></th>
+                        <th scope="col" style="width: 60px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var transaction in Model.MyTransactions)
+                    {
                         <tr>
-                            <th scope="col">Наименование</th>
-                            <th scope="col">Сумма</th>
-                            <th scope="col" style="width: 60px;"></th>
-                            <th scope="col" style="width: 60px;"></th>
+                            <td>
+                                @Html.ActionLink(transaction.Name, "Edit", "Transactions", new { id = transaction.Id }, null)
+
+                            </td>
+                            <td class="text-right">
+                                @{
+                                    string lineClass = "";
+                                    if (transaction.IsSpending == true) { lineClass = "text-danger"; }
+                                    else { lineClass = "text-success"; }
+
+                                }
+
+                                @Html.Label(@transaction.Amount.ToString(), new { @class = lineClass + " amt" })
+
+
+                            </td>
+                            <td class="text-center">
+                                <span class='glyphicon glyphicon-th-list'>@Html.ActionLink(" ", "Delete", "Transactions", new { id = transaction.Id }, null)</span>
+                            </td>
+                            <td>
+                                <span class=''>@Html.ActionLink(" ", "Delete", "Transactions", new { id = transaction.Id }, new { @class = "glyphicon glyphicon-remove del-btn" })</span>
+                            </td>
+
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var transaction in Model.MyTransactions)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.ActionLink(transaction.Name, "Edit", "Transactions", new { id = transaction.Id }, null)
-
-                                </td>
-                                <td>
-                                    @{
-                                        string lineClass = "";
-                                        if (transaction.IsSpending == true) { lineClass = "outcome-ln"; }
-                                        else { lineClass = "income-ln"; }
-
-                                    }                                        
-                                    
-                                    @Html.Label(@transaction.Amount.ToString(),new { @class= lineClass})
-
-                                    
-                                </td>
-                                <td>
-                                    <span class='glyphicon glyphicon-th-list'>@Html.ActionLink(" ", "Delete", "Transactions", new { id = transaction.Id }, null)</span>
-                                </td>
-                                <td>
-                                    <span class=''>@Html.ActionLink(" ", "Delete", "Transactions", new { id = transaction.Id }, new { @class= "glyphicon glyphicon-remove del-btn" })</span>
-                                </td>
-
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>        
+                                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <div class="col-md-3 col-md-offset-1">
-        <div class="panel panel-success">
-            <div class="panel-heading">
-                <h4 class="panel-title">Остаток</h4>
+    <div class="col-md-3 offset-md-1">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-header">
+                <h4>Остаток</h4>
             </div>
-            <div class="panel-body"><h4>@Model.Rest</h4></div>
+            <div class="card-body"><h4>@Model.Rest</h4></div>
         </div>
 
-        <div class="panel panel-danger">
-            <div class="panel-heading">
-                <div class="pull-right">@Html.ActionLink("Добавить", "DebtForm", "Goals")</div>
-                <h4 class="panel-title">Долги</h4>
-                
+        <div class="card text-white bg-danger mb-3">
+            <div class="card-header">
+                <div class="close">@Html.ActionLink("+ новый", "DebtForm", "Goals", null, new { @class= "debt-crd-add" })</div>
+                <h4>Долги</h4>
+
             </div>
-            <div class="panel-body">
+            <div class="card-body">
                 @foreach (var debt in Model.MyGoals.Where(x => x.IsDebt == true))
                 {
                     <div>
-                        <div class="pull-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = debt.Id }, new { @class = "glyphicon glyphicon-remove del-btn" })</div>
+                        <div class="float-sm-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = debt.Id }, new { @class = "glyphicon glyphicon-remove del-btn-crd" })</div>
                         <div>
-                            <h4 class=""><a href="#">@debt.Name</a></h4>
+                            <h4 class="">@debt.Name</h4>
                             <span>@debt.CurAmount из</span>
                             <span>@debt.Amount</span>
-
+                            
                         </div>
                     </div>
                 }
-                
+
             </div>
         </div>
 
-        <div class="panel panel-warning">
-            <div class="panel-heading">
-                <div class="pull-right">@Html.ActionLink("Добавить", "GoalForm", "Goals")</div>
-                <h4 class="panel-title">Накопить</h4>                
+        <div class="card text-white bg-info mb-3">
+            <div class="card-header">
+                <div class="close">@Html.ActionLink("+ новая", "GoalForm", "Goals", null, new { @class = "debt-crd-add" })</div>
+                <h4>Цели</h4>
             </div>
-            <div class="panel-body">
+            <div class="card-body">
                 @foreach (var goal in Model.MyGoals.Where(x => x.IsDebt == false))
                 {
                     <div>
-                        <div class="pull-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = goal.Id }, new { @class = "glyphicon glyphicon-remove del-btn" })</div>
-
-                        <h4 class=""><a href="#">@goal.Name</a></h4>
-                        <span>@goal.CurAmount из</span>
-                        <span>@goal.Amount</span>
+                        <div class="float-md-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = goal.Id }, new { @class = "glyphicon glyphicon-remove del-btn-crd" })</div>
+                        <div>
+                            <h4 class="">@goal.Name</h4>
+                            <span>@goal.CurAmount из</span>
+                            <span>@goal.Amount</span>
+                        </div>
                     </div>
                 }
 
-                    </div>
+            </div>
         </div>
     </div>
-    <a href="#delDialog" data-toggle="modal">удалить</a>
+
 </div>
+    <a href="#delDialog" data-toggle="modal">удалить</a>
+
 
 
 <div class="modal fade" id="delDialog" tabindex="-1">
