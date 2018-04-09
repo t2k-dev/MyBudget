@@ -36,17 +36,18 @@
                             <td class="text-right">
                                 @{
                                     string lineClass = "";
-                                    if (transaction.IsSpending == true) { lineClass = "text-danger"; }
+                                    char c = '+';
+                                    if (transaction.IsSpending == true) { lineClass = "text-danger"; c = '-'; }
                                     else { lineClass = "text-success"; }
 
                                 }
-
-                                @Html.Label(@transaction.Amount.ToString(), new { @class = lineClass + " amt" })
-
+                                
+                                @Html.Label(@c + @transaction.Amount.ToString("### ### ### ###"), new { @class = lineClass + " amt" })
+                                                                
 
                             </td>
                             <td class="text-center">
-                                <span class='glyphicon glyphicon-th-list'>@Html.ActionLink(" ", "Delete", "Transactions", new { id = transaction.Id }, null)</span>
+                                <!--<span class='glyphicon glyphicon-th-list'>@Html.ActionLink(" ", "Delete", "Transactions", new { id = transaction.Id }, null)</span>-->
                             </td>
                             <td>
                                 <span class=''>@Html.ActionLink(" ", "Delete", "Transactions", new { id = transaction.Id }, new { @class = "glyphicon glyphicon-remove del-btn" })</span>
@@ -64,12 +65,12 @@
             <div class="card-header">
                 <h4>Остаток</h4>
             </div>
-            <div class="card-body"><h4>@Model.Rest</h4></div>
+            <div class="card-body"><h4 class="text-center">@Model.Rest.ToString("### ### ### ###")</h4></div>
         </div>
 
         <div class="card text-white bg-danger mb-3">
             <div class="card-header">
-                <div class="close">@Html.ActionLink("+ новый", "DebtForm", "Goals", null, new { @class= "debt-crd-add" })</div>
+                <a class="crd-add" href="@Url.Action("DebtForm", "Goals" )"><span class="glyphicon glyphicon-plus"></span> <span>добавить</span></a>                                
                 <h4>Долги</h4>
 
             </div>
@@ -78,21 +79,25 @@
                 {
                     <div>
                         <div class="float-sm-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = debt.Id }, new { @class = "glyphicon glyphicon-remove del-btn-crd" })</div>
-                        <div>
-                            <h4 class="">@debt.Name</h4>
-                            <span>@debt.CurAmount из</span>
-                            <span>@debt.Amount</span>
-                            
+                        <div class="debt-card-itm">
+                            <h4 class="">@debt.Name <span class="glyphicon glyphicon-arrow-down"></span></h4>
+                            <div>
+                                <span>@debt.CurAmount из</span><span>@debt.Amount</span>
+                            </div>                       
                         </div>
+                        
                     </div>
                 }
-
+                @if (Model.MyGoals.Where(x => x.IsDebt == true).Count() == 0)
+                {
+                    <h5>Не указаны</h5>
+                }                
             </div>
         </div>
 
         <div class="card text-white bg-info mb-3">
-            <div class="card-header">
-                <div class="close">@Html.ActionLink("+ новая", "GoalForm", "Goals", null, new { @class = "debt-crd-add" })</div>
+            <div class="card-header">                
+                <a class="crd-add" href="@Url.Action("GoalForm", "Goals" )"><span class="glyphicon glyphicon-plus"></span> <span>добавить</span></a>                                
                 <h4>Цели</h4>
             </div>
             <div class="card-body">
@@ -100,12 +105,16 @@
                 {
                     <div>
                         <div class="float-md-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = goal.Id }, new { @class = "glyphicon glyphicon-remove del-btn-crd" })</div>
-                        <div>
-                            <h4 class="">@goal.Name</h4>
+                        <div class="goal-card-itm">
+                            <h4 class="">@goal.Name</h4> 
                             <span>@goal.CurAmount из</span>
                             <span>@goal.Amount</span>
                         </div>
                     </div>
+                }
+                @if (Model.MyGoals.Where(x => x.IsDebt == false).Count() == 0)
+                {
+                    <h5>Не указаны</h5>
                 }
 
             </div>
@@ -116,7 +125,26 @@
     <a href="#delDialog" data-toggle="modal">удалить</a>
 
 
-
+<div class="modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--
 <div class="modal fade" id="delDialog" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -131,3 +159,4 @@
         </div>
     </div>
 </div>
+    -->

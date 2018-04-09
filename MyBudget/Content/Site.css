@@ -60,23 +60,62 @@ code {
 
 .bg-danger {background-color:#f5695d !important;}
 .table th, .table td{font-size:14px;}
-
-
+.card-body{padding:0.6rem;}
 /*Новые*/
+.form-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
 .my-add-btn {
     margin-top: 20px;
     margin-bottom: 10px;
 }
 
-.del-btn{ color:black;text-decoration:none}
-.del-btn:hover{color:red;text-decoration:none}
+.del-btn {
+    color: #e63627;
+    text-decoration: none
+}
+.del-btn:hover {
+    color: #ff950d;
+    text-decoration: none
+}
 
 
-.debt-crd-add{color:#fff;font-size:14px;}
-.debt-crd-add:hover{text-decoration: none;color:#fff;font-weight:bold}
+.crd-add {
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+    opacity:0.7;
+    float:right;
+    font-weight:bold;
+}
+.crd-add:hover{text-decoration: none;color:#fff;opacity:1;}
+.debt-card-itm {
+    padding: 12px;
+    background-color: #de5b5b;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
 
-.del-btn-crd {color: black;text-decoration: none}
-.del-btn-crd:hover {color: #fff;text-decoration: none}
+.goal-card-itm {
+    padding: 12px;
+    background-color: #4caac5;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
 
+
+.del-btn-crd {
+    color: #fff;
+    opacity: 0.6;
+    margin: 5px 8px;
+}
+.del-btn-crd:hover {
+    color: #fff;
+    opacity: 1;
+    text-decoration: none;
+}
 
 .amt{font-weight:bold;font-size:14px;}
+

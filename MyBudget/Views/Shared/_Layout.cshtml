@@ -24,13 +24,13 @@
                             <a class="nav-link" href="#">Контакты</a>
                         </li>
                     </ul>
+                    @Html.Partial("_LoginPartial")
                 </div>
             </div>
         </div>
     </header>
     <div class="container">
-        @RenderBody()
-        <hr />
+        @RenderBody()        
     </div>
 
     <footer class="footer">

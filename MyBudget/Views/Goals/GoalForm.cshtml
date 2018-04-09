@@ -3,19 +3,20 @@
     ViewBag.Title = "GoalForm";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="col-md-4 offset-md-4">
+    <h2>Новая цель</h2>
 
-<h2>GoalForm</h2>
-<div class="container">
     @using (Html.BeginForm("SaveGoal", "Goals"))
     {
         <div class="form-group">
-            <label for="Name">Название</label>
+            <label for="Name">Наименование</label>
             @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
         </div>
-        <div class="form-group">
-            <label for="Name">Сумма</label>
-            @Html.TextBoxFor(m => m.Amount, new { @class = "form-control" })
-        </div>
-        <button type="submit" class="btn btn-primary">Сохранить</button>
+            <div class="form-group">
+                <label for="Name">Сумма</label>
+                @Html.TextBoxFor(m => m.Amount, new { @class = "form-control" })
+            </div>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
     }
 </div>
+
