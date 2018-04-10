@@ -1,7 +1,9 @@
-﻿using MyBudget.Models;
+﻿using Microsoft.AspNet.Identity;
+using MyBudget.Models;
 using MyBudget.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -44,7 +46,10 @@ namespace MyBudget.Controllers
         public ActionResult Save(Transaction transaction)
         {
             if (transaction.Id == 0)
+            {
+                transaction.UserId = User.Identity.GetUserId();
                 _context.Transactions.Add(transaction);
+            }
             else
             {
                 var transactionInDb = _context.Transactions.Single(t => t.Id == transaction.Id);
@@ -55,10 +60,24 @@ namespace MyBudget.Controllers
                 transactionInDb.IsSpending = transaction.IsSpending;
                 transactionInDb.TransDate = transaction.TransDate;
                 transactionInDb.IsSpending = transaction.IsSpending;
+                transactionInDb.UserId = transaction.UserId;
             }
 
-
+            try
+            {
                 _context.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (var errors in ex.EntityValidationErrors)
+                {
+                    foreach (var validationError in errors.ValidationErrors)
+                    {
+                        // get the error message 
+                        string errorMessage = validationError.ErrorMessage;
+                    }
+                }
+            }
 
             return RedirectToAction("MyBudget", "Transactions");
         }

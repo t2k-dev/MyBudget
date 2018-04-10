@@ -1,4 +1,5 @@
-﻿using MyBudget.Models;
+﻿using Microsoft.AspNet.Identity;
+using MyBudget.Models;
 using MyBudget.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,8 @@ namespace MyBudget.Controllers
         {
             if (goal.Id == 0)
             {
-                goal.IsDebt = true; //Для новых определяем что это долг
+                goal.Type = 3; //Для новых определяем что это долг
+                goal.UserId = User.Identity.GetUserId();
                 _context.Goals.Add(goal);
             }
             else
@@ -52,7 +54,8 @@ namespace MyBudget.Controllers
         {
             if (goal.Id == 0)
             {
-                goal.IsDebt = false; //Для новых определяем что это не долг
+                goal.Type = 1; //Для новых определяем что это не долг
+                goal.UserId = User.Identity.GetUserId();
                 _context.Goals.Add(goal);
             }
             else

@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -204,9 +205,9 @@
     <Compile Include="Migrations\201803220720071_PopulateCategories.Designer.cs">
       <DependentUpon>201803220720071_PopulateCategories.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804021428420_AddingGoals.cs" />
-    <Compile Include="Migrations\201804021428420_AddingGoals.Designer.cs">
-      <DependentUpon>201804021428420_AddingGoals.cs</DependentUpon>
+    <Compile Include="Migrations\201804101640373_Add_Goals_and_UserID.cs" />
+    <Compile Include="Migrations\201804101640373_Add_Goals_and_UserID.Designer.cs">
+      <DependentUpon>201804101640373_Add_Goals_and_UserID.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -393,8 +394,8 @@
     <EmbeddedResource Include="Migrations\201803220720071_PopulateCategories.resx">
       <DependentUpon>201803220720071_PopulateCategories.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804021428420_AddingGoals.resx">
-      <DependentUpon>201804021428420_AddingGoals.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804101640373_Add_Goals_and_UserID.resx">
+      <DependentUpon>201804101640373_Add_Goals_and_UserID.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -9,12 +9,28 @@ namespace MyBudget.Models
     public class Goal
     {
         public int Id { get; set; }
+
         [Required]
-        public string Name { get; set; }
+        public string GoalName { get; set; }
+
+        [Required]
+        public byte Type { get; set; }
+
         [Required]
         public double Amount { get; set; } /*Общая сумма*/
+
         public double CurAmount { get; set; } /*Накопленная сумма*/
-        public bool IsDebt { get; set; }
-        public string Description { get; set; }        
+
+        public bool IsActive { get; set; }
+
+        public string Description { get; set; }
+
+        
+        public ApplicationUser User { get; set; }
+        [Required]
+        public string UserId { get; set; }
+
+        public DateTime CompleteDate { get; set; }
+
     }
 }
