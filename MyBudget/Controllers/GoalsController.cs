@@ -29,21 +29,23 @@ namespace MyBudget.Controllers
             return View();
         }
 
+        public ActionResult CreditForm()
+        {
+            return View();
+        }
+
 
         [HttpPost]
         public ActionResult SaveDebt(Goal goal)
         {
             if (goal.Id == 0)
             {
-                goal.Type = 3; //Для новых определяем что это долг
+                goal.Type = 2; //Для новых определяем что это мой долг
                 goal.UserId = User.Identity.GetUserId();
                 _context.Goals.Add(goal);
             }
             else
             {
-                /*var transactionInDb = _context.Transactions.Single(t => t.Id == transaction.Id);
-                transactionInDb.Name = transaction.Name;
-                transactionInDb.Amount = transaction.Amount;*/
             }
             _context.SaveChanges();
             return RedirectToAction("MyBudget", "Transactions");
@@ -54,15 +56,28 @@ namespace MyBudget.Controllers
         {
             if (goal.Id == 0)
             {
-                goal.Type = 1; //Для новых определяем что это не долг
+                goal.Type = 1; //Для новых определяем что это цель
                 goal.UserId = User.Identity.GetUserId();
                 _context.Goals.Add(goal);
             }
             else
             {
-                /*var transactionInDb = _context.Transactions.Single(t => t.Id == transaction.Id);
-                transactionInDb.Name = transaction.Name;
-                transactionInDb.Amount = transaction.Amount;*/
+            }
+            _context.SaveChanges();
+            return RedirectToAction("MyBudget", "Transactions");
+        }
+
+        [HttpPost]
+        public ActionResult SaveCredit(Goal goal)
+        {
+            if (goal.Id == 0)
+            {
+                goal.Type = 3; //Для новых определяем что это долг мне
+                goal.UserId = User.Identity.GetUserId();
+                _context.Goals.Add(goal);
+            }
+            else
+            {
             }
             _context.SaveChanges();
             return RedirectToAction("MyBudget", "Transactions");

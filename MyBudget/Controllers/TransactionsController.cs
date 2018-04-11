@@ -23,9 +23,10 @@ namespace MyBudget.Controllers
         //Главное окно
         public ActionResult MyBudget()
         {
+            string UserGuid = User.Identity.GetUserId();
             var viewModel = new MyListViewModel
-            {
-                MyTransactions = _context.Transactions.ToList(),                
+            {                
+                MyTransactions = _context.Transactions.Where(m => m.UserId == UserGuid).ToList(),                
                 MyGoals = _context.Goals.ToList()
                 
             };

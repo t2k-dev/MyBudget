@@ -30,7 +30,7 @@ namespace MyBudget.Models
         [Required]
         public string UserId { get; set; }
 
-        public DateTime CompleteDate { get; set; }
+        public DateTime? CompleteDate { get; set; }
 
     }
 }

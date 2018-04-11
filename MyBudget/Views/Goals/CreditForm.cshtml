@@ -1,12 +1,13 @@
 ﻿@model MyBudget.Models.Goal
 @{
-    ViewBag.Title = "DebtForm";
+    ViewBag.Title = "Мне должны";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="col-md-4 offset-md-4">
-    <h2 class="form-title">Новый долг</h2>
 
-    @using (Html.BeginForm("SaveDebt", "Goals"))
+<div class="col-md-4 offset-md-4">
+    <h2>Мне должны</h2>
+
+    @using (Html.BeginForm("SaveCredit", "Goals"))
     {
         <div class="form-group">
             <label for="Name">Наименование</label>
@@ -19,4 +20,3 @@
         <button type="submit" class="btn btn-primary">Сохранить</button>
     }
 </div>
-

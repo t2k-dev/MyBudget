@@ -209,6 +209,10 @@
     <Compile Include="Migrations\201804101640373_Add_Goals_and_UserID.Designer.cs">
       <DependentUpon>201804101640373_Add_Goals_and_UserID.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804111611335_Set_GoalDate_Null.cs" />
+    <Compile Include="Migrations\201804111611335_Set_GoalDate_Null.Designer.cs">
+      <DependentUpon>201804111611335_Set_GoalDate_Null.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -368,6 +372,7 @@
     <Content Include="Views\Transactions\TransactionForm.cshtml" />
     <Content Include="Views\Goals\DebtForm.cshtml" />
     <Content Include="Views\Goals\GoalForm.cshtml" />
+    <Content Include="Views\Goals\CreditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -396,6 +401,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804101640373_Add_Goals_and_UserID.resx">
       <DependentUpon>201804101640373_Add_Goals_and_UserID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804111611335_Set_GoalDate_Null.resx">
+      <DependentUpon>201804111611335_Set_GoalDate_Null.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

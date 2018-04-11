@@ -22,14 +22,15 @@
             <form-group style="width:100%">
                 <div class="form-group">
                     @{
-                        string actInc = "";
-                        string actOut = "";
-                        if (Model.Transaction!=null){
+            string actInc = "";
+            string actOut = "";
+            if (Model.Transaction != null)
+            {
 
-                            if (!Model.Transaction.IsSpending) { actInc = "active"; }
-                            else { actOut = "active"; }
-                        }
-                        else { actInc = "active"; }
+                if (!Model.Transaction.IsSpending) { actInc = "active"; }
+                else { actOut = "active"; }
+            }
+            else { actInc = "active"; }
 
                     }
 
@@ -69,10 +70,11 @@
 
 
                 <div class="form-group">
-                    <label for="Description">Подробнее</label>                    
-                    @Html.TextAreaFor(m=>m.Transaction.Description, new { @class = "form-control" })
+                    <label for="Description">Подробнее</label>
+                    @Html.TextAreaFor(m => m.Transaction.Description, new { @class = "form-control" })
                 </div>
                 @Html.HiddenFor(m => m.Transaction.Id)
+                @Html.HiddenFor(m => m.Transaction.UserId)
                 <button type="submit" class="btn btn-primary">Сохранить</button>
             </form-group>
         </div>
