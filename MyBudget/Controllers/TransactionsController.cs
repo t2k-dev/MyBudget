@@ -21,24 +21,28 @@ namespace MyBudget.Controllers
 
 
         //Главное окно
-        public ActionResult MyBudget()
+        public ActionResult MyBudget(string id)
         {
-            string UserGuid = User.Identity.GetUserId();
+            if (String.IsNullOrEmpty(id)) //по умолчанию текущий месяц
+                id = DateTime.Now.ToString("MMyyyy");
+
+            string UserGuid = User.Identity.GetUserId();            
             var viewModel = new MyListViewModel
             {                
-                MyTransactions = _context.Transactions.Where(m => m.UserId == UserGuid).ToList(),                
-                MyGoals = _context.Goals.ToList()
-                
+                MyTransactions = _context.Transactions.Where(m => m.UserId == UserGuid).ToList().Where(m => m.TransDate.ToString("MMyyyy") == id).ToList(),                
+                MyGoals = _context.Goals.ToList(),
+                ListDate = DateTime.Now                
             };
             return View(viewModel);
         }
 
-        public ActionResult TransactionForm()
+        public ActionResult TransactionForm(bool? id)
         {
             var categories = _context.Categories.ToList();
             var viewModel = new TransactionFormViewModel
             {
-                Categories = categories
+                Categories = categories,
+                IsSpending = id
             };
             return View(viewModel);
         }

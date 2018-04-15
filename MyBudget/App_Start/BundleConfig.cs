@@ -21,12 +21,17 @@ namespace MyBudget
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/bootstrap-datepicker.min.js",
+                      "~/Scripts/locales/bootstrap-datepicker.ru.min.js",
+                      "~/Scripts/respond.js",
+                      "~/Scripts/site.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(                    
                     "~/Content/bootstrap-yeti.css",
+                    "~/Content/bootstrap-datepicker.min.css",
                     "~/Content/glyph.css",
-                    "~/Content/site.css"));
+                    "~/Content/site.css",
+                    "~/Content/datapicker.css"));
         }
     }
 }

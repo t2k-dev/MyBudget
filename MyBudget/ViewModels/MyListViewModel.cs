@@ -9,7 +9,7 @@ namespace MyBudget.ViewModels
 
     public class MyListViewModel
     {
-
+        public DateTime ListDate { get; set; }
         public List<Transaction> MyTransactions { get; set; }
         public List<Goal> MyGoals { get; set; }
         public double Rest {

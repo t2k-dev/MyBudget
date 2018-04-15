@@ -69,11 +69,13 @@ code {
     margin-bottom: 20px;
 }
 
+
+.new-trans{width:80px;}
+
 .no-records{margin:60px auto}
 
 
-.my-add-btn {
-    margin-top: 20px;
+.my-add-btn {    
     margin-bottom: 10px;
 }
 
@@ -124,3 +126,6 @@ code {
 
 .amt{font-weight:bold;font-size:14px;}
 
+.new-trans {
+    width: 48%
+}

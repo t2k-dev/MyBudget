@@ -3,21 +3,34 @@
     ViewBag.Title = "MyList";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+
+
 <div class="row">
     <div class="col-md-8">
         <div class="row">
             <div class="col-md-7 text-center">
-                <h1><a href="#">&larr;</a> Январь <a href="#">&rarr;</a></h1>
-                <h4>2018</h4>
+                <div class="container">
+                    <div class="row" style="margin-bottom:20px;">
+                        <h5><a href="#" onclick="setingDate(2)"><span class="glyphicon glyphicon-menu-left" style="top:18px;"></span></a></h5>
+                        <h1><input type="button" id="sandbox-container" value="@Model.ListDate.ToString("Y")"></h1>
+                        <h5><a href="#" onclick="setingDate(1)"><span class="glyphicon glyphicon-menu-right" style="top:18px;"></span></a></h5>                        
+                    </div>
+                </div>
             </div>
             <div class="col-md-4 col-md-offset-1">
-                @Html.ActionLink("Добавить платеж", "TransactionForm", "Transactions", "", new { @class = "btn btn-primary btn-lg btn-block my-add-btn" })
+                <!--@Html.ActionLink("Добавить платеж", "TransactionForm", "Transactions", "", new { @class = "btn btn-primary btn-lg btn-block my-add-btn" })-->
+                @Html.ActionLink("Добавить платеж", "TransactionForm", "Transactions", new { id = true }, new { @class = "btn btn-outline-danger new-trans"})
+                <div class="" style="float: left;"><span class="glyphicon glyphicon-minus"></span></div>
+                <div class="btn btn-outline-success new-trans" style="float: right;"><span class="glyphicon glyphicon-plus"></span></div>
+
+
             </div>
         </div>
         <div class="row">
             @if (Model.MyTransactions.Count == 0)
             {
-                
+
                 <h6 class="no-records">В этом месяце ещё нет платежей</h6>
             }
             else
@@ -142,7 +155,7 @@
             <div class="card-body">
                 @if (Model.MyGoals.Where(x => x.Type == 3).Count() == 0)
                 {
-                        <h5>Не указаны</h5>
+                    <h5>Не указаны</h5>
                 }
                 else
                 {
