@@ -2,14 +2,14 @@
     color: #0079a1;
 }
 
-#sandbox-container {
-    /*color: #008cba;*/
+#sandbox-container {    
+    font-size:2rem;
     border: 0px;
     font-weight: 300;
     cursor: pointer;
     background-color: transparent;
     min-width: 100px;
-    "
+    
 }
 
 .progress {

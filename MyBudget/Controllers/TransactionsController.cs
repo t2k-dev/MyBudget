@@ -4,6 +4,7 @@ using MyBudget.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -23,15 +24,15 @@ namespace MyBudget.Controllers
         //Главное окно
         public ActionResult MyBudget(string id)
         {
+            string UserGuid = User.Identity.GetUserId();
             if (String.IsNullOrEmpty(id)) //по умолчанию текущий месяц
-                id = DateTime.Now.ToString("MMyyyy");
-
-            string UserGuid = User.Identity.GetUserId();            
+                id = DateTime.Now.ToString("MMyyyy");            
+            
             var viewModel = new MyListViewModel
             {                
                 MyTransactions = _context.Transactions.Where(m => m.UserId == UserGuid).ToList().Where(m => m.TransDate.ToString("MMyyyy") == id).ToList(),                
                 MyGoals = _context.Goals.ToList(),
-                ListDate = DateTime.Now                
+                ListDate = DateTime.ParseExact(id, "MMyyyy", CultureInfo.InvariantCulture, DateTimeStyles.None)
             };
             return View(viewModel);
         }
@@ -95,7 +96,8 @@ namespace MyBudget.Controllers
             var viewModel = new TransactionFormViewModel
             {
                 Transaction = transaction,
-                Categories = _context.Categories.ToList()
+                Categories = _context.Categories.ToList(),
+                IsSpending = transaction.IsSpending
             };
 
             return View("TransactionForm",viewModel);

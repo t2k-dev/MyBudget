@@ -8,7 +8,7 @@
 
     @if (Model.Transaction != null)
     {
-        <h2 class="form-title">Изменить платеж</h2>
+        <h2 class="form-title">Редактировать</h2>
     }
     else
     {
@@ -28,30 +28,6 @@
         <div class="row">
             <form-group style="width:100%">
                 <div class="form-group">
-                    @{
-                        string actInc = "";
-                        string actOut = "";
-                        if (Model.Transaction != null)
-                        {
-
-                            if (!Model.Transaction.IsSpending) { actInc = "active"; }
-                            else { actOut = "active"; }
-                        }
-                        else { actInc = "active"; }
-
-                    }
-
-                    <div class="btn-group btn-group-toggle" data-toggle="buttons" style="width:100%">
-                        <label class="btn btn-outline-danger @actOut" style="width:50%">
-                            @Html.RadioButtonFor(m => m.Transaction.IsSpending, "true", new { name = "Transaction.IsSpending" })Расход
-                        </label>
-                        <label class="btn btn-outline-success @actInc" style="width:50%">
-                            @Html.RadioButtonFor(m => m.Transaction.IsSpending, "false", new { name = "Transaction.IsSpending" })Прибыль
-                        </label>
-                    </div>
-                </div>
-
-                <div class="form-group">
                     <label for="Amount">Сумма</label>
                     @Html.TextBoxFor(m => m.Transaction.Amount, new { @class = "form-control" })
                 </div>
@@ -69,7 +45,14 @@
 
                 <div class="form-group">
                     <label for="TransDate">Дата</label>
-                    @Html.TextBoxFor(m => m.Transaction.TransDate, "{0:dd/MM/yyyy}", new { @class = "form-control" })
+                    @if (Model.Transaction == null)
+                    {
+                        @Html.TextBoxFor(m => m.Transaction.TransDate, "{0:dd/MM/yyyy}", new { @class = "form-control", @Value=DateTime.Now.ToShortDateString() })
+                    }
+                    else
+                    {
+                        @Html.TextBoxFor(m => m.Transaction.TransDate, "{0:dd/MM/yyyy}", new { @class = "form-control" })
+                    }
 
 
                 </div>
@@ -80,6 +63,7 @@
                     <label for="Description">Подробнее</label>
                     @Html.TextAreaFor(m => m.Transaction.Description, new { @class = "form-control" })
                 </div>
+                @Html.HiddenFor(m => m.Transaction.IsSpending, new { @Value = Model.IsSpending })
                 @Html.HiddenFor(m => m.Transaction.Id)
                 @Html.HiddenFor(m => m.Transaction.UserId)
                 <button type="submit" class="btn btn-primary">Сохранить</button>

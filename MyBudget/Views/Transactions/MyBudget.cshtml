@@ -12,19 +12,17 @@
             <div class="col-md-7 text-center">
                 <div class="container">
                     <div class="row" style="margin-bottom:20px;">
-                        <h5><a href="#" onclick="setingDate(2)"><span class="glyphicon glyphicon-menu-left" style="top:18px;"></span></a></h5>
-                        <h1><input type="button" id="sandbox-container" value="@Model.ListDate.ToString("Y")"></h1>
-                        <h5><a href="#" onclick="setingDate(1)"><span class="glyphicon glyphicon-menu-right" style="top:18px;"></span></a></h5>                        
+                        <div style="margin: 0 auto;user-select:none;">
+                            <span class="glyphicon glyphicon-menu-left cal-switch" onclick="setingDate(2)"></span>
+                            <input type="button" id="sandbox-container" value="@Model.ListDate.ToString("Y")">
+                            <span class="glyphicon glyphicon-menu-right cal-switch" onclick="setingDate(1)"></span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 col-md-offset-1">
-                <!--@Html.ActionLink("Добавить платеж", "TransactionForm", "Transactions", "", new { @class = "btn btn-primary btn-lg btn-block my-add-btn" })-->
-                @Html.ActionLink("Добавить платеж", "TransactionForm", "Transactions", new { id = true }, new { @class = "btn btn-outline-danger new-trans"})
-                <div class="" style="float: left;"><span class="glyphicon glyphicon-minus"></span></div>
-                <div class="btn btn-outline-success new-trans" style="float: right;"><span class="glyphicon glyphicon-plus"></span></div>
-
-
+            <div class="col-md-4 offset-md-1">                
+                <a class="btn btn-outline-danger new-trans" href="@Url.Action("TransactionForm", "Transactions", new { id=true} )"><span class="glyphicon glyphicon-minus"></span></a>                
+                <a class="btn btn-outline-success new-trans" href="@Url.Action("TransactionForm", "Transactions", new { id=false} )"><span class="glyphicon glyphicon-plus"></span></a>
             </div>
         </div>
         <div class="row">

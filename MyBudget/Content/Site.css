@@ -64,6 +64,18 @@ code {
 
 
 /*Новые*/
+
+/*MyBudget*/
+.cal-switch {
+    cursor: pointer;
+    top: -3px;
+    color: #d2d2d2;
+}
+
+.cal-switch:hover {
+    color: #0079a1;
+}       
+
 .form-title {
     text-align: center;
     margin-bottom: 20px;
