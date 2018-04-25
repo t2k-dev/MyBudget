@@ -60,7 +60,17 @@ code {
 
 .bg-danger {background-color:#f5695d !important;}
 .table th, .table td{font-size:14px;}
-.card-body{padding:0.6rem;}
+.table-hover tbody tr:hover {background-color: rgba(192, 204, 228, 0.075)}
+.card-body {padding: 0.6rem;}
+.form-control-lg {border: 1px solid #ccc;}
+.form-control-lg:focus {
+        color: #495057;
+        background-color: #fff;
+        border-color: #3bceff;
+        outline: 0;
+        -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 140, 186, 0.25);
+        box-shadow: 0 0 0 0.2rem rgba(0, 140, 186, 0.25);
+}
 
 
 /*Новые*/
@@ -71,28 +81,22 @@ code {
     top: -3px;
     color: #d2d2d2;
 }
-
 .cal-switch:hover {
     color: #0079a1;
 }       
-
 .form-title {
     text-align: center;
     margin-bottom: 20px;
 }
-
-
 .new-trans{width:80px;}
 
 .no-records{margin:60px auto}
-
-
 .my-add-btn {    
     margin-bottom: 10px;
 }
 
 .del-btn {
-    color: #e63627;
+    color: #888888;
     text-decoration: none
 }
 .del-btn:hover {
@@ -100,14 +104,14 @@ code {
     text-decoration: none
 }
 
-
+.card-header>h5{margin-bottom:0;}
 .crd-add {
     color: #fff;
     font-size: 14px;
     text-decoration: none;
-    opacity:0.7;
-    float:right;
-    font-weight:bold;
+    opacity: 0.7;
+    float: right;
+    font-weight: bold;
 }
 .crd-add:hover{text-decoration: none;color:#fff;opacity:1;}
 .debt-card-itm {
@@ -124,6 +128,7 @@ code {
     border-radius: 5px;
 }
 
+.pay-goal{margin-left:10px;}
 
 .del-btn-crd {
     color: #fff;

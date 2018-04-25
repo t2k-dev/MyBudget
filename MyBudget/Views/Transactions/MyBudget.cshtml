@@ -36,41 +36,42 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
+                            <th scope="col" style="width: 20px;"></th>
                             <th scope="col">Наименование</th>
-                            <th scope="col" style="width:25%;text-align:right;">Сумма</th>
-                            <th scope="col" style="width: 60px;"></th>
+                            <th scope="col" style="width:25%;text-align:right;">Сумма</th>                            
                             <th scope="col" style="width: 60px;"></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var transaction in Model.MyTransactions)
                         {
-                            <tr>
-                                <td>
-                                    @Html.ActionLink(transaction.Name, "Edit", "Transactions", new { id = transaction.Id }, null)
+                        <tr onclick="window.location.href = '/Transactions/Edit/'+@transaction.Id;">
+                            <td class="text-center">
+                                <!--<span class='glyphicon glyphicon-th-list'>@Html.ActionLink(" ", "Delete", "Transactions", new { id = transaction.Id }, null)</span>-->
+                            </td>
 
-                                </td>
-                                <td class="text-right">
-                                    @{
-                                        string lineClass = "";
-                                        char c = '+';
-                                        if (transaction.IsSpending == true) { lineClass = "text-danger"; c = '-'; }
-                                        else { lineClass = "text-success"; }
+                            <td>
+                                @transaction.Name
 
-                                    }
+                            </td>
+                            <td class="text-right">
+                                @{
+            string lineClass = "";
+            char c = '+';
+            if (transaction.IsSpending == true) { lineClass = "text-danger"; c = '-'; }
+            else { lineClass = "text-success"; }
 
-                                    @Html.Label(@c + @transaction.Amount.ToString("### ### ### ###"), new { @class = lineClass + " amt" })
+                                }
+
+                                @Html.Label(@c + @transaction.Amount.ToString("### ### ### ###"), new { @class = lineClass + " amt" })
 
 
-                                </td>
-                                <td class="text-center">
-                                    <!--<span class='glyphicon glyphicon-th-list'>@Html.ActionLink(" ", "Delete", "Transactions", new { id = transaction.Id }, null)</span>-->
-                                </td>
-                                <td>
-                                    <span class=''>@Html.ActionLink(" ", "Delete", "Transactions", new { id = transaction.Id }, new { @class = "glyphicon glyphicon-remove del-btn" })</span>
-                                </td>
+                            </td>
+                            <td>
+                                <span class=''>@Html.ActionLink(" ", "Delete", "Transactions", new { id = transaction.Id }, new { @class = "glyphicon glyphicon-remove del-btn" })</span>
+                            </td>
 
-                            </tr>
+                        </tr>
                         }
                     </tbody>
                 </table>
@@ -81,7 +82,7 @@
     <div class="col-md-3 offset-md-1">
         <div class="card text-white bg-success mb-3">
             <div class="card-header">
-                <h4>Остаток</h4>
+                <h5>Остаток</h5>
             </div>
             <div class="card-body"><h4 class="text-center">@Model.Rest.ToString("### ### ### ###")</h4></div>
         </div>
@@ -91,87 +92,82 @@
         <div class="card text-white bg-info mb-3">
             <div class="card-header">
                 <a class="crd-add" href="@Url.Action("GoalForm", "Goals" )"><span class="glyphicon glyphicon-plus"></span></a>
-                <h4>Цели</h4>
+                <h5>Цели</h5>
             </div>
+
+            @if (Model.MyGoals.Where(x => x.Type == 1).Count() != 0)
+            {
             <div class="card-body">
-                @if (Model.MyGoals.Where(x => x.Type == 1).Count() == 0)
+                @foreach (var goal in Model.MyGoals.Where(x => x.Type == 1))
                 {
-                    <h5>Не указаны</h5>
-                }
-                else
-                {
-                    foreach (var goal in Model.MyGoals.Where(x => x.Type == 1))
-                    {
-                        <div>
-                            <div class="float-md-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = goal.Id }, new { @class = "glyphicon glyphicon-remove del-btn-crd" })</div>
-                            <div class="goal-card-itm">
-                                <h4 class="">@goal.GoalName</h4>
-                                <span>@goal.CurAmount из</span>
-                                <span>@goal.Amount</span>
-                            </div>
-                        </div>
-                    }
+                <div>
+                    <div class="float-md-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = goal.Id }, new { @class = "glyphicon glyphicon-remove del-btn-crd" })</div>
+                    <div class="goal-card-itm">
+                        <h4 class="">@goal.GoalName<span class="glyphicon glyphicon-folder-open pay-goal"></span></h4>
+                        <span>@goal.CurAmount из</span>
+                        <span>@goal.Amount</span>
+                    </div>
+                </div>
                 }
             </div>
+            }
+        
         </div>
 
         <div class="card text-white bg-danger mb-3">
             <div class="card-header">
                 <a class="crd-add" href="@Url.Action("DebtForm", "Goals" )"><span class="glyphicon glyphicon-plus"></span></a>
-                <h4>Я должен</h4>
+                <h5>Я должен</h5>
             </div>
-            <div class="card-body">
-                @if (Model.MyGoals.Where(x => x.Type == 2).Count() == 0)
+
+            @if (Model.MyGoals.Where(x => x.Type == 2).Count() != 0)
+            {
+                <div class="card-body">
+                @foreach (var debt in Model.MyGoals.Where(x => x.Type == 2))
                 {
-                    <h5>Не указаны</h5>
-                }
-                else
-                {
-                    foreach (var debt in Model.MyGoals.Where(x => x.Type == 2))
-                    {
-                        <div>
-                            <div class="float-sm-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = debt.Id }, new { @class = "glyphicon glyphicon-remove del-btn-crd" })</div>
+                 <div>
+                    <div class="float-sm-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = debt.Id }, new { @class = "glyphicon glyphicon-remove del-btn-crd" })</div>
                             <div class="debt-card-itm">
-                                <h4 class="">@debt.GoalName <span class="glyphicon glyphicon-arrow-down"></span></h4>
+                                <h4 class="">@debt.GoalName <span class="glyphicon glyphicon-folder-open pay-goal"></span></h4>
                                 <div>
                                     <span>@debt.CurAmount из </span><span>@debt.Amount</span>
                                 </div>
                             </div>
 
-                        </div>
-                    }
+                 </div>
                 }
-            </div>
+                </div>
+            }
         </div>
+        
 
         <div class="card text-white bg-danger mb-3">
             <div class="card-header">
                 <a class="crd-add" href="@Url.Action("CreditForm", "Goals" )" title="Добавить"><span class="glyphicon glyphicon-plus"></span></a>
-                <h4>Мне должны</h4>
+                <h5>Мне должны</h5>
 
             </div>
+
+            @if (Model.MyGoals.Where(x => x.Type == 3).Count() != 0)
+            {
             <div class="card-body">
-                @if (Model.MyGoals.Where(x => x.Type == 3).Count() == 0)
-                {
-                    <h5>Не указаны</h5>
-                }
-                else
-                {
-                    foreach (var debt in Model.MyGoals.Where(x => x.Type == 3))
-                    {
-                        <div>
-                            <div class="float-sm-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = debt.Id }, new { @class = "glyphicon glyphicon-remove del-btn-crd" })</div>
-                            <div class="debt-card-itm">
-                                <h4 class="">@debt.GoalName <span class="glyphicon glyphicon-arrow-down"></span></h4>
-                                <div>
-                                    <span>@debt.CurAmount из </span><span>@debt.Amount</span>
-                                </div>
-                            </div>
 
+                @foreach (var debt in Model.MyGoals.Where(x => x.Type == 3))
+                {
+                <div>
+                    <div class="float-sm-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = debt.Id }, new { @class = "glyphicon glyphicon-remove del-btn-crd" })</div>
+                    <div class="debt-card-itm">
+                        <h4 class="">@debt.GoalName <span class="glyphicon glyphicon-folder-open pay-goal"></span></h4>
+                        <div>
+                            <span>@debt.CurAmount из </span><span>@debt.Amount</span>
                         </div>
-                    }
+                    </div>
+
+                </div>
                 }
             </div>
+            }
+        
         </div>
 
 
