@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace MyBudget.Controllers
 {
+    [Authorize]
     public class TransactionsController : Controller
     {
         private ApplicationDbContext _context;
@@ -31,7 +32,7 @@ namespace MyBudget.Controllers
             var viewModel = new MyListViewModel
             {                
                 MyTransactions = _context.Transactions.Where(m => m.UserId == UserGuid).ToList().Where(m => m.TransDate.ToString("MMyyyy") == id).ToList(),                
-                MyGoals = _context.Goals.ToList(),
+                MyGoals = _context.Goals.Where(m => m.UserId == UserGuid).ToList(),
                 ListDate = DateTime.ParseExact(id, "MMyyyy", CultureInfo.InvariantCulture, DateTimeStyles.None)
             };
             return View(viewModel);

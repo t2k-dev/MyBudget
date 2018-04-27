@@ -49,9 +49,12 @@ namespace MyBudget.Models
     public class LoginViewModel
     {
         [Required]
+        public string UserName { get; set; }
+
+        /*[Required]
         [Display(Name = "Адрес электронной почты")]
         [EmailAddress]
-        public string Email { get; set; }
+        public string Email { get; set; }*/
 
         [Required]
         [DataType(DataType.Password)]
@@ -64,6 +67,9 @@ namespace MyBudget.Models
 
     public class RegisterViewModel
     {
+        [Required]
+        public string UserName { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Адрес электронной почты")]
