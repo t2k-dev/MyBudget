@@ -22,18 +22,23 @@ namespace MyBudget.Controllers
         }
 
 
-        //Главное окно
+        //Главное окно        
         public ActionResult MyBudget(string id)
         {
             string UserGuid = User.Identity.GetUserId();
+            DateTime dt;
+
             if (String.IsNullOrEmpty(id)) //по умолчанию текущий месяц
-                id = DateTime.Now.ToString("MMyyyy");            
-            
+                dt = DateTime.Now;
+            else
+                dt = DateTime.ParseExact(id, "MMyyyy", CultureInfo.InvariantCulture, DateTimeStyles.None);
+
+
             var viewModel = new MyListViewModel
             {                
                 MyTransactions = _context.Transactions.Where(m => m.UserId == UserGuid).ToList().Where(m => m.TransDate.ToString("MMyyyy") == id).ToList(),                
                 MyGoals = _context.Goals.Where(m => m.UserId == UserGuid).ToList(),
-                ListDate = DateTime.ParseExact(id, "MMyyyy", CultureInfo.InvariantCulture, DateTimeStyles.None)
+                ListDate = dt.ToString("Y", new CultureInfo("ru-RU"))
             };
             return View(viewModel);
         }

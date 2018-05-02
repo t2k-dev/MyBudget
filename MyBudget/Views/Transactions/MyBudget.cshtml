@@ -14,7 +14,7 @@
                     <div class="row" style="margin-bottom:20px;">
                         <div style="margin: 0 auto;user-select:none;">
                             <span class="glyphicon glyphicon-menu-left cal-switch" onclick="setingDate(2)"></span>
-                            <input type="button" id="sandbox-container" value="@Model.ListDate.ToString("Y")">
+                            <input type="button" id="sandbox-container" value="@Model.ListDate">
                             <span class="glyphicon glyphicon-menu-right cal-switch" onclick="setingDate(1)"></span>
                         </div>
                     </div>
@@ -29,7 +29,7 @@
             @if (Model.MyTransactions.Count == 0)
             {
 
-                <h6 class="no-records">В этом месяце ещё нет платежей669</h6>
+                <h6 class="no-records">В этом месяце ещё нет платежей</h6>
             }
             else
             {
@@ -56,11 +56,10 @@
                             </td>
                             <td class="text-right">
                                 @{
-            string lineClass = "";
-            char c = '+';
-            if (transaction.IsSpending == true) { lineClass = "text-danger"; c = '-'; }
-            else { lineClass = "text-success"; }
-
+                                    string lineClass = "";
+                                    char c = '+';
+                                    if (transaction.IsSpending == true) { lineClass = "text-danger"; c = '-'; }
+                                    else { lineClass = "text-success"; }
                                 }
 
                                 @Html.Label(@c + @transaction.Amount.ToString("### ### ### ###"), new { @class = lineClass + " amt" })
@@ -84,7 +83,17 @@
             <div class="card-header">
                 <h5>Остаток</h5>
             </div>
-            <div class="card-body"><h4 class="text-center">@Model.Rest.ToString("### ### ### ###")</h4></div>
+            <div class="card-body">
+                @if (Model.Rest == 0)
+                {
+                    <h4 class="text-center">0</h4>
+                }
+                else
+                {
+                    <h4 class="text-center">@Model.Rest.ToString("### ### ### ###")</h4>
+                }
+
+            </div>
         </div>
 
         <hr>
