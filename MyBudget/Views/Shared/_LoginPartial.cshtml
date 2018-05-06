@@ -7,9 +7,11 @@
 
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink("Здравствуйте, " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class="nav-link"})
+            <a class="nav-link" href="@Url.Action("Index", "Manage")"><span class="glyphicon glyphicon-user"></span> @User.Identity.GetUserName()</a>
+            
+            <!--@Html.ActionLink(User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link", style = "font-weight:bold" })-->
         </li>
-        <li><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
+        <li><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()"><span class="glyphicon glyphicon-log-out"></span> Выйти</a></li>
     </ul>
     }
 }
