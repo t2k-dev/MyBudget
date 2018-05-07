@@ -201,10 +201,6 @@
     <Compile Include="Migrations\201803210459301_InitialModel.Designer.cs">
       <DependentUpon>201803210459301_InitialModel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201803220720071_PopulateCategories.cs" />
-    <Compile Include="Migrations\201803220720071_PopulateCategories.Designer.cs">
-      <DependentUpon>201803220720071_PopulateCategories.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201804101640373_Add_Goals_and_UserID.cs" />
     <Compile Include="Migrations\201804101640373_Add_Goals_and_UserID.Designer.cs">
       <DependentUpon>201804101640373_Add_Goals_and_UserID.cs</DependentUpon>
@@ -212,6 +208,14 @@
     <Compile Include="Migrations\201804111611335_Set_GoalDate_Null.cs" />
     <Compile Include="Migrations\201804111611335_Set_GoalDate_Null.Designer.cs">
       <DependentUpon>201804111611335_Set_GoalDate_Null.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805060823442_UsersCategories.cs" />
+    <Compile Include="Migrations\201805060823442_UsersCategories.Designer.cs">
+      <DependentUpon>201805060823442_UsersCategories.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805060852292_PopulateCategories.cs" />
+    <Compile Include="Migrations\201805060852292_PopulateCategories.Designer.cs">
+      <DependentUpon>201805060852292_PopulateCategories.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -401,14 +405,17 @@
     <EmbeddedResource Include="Migrations\201803210459301_InitialModel.resx">
       <DependentUpon>201803210459301_InitialModel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803220720071_PopulateCategories.resx">
-      <DependentUpon>201803220720071_PopulateCategories.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804101640373_Add_Goals_and_UserID.resx">
       <DependentUpon>201804101640373_Add_Goals_and_UserID.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804111611335_Set_GoalDate_Null.resx">
       <DependentUpon>201804111611335_Set_GoalDate_Null.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805060823442_UsersCategories.resx">
+      <DependentUpon>201805060823442_UsersCategories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805060852292_PopulateCategories.resx">
+      <DependentUpon>201805060852292_PopulateCategories.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

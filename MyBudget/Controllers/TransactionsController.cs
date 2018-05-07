@@ -46,6 +46,7 @@ namespace MyBudget.Controllers
         public ActionResult TransactionForm(bool? id)
         {
             var categories = _context.Categories.ToList();
+
             var viewModel = new TransactionFormViewModel
             {
                 Categories = categories,

@@ -13,5 +13,9 @@ namespace MyBudget.Models
         [Required]
         [MaxLength(50)]        
         public String Name { get; set; }
+        public bool IsSpendingCategory { get; set; }
+        public string Icon { get; set; }
+
+        public ICollection<ApplicationUser> Users { get; set; }
     }
 }

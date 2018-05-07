@@ -155,6 +155,15 @@ namespace MyBudget.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    /*Заполняем базовые категории*/
+                    using (ApplicationDbContext _context = new ApplicationDbContext())
+                    {
+                        var userInDb = _context.Users.Single(t => t.UserName == user.UserName);
+                        foreach (Category ct in _context.Categories.ToList())
+                            userInDb.Categories.Add(ct);
+                        _context.SaveChanges();
+                    }
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
