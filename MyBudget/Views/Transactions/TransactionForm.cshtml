@@ -29,13 +29,13 @@
             <form-group style="width:100%">
                 <div class="form-group">
                     <label for="Amount">Сумма</label>
-                    @Html.TextBoxFor(m => m.Transaction.Amount, new { @class = "form-control-lg", style="width:100%" })
+                    @Html.TextBoxFor(m => m.Transaction.Amount, new { @class = "form-control-lg", style="width:100%", autocomplete="off" })
                 </div>
 
 
                 <div class="form-group">
                     <label for="Name">Наименование</label>
-                    @Html.TextBoxFor(m => m.Transaction.Name, new { @class = "form-control" })
+                    @Html.TextBoxFor(m => m.Transaction.Name, new { @class = "form-control", autocomplete = "off" })
                 </div>
 
                 <div class="form-group">

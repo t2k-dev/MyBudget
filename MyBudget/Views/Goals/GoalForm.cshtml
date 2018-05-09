@@ -4,19 +4,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="col-md-4 offset-md-4">
-    <h2>Новая цель</h2>
+    <h2 class="form-title">Новая цель</h2>
 
     @using (Html.BeginForm("SaveGoal", "Goals"))
     {
         <div class="form-group">
-            <label for="Name">Наименование</label>
-            @Html.TextBoxFor(m => m.GoalName, new { @class = "form-control" })
+            <label for="GoalName">Название</label>
+            @Html.TextBoxFor(m => m.GoalName, new { @class = "form-control", autocomplete = "off" })
         </div>
-            <div class="form-group">
-                <label for="Name">Сумма</label>
-                @Html.TextBoxFor(m => m.Amount, new { @class = "form-control" })
-            </div>
-            <button type="submit" class="btn btn-primary">Сохранить</button>
+        <div class="form-group">
+            <label for="Amount">Сумма</label>
+            @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", autocomplete = "off" })
+        </div>
+        <div class="text-center btn-cntnr">
+            <button type="submit" class="btn btn-lg btn-success">Сохранить</button>
+        </div>
     }
 </div>
 

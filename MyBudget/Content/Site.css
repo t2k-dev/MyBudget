@@ -57,8 +57,19 @@ code {
 }
 
 /*Перезапись */
+.btn-primary {
+    background-color: #6095BD;
+    border-color: #3F637E;
+}
+.btn-primary:hover{
+    background-color: #3F637E;
+}
+    .bg-primary{background-color:#2e9bea !important;}
+.bg-dark {background-color: #395971 !important;}
+.bg-danger {background-color: #f5695d !important;}
+.bg-info {background-color: #6095BD !important;}
+.bg-credit {background-color:#52aba2;} /*это новый класс*/
 
-.bg-danger {background-color:#f5695d !important;}
 .table th, .table td{font-size:14px;}
 .table-hover tbody tr:hover {background-color: rgba(192, 204, 228, 0.075)}
 .card-body {padding: 0.6rem;}
@@ -74,8 +85,12 @@ code {
 
 
 /*Новые*/
+.btn-cntnr {
+    margin-top: 30px;
+}
 
 /*MyBudget*/
+
 .cal-switch {
     cursor: pointer;
     top: -3px;
@@ -123,7 +138,14 @@ code {
 
 .goal-card-itm {
     padding: 12px;
-    background-color: #4caac5;
+    background-color: #5383a9;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.credit-card-itm {
+    padding: 12px;
+    background-color: #4e968e;
     margin-bottom: 10px;
     border-radius: 5px;
 }

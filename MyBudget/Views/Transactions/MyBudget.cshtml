@@ -112,7 +112,7 @@
                 <div>
                     <div class="float-md-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = goal.Id }, new { @class = "glyphicon glyphicon-remove del-btn-crd" })</div>
                     <div class="goal-card-itm">
-                        <h4 class="">@goal.GoalName<span class="glyphicon glyphicon-folder-open pay-goal"></span></h4>
+                        <h5 class="">@goal.GoalName<span class="glyphicon glyphicon-folder-open pay-goal"></span></h5>
                         <span>@goal.CurAmount из</span>
                         <span>@goal.Amount.ToString("### ### ### ###")</span>
                     </div>
@@ -137,7 +137,7 @@
                  <div>
                     <div class="float-sm-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = debt.Id }, new { @class = "glyphicon glyphicon-remove del-btn-crd" })</div>
                             <div class="debt-card-itm">
-                                <h4 class="">@debt.GoalName <span class="glyphicon glyphicon-folder-open pay-goal"></span></h4>
+                                <h5 class="">@debt.GoalName <span class="glyphicon glyphicon-folder-open pay-goal"></span></h5>
                                 <div>
                                     <span>@debt.CurAmount из </span><span>@debt.Amount</span>
                                 </div>
@@ -150,7 +150,7 @@
         </div>
         
 
-        <div class="card text-white bg-danger mb-3">
+        <div class="card text-white bg-credit mb-3">
             <div class="card-header">
                 <a class="crd-add" href="@Url.Action("CreditForm", "Goals" )" title="Добавить"><span class="glyphicon glyphicon-plus"></span></a>
                 <h5>Мне должны</h5>
@@ -165,8 +165,8 @@
                 {
                 <div>
                     <div class="float-sm-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = debt.Id }, new { @class = "glyphicon glyphicon-remove del-btn-crd" })</div>
-                    <div class="debt-card-itm">
-                        <h4 class="">@debt.GoalName <span class="glyphicon glyphicon-folder-open pay-goal"></span></h4>
+                    <div class="credit-card-itm">
+                        <h5 class="">@debt.GoalName <span class="glyphicon glyphicon-folder-open pay-goal"></span></h5>
                         <div>
                             <span>@debt.CurAmount из </span><span>@debt.Amount</span>
                         </div>
