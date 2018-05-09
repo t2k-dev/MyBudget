@@ -28,15 +28,18 @@ namespace MyBudget.Controllers
             string UserGuid = User.Identity.GetUserId();
             DateTime dt;
 
-            if (String.IsNullOrEmpty(id)) //по умолчанию текущий месяц
+            if (String.IsNullOrEmpty(id))//по умолчанию текущий месяц
+            { 
                 dt = DateTime.Now;
+                id = dt.ToString("MMyyyy");
+            }
             else
                 dt = DateTime.ParseExact(id, "MMyyyy", CultureInfo.InvariantCulture, DateTimeStyles.None);
 
-
+            var s = dt.ToString("Y", new CultureInfo("ru-RU"));
             var viewModel = new MyListViewModel
             {                
-                MyTransactions = _context.Transactions.Where(m => m.UserId == UserGuid).ToList().Where(m => m.TransDate.ToString("MMyyyy") == id).ToList(),                
+                MyTransactions = _context.Transactions.Where(m => (m.UserId == UserGuid)).ToList().Where(m => m.TransDate.ToString("MMyyyy") == id).ToList(),                
                 MyGoals = _context.Goals.Where(m => m.UserId == UserGuid).ToList(),
                 ListDate = dt.ToString("Y", new CultureInfo("ru-RU"))
             };
@@ -45,7 +48,8 @@ namespace MyBudget.Controllers
 
         public ActionResult TransactionForm(bool? id)
         {
-            var categories = _context.Categories.ToList();
+            string UserGuid = User.Identity.GetUserId();            
+            var categories = _context.Users.Find(UserGuid).Categories.Where(c => c.IsSpendingCategory==id);
 
             var viewModel = new TransactionFormViewModel
             {

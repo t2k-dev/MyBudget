@@ -6,88 +6,127 @@
 <div class="row">
     <div class="col">
         <p class="text-success">@ViewBag.StatusMessage</p>
-        <h6 class="pr-sec-ttl">Параметры учетной записи</h6>            
-            @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Изменить пароль", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Создать", "SetPassword")
-            }
+        <h6 class="pr-sec-ttl">Параметры учетной записи</h6>
+        @if (Model.HasPassword)
+        {
+            @Html.ActionLink("Изменить пароль", "ChangePassword")
+        }
+        else
+        {
+            @Html.ActionLink("Создать", "SetPassword")
+        }
         <!--<dt>Внешние имена входа:</dt>
-    <dd>
-        @Model.Logins.Count [
-        @Html.ActionLink("Управление", "ManageLogins") ]
-    </dd>
-    @*
-        Phone Numbers can used as a second factor of verification in a two-factor authentication system.
-
-         See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-            for details on setting up this ASP.NET application to support two-factor authentication using SMS.
-
-         Uncomment the following block after you have set up two-factor authentication
-    *@
-    @*
-        <dt>Номер телефона:</dt>
         <dd>
-            @(Model.PhoneNumber ?? "None")
-            @if (Model.PhoneNumber != null)
-            {
-                <br />
-                <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
-                using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                {
-                    @Html.AntiForgeryToken()
-                    <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
-                }
-            }
-            else
-            {
-                <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
-            }
+            @Model.Logins.Count [
+            @Html.ActionLink("Управление", "ManageLogins") ]
         </dd>
-    *@
+        @*
+            Phone Numbers can used as a second factor of verification in a two-factor authentication system.
 
-    <dt>Двухфакторная проверка подлинности:</dt>
-    <dd>
-        <p>
-            There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-            for details on setting up this ASP.NET application to support two-factor authentication.
-        </p>
-        @*@if (Model.TwoFactor)
-            {
-                using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+             See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                for details on setting up this ASP.NET application to support two-factor authentication using SMS.
+
+             Uncomment the following block after you have set up two-factor authentication
+        *@
+        @*
+            <dt>Номер телефона:</dt>
+            <dd>
+                @(Model.PhoneNumber ?? "None")
+                @if (Model.PhoneNumber != null)
                 {
-                    @Html.AntiForgeryToken()
-                    <text>Включено
-                    <input type="submit" value="Отключить" class="btn btn-link" />
-                    </text>
+                    <br />
+                    <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
+                    using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
+                    }
                 }
-            }
-            else
-            {
-                using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                else
                 {
-                    @Html.AntiForgeryToken()
-                    <text>Отключено
-                    <input type="submit" value="Включить" class="btn btn-link" />
-                    </text>
+                    <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
                 }
-            }*@
-    </dd>-->
-    </div>   
+            </dd>
+        *@
+
+        <dt>Двухфакторная проверка подлинности:</dt>
+        <dd>
+            <p>
+                There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                for details on setting up this ASP.NET application to support two-factor authentication.
+            </p>
+            @*@if (Model.TwoFactor)
+                {
+                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <text>Включено
+                        <input type="submit" value="Отключить" class="btn btn-link" />
+                        </text>
+                    }
+                }
+                else
+                {
+                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <text>Отключено
+                        <input type="submit" value="Включить" class="btn btn-link" />
+                        </text>
+                    }
+                }*@
+        </dd>-->
+    </div>
 </div>
+<hr />
+<h6 class="pr-sec-ttl">Настройка шаблонов</h6>
+<hr />
+<h6 class="pr-sec-ttl">Настройка счетов, карт и кашельков</h6>
 <hr />
 <h6 class="pr-sec-ttl">Настройка категорий</h6>
 <div class="row">
     <div class="col-md-6">
-        <h6>Расходы</h6>
-
-
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 20px;"></th>
+                    <th scope="col">Расходы  <a class="crd-add" style="color:black;" href="@Url.Action("CategoryForm", "Category", new { id=true})"><span class="glyphicon glyphicon-plus"></span></a></th>
+                    <th scope="col" style="width: 60px;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cat in Model.Categories.Where(c => c.IsSpendingCategory == true))
+                {
+                    <tr>
+                        <td><span class="@cat.Icon"></span></td>
+                        <td>@cat.Name</td>
+                        <td><span>@Html.ActionLink(" ", "DeleteFromMyCategories", "Manage", new { id = cat.Id }, new { @class = "glyphicon glyphicon-remove del-btn" })</span></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
     <div class="col-md-6">
-        <h6>Доходы</h6>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 20px;"></th>
+                    <th scope="col">Доходы <a class="crd-add" style="color:black;" href="@Url.Action("CategoryForm", "Category", new { id=false})"><span class="glyphicon glyphicon-plus"></span></a></th>
+                    <th scope="col" style="width: 60px;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cat in Model.Categories.Where(c => c.IsSpendingCategory == false))
+                {
+                    <tr>
+                        <td><span class="@cat.Icon"></span></td>
+                        <td>@cat.Name</td>
+                        <td><span>@Html.ActionLink(" ", "DeleteFromMyCategories", "Manage", new { id = cat.Id }, new { @class = "glyphicon glyphicon-remove del-btn" })</span></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
     </div>
 </div>
 <hr />

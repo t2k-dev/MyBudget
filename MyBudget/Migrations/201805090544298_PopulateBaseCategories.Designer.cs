@@ -7,13 +7,13 @@ namespace MyBudget.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class UsersCategories : IMigrationMetadata
+    public sealed partial class PopulateBaseCategories : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UsersCategories));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(PopulateBaseCategories));
         
         string IMigrationMetadata.Id
         {
-            get { return "201805060823442_UsersCategories"; }
+            get { return "201805090544298_PopulateBaseCategories"; }
         }
         
         string IMigrationMetadata.Source

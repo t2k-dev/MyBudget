@@ -19,7 +19,7 @@ namespace MyBudget.Models
         public DateTime TransDate { get; set; }
 
         public Category Category { get; set; }
-        public byte CategoryId { get; set; }
+        public int CategoryId { get; set; }
 
         [Required]
         public bool IsSpending { get; set; }
@@ -29,6 +29,7 @@ namespace MyBudget.Models
         
         public ApplicationUser User { get; set; }
         [Required]
+        [MaxLength(128)]
         public string UserId { get; set; }
 
     }

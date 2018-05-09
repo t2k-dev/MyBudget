@@ -159,7 +159,7 @@ namespace MyBudget.Controllers
                     using (ApplicationDbContext _context = new ApplicationDbContext())
                     {
                         var userInDb = _context.Users.Single(t => t.UserName == user.UserName);
-                        foreach (Category ct in _context.Categories.ToList())
+                        foreach (Category ct in _context.Categories.Where(c=> c.CreatedBy==null).ToList())
                             userInDb.Categories.Add(ct);
                         _context.SaveChanges();
                     }

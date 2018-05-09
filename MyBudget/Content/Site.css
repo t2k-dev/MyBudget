@@ -148,4 +148,11 @@ code {
 }
 
 /*Кабинет*/
-.pr-sec-ttl{font-weight:normal;}
+.pr-sec-ttl{font-weight:bold;}
+
+.cat-header-green {
+    color: #43ac6a;
+    background-color: transparent;
+    background-image: none;
+    border-color: #43ac6a
+}
