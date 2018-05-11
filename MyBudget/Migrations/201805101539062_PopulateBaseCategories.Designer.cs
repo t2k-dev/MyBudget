@@ -13,7 +13,7 @@ namespace MyBudget.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201805090544298_PopulateBaseCategories"; }
+            get { return "201805101539062_PopulateBaseCategories"; }
         }
         
         string IMigrationMetadata.Source

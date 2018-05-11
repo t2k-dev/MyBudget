@@ -72,8 +72,7 @@ namespace MyBudget.Controllers
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
-                Categories = _context.Users.Find(userId).Categories.ToList()
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)                
             };
             return View(model);
         }
@@ -324,18 +323,7 @@ namespace MyBudget.Controllers
             var result = await UserManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
         }
-
-        
-        public ActionResult DeleteFromMyCategories(int id)
-        {
-            //var id = 30;
-            var editUser = _context.Users.Find(User.Identity.GetUserId());
-            var editCat = _context.Categories.First(c => c.Id == id);
-            editUser.Categories.Remove(editCat);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
+       
         protected override void Dispose(bool disposing)
         {
             if (disposing && _userManager != null)

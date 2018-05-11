@@ -19,6 +19,16 @@ namespace MyBudget.Controllers
             _context = new ApplicationDbContext();
         }
 
+        public ActionResult UserCategories()
+        {
+            var userId = User.Identity.GetUserId();           
+            var viewmodel = new UserCategoriesViewModel
+            {
+                Categories = _context.Users.Find(userId).Categories.Where(c => (c.CreatedBy == null) || (c.CreatedBy== userId)).ToList()
+            };
+            return View(viewmodel);
+        }
+
         // GET: Category
         public ActionResult CategoryForm(bool? id)
         {
@@ -47,5 +57,15 @@ namespace MyBudget.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index", "Manage");
         }
+
+        public ActionResult DeleteFromMyCategories(int id)
+        {            
+            var editUser = _context.Users.Find(User.Identity.GetUserId());
+            var editCat = _context.Categories.First(c => c.Id == id);
+            editUser.Categories.Remove(editCat);
+            _context.SaveChanges();
+            return RedirectToAction("UserCategories");
+        }
+
     }
 }

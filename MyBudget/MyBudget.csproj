@@ -202,9 +202,9 @@
     <Compile Include="Migrations\201805090437170_Initial_Model.Designer.cs">
       <DependentUpon>201805090437170_Initial_Model.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805090544298_PopulateBaseCategories.cs" />
-    <Compile Include="Migrations\201805090544298_PopulateBaseCategories.Designer.cs">
-      <DependentUpon>201805090544298_PopulateBaseCategories.cs</DependentUpon>
+    <Compile Include="Migrations\201805101539062_PopulateBaseCategories.cs" />
+    <Compile Include="Migrations\201805101539062_PopulateBaseCategories.Designer.cs">
+      <DependentUpon>201805101539062_PopulateBaseCategories.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -218,6 +218,7 @@
     <Compile Include="ViewModels\CategoryFormViewModel.cs" />
     <Compile Include="ViewModels\MyListViewModel.cs" />
     <Compile Include="ViewModels\TransactionFormViewModel.cs" />
+    <Compile Include="ViewModels\UserCategoriesViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-datepicker.min.css" />
@@ -374,6 +375,7 @@
     <Content Include="Views\Goals\GoalForm.cshtml" />
     <Content Include="Views\Goals\CreditForm.cshtml" />
     <Content Include="Views\Category\CategoryForm.cshtml" />
+    <Content Include="Views\Category\UserCategories.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -397,8 +399,8 @@
     <EmbeddedResource Include="Migrations\201805090437170_Initial_Model.resx">
       <DependentUpon>201805090437170_Initial_Model.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805090544298_PopulateBaseCategories.resx">
-      <DependentUpon>201805090544298_PopulateBaseCategories.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805101539062_PopulateBaseCategories.resx">
+      <DependentUpon>201805101539062_PopulateBaseCategories.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

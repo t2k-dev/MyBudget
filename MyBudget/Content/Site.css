@@ -44,7 +44,7 @@ body {
 /* Not required for template or sticky footer method. */
 
 body > .container {
-    padding: 60px 15px 0;
+    padding: 50px 15px 0;
 }
 
 .footer > .container {
@@ -170,11 +170,16 @@ code {
 }
 
 /*Кабинет*/
-.pr-sec-ttl{font-weight:bold;}
+.pr-sec-ttl{font-weight:bold;margin-top:30px}
 
 .cat-header-green {
     color: #43ac6a;
     background-color: transparent;
     background-image: none;
     border-color: #43ac6a
+}
+.cat-tbl{margin-top:20px;}
+.cat-add-btn-wr {
+    text-align: center;
+    margin-bottom: 2rem;
 }

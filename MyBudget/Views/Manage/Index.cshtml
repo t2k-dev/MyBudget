@@ -2,9 +2,10 @@
 @{
     ViewBag.Title = "Мой кабинет";
 }
-<h2>@ViewBag.Title</h2>
+
 <div class="row">
-    <div class="col">
+    <div class="col-md-6 offset-md-3">
+        <h2>@ViewBag.Title</h2>
         <p class="text-success">@ViewBag.StatusMessage</p>
         <h6 class="pr-sec-ttl">Параметры учетной записи</h6>
         @if (Model.HasPassword)
@@ -76,57 +77,14 @@
                     }
                 }*@
         </dd>-->
-    </div>
-</div>
-<hr />
-<h6 class="pr-sec-ttl">Настройка шаблонов</h6>
-<hr />
-<h6 class="pr-sec-ttl">Настройка счетов, карт и кашельков</h6>
-<hr />
-<h6 class="pr-sec-ttl">Настройка категорий</h6>
-<div class="row">
-    <div class="col-md-6">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col" style="width: 20px;"></th>
-                    <th scope="col">Расходы  <a class="crd-add" style="color:black;" href="@Url.Action("CategoryForm", "Category", new { id=true})"><span class="glyphicon glyphicon-plus"></span></a></th>
-                    <th scope="col" style="width: 60px;"></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var cat in Model.Categories.Where(c => c.IsSpendingCategory == true))
-                {
-                    <tr>
-                        <td><span class="@cat.Icon"></span></td>
-                        <td>@cat.Name</td>
-                        <td><span>@Html.ActionLink(" ", "DeleteFromMyCategories", "Manage", new { id = cat.Id }, new { @class = "glyphicon glyphicon-remove del-btn" })</span></td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-    <div class="col-md-6">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col" style="width: 20px;"></th>
-                    <th scope="col">Доходы <a class="crd-add" style="color:black;" href="@Url.Action("CategoryForm", "Category", new { id=false})"><span class="glyphicon glyphicon-plus"></span></a></th>
-                    <th scope="col" style="width: 60px;"></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var cat in Model.Categories.Where(c => c.IsSpendingCategory == false))
-                {
-                    <tr>
-                        <td><span class="@cat.Icon"></span></td>
-                        <td>@cat.Name</td>
-                        <td><span>@Html.ActionLink(" ", "DeleteFromMyCategories", "Manage", new { id = cat.Id }, new { @class = "glyphicon glyphicon-remove del-btn" })</span></td>
-                    </tr>
-                }
-            </tbody>
-        </table>
 
+    
+        <h6 class="pr-sec-ttl">Персональные настройки</h6>
+        <a href="#">Шаблоны</a> <br />
+        <a href="#">Счета, карты и кашельки</a><br />
+        <a href="@Url.Action("UserCategories", "Category")">Категории</a><br />
+        <hr />
     </div>
 </div>
-<hr />
+
+
