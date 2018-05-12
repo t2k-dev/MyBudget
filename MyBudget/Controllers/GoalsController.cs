@@ -96,5 +96,26 @@ namespace MyBudget.Controllers
 
             return RedirectToAction("MyBudget", "Transactions");
         }
+
+        [HttpPost]
+        public ActionResult PutMoney(double Amount, int putOnId, string catType)
+        {
+            var goal = _context.Goals.Find(putOnId);
+            var cat = _context.Categories.SingleOrDefault(c => c.CreatedBy == catType);
+
+            goal.CurAmount += Amount;
+
+            Transaction transaction = new Transaction();
+            transaction.Amount = Amount;
+            transaction.CategoryId = cat.Id;
+            transaction.IsSpending = cat.IsSpendingCategory;
+            transaction.Name = "Пополнение для \"" + goal.GoalName+"\"";
+            transaction.UserId = User.Identity.GetUserId();
+            transaction.TransDate = DateTime.Now;
+            _context.Transactions.Add(transaction);
+
+            _context.SaveChanges();
+            return RedirectToAction("MyBudget", "Transactions");
+        }
     }
 }

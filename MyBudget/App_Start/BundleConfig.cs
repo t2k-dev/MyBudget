@@ -20,7 +20,7 @@ namespace MyBudget
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
+                      "~/Scripts/bootstrap.min.js",
                       "~/Scripts/bootstrap-datepicker.min.js",
                       "~/Scripts/locales/bootstrap-datepicker.ru.min.js",
                       "~/Scripts/respond.js"));

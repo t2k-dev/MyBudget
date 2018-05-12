@@ -84,6 +84,21 @@ code {
         box-shadow: 0 0 0 0.2rem rgba(0, 140, 186, 0.25);
 }
 
+.progress {
+    height: 100% !important;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    border-radius: 10px !important;
+}
+
+.progress-bar {    
+    border-radius: 10px 0 0 10px !important;
+}
+
+
 
 /*Новые*/
 .btn-cntnr {
@@ -94,6 +109,23 @@ code {
     width:164px;
     margin:0 auto;
 }
+/*Modal*/
+.close-mdl {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #888888;
+    opacity: 1;
+    font-size:14px;
+}
+.close-mdl:hover {
+    color: #ff950d;
+    opacity: 1;
+    text-decoration: none;
+}
+.modal-footer{padding-bottom:0px;}
+
+
 /*MyBudget*/
 .cal-switch {
     cursor: pointer;
@@ -133,33 +165,52 @@ code {
     font-weight: bold;
 }
 .crd-add:hover{text-decoration: none;color:#fff;opacity:1;}
-.debt-card-itm {
-    padding: 12px;
-    background-color: #de5b5b;
+
+.crd-caption {
+    max-width:94%;
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin-bottom: 0.5rem;
+    color: #fff;
+    user-select: none;
+    padding: 0;
+    text-decoration: none;
+    white-space:normal;
+    text-align:left;
+}
+.crd-caption:hover {
+    color: #ffe30e;
+    text-decoration:none;
+}
+.crd-caption:active {    
+    text-decoration:none;
+}
+.crd-caption:focus {    
+    text-decoration:none;
+}
+
+
+
+
+.crd-itm {
+    position: relative;    
     margin-bottom: 10px;
     border-radius: 5px;
 }
-
-.goal-card-itm {
+.crd-content {
+    position: relative;
+    z-index: 1;
     padding: 12px;
-    background-color: #5383a9;
-    margin-bottom: 10px;
-    border-radius: 5px;
-}
-
-.credit-card-itm {
-    padding: 12px;
-    background-color: #4e968e;
-    margin-bottom: 10px;
-    border-radius: 5px;
 }
 
 .pay-goal{margin-left:10px;}
 
 .del-btn-crd {
+    position:absolute;
+    top:10px;
+    right:10px;
     color: #fff;
-    opacity: 0.6;
-    margin: 5px 8px;
+    opacity: 0.6;    
 }
 .del-btn-crd:hover {
     color: #fff;
@@ -173,8 +224,37 @@ code {
     width: 48%
 }
 
+
+.progress-goal {
+    background-color: #4c799c !important;
+}
+
+.progress-bar-goal {
+    background-color: #5383a9;
+}
+.progress-debt {
+    background-color: #c35353 !important;
+}
+
+.progress-bar-debt {
+    background-color: #de5b5b;
+}
+.progress-credit {
+    background-color: #498c84 !important;
+}
+
+.progress-bar-credit {
+    background-color: #4e968e;
+}
+
+
+
+
 /*Кабинет*/
-.pr-sec-ttl{font-weight:bold;margin-top:30px}
+.pr-sec-ttl {
+    font-weight: bold;
+    margin-top: 30px
+}
 
 .cat-header-green {
     color: #43ac6a;
