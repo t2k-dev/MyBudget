@@ -8,11 +8,11 @@
 
 <div class="row">
     <div class="col-md-8">
-        <div class="row">
+        <div class="row" style="user-select:none;">
             <div class="col-md-7 text-center">
                 <div class="container">
                     <div class="row" style="margin-bottom:20px;">
-                        <div style="margin: 0 auto;user-select:none;">
+                        <div style="margin: 0 auto;">
                             <span class="glyphicon glyphicon-menu-left cal-switch" onclick="setingDate(2)"></span>
                             <input type="button" id="sandbox-container" value="@Model.ListDate">
                             <span class="glyphicon glyphicon-menu-right cal-switch" onclick="setingDate(1)"></span>
@@ -20,8 +20,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 offset-md-1">                
-                <a class="btn btn-outline-danger new-trans" href="@Url.Action("TransactionForm", "Transactions", new { id=true} )"><span class="glyphicon glyphicon-minus"></span></a>                
+            <div class="col-md-4 offset-md-1">
+                <a class="btn btn-outline-danger new-trans" href="@Url.Action("TransactionForm", "Transactions", new { id=true} )"><span class="glyphicon glyphicon-minus"></span></a>
                 <a class="btn btn-outline-success new-trans" href="@Url.Action("TransactionForm", "Transactions", new { id=false} )"><span class="glyphicon glyphicon-plus"></span></a>
             </div>
         </div>
@@ -38,39 +38,39 @@
                         <tr>
                             <th scope="col" style="width: 20px;"></th>
                             <th scope="col">Наименование</th>
-                            <th scope="col" style="width:25%;text-align:right;">Сумма</th>                            
+                            <th scope="col" style="width:25%;text-align:right;">Сумма</th>
                             <th scope="col" style="width: 60px;"></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var transaction in Model.MyTransactions)
                         {
-                        <tr onclick="window.location.href = '/Transactions/Edit/'+@transaction.Id;">
-                            <td class="text-center">
-                                <!--<span class='glyphicon glyphicon-th-list'>@Html.ActionLink(" ", "Delete", "Transactions", new { id = transaction.Id }, null)</span>-->
-                            </td>
+                            <tr onclick="window.location.href = '/Transactions/Edit/'+@transaction.Id;">
+                                <td class="text-center">
+                                    <!--<span class='glyphicon glyphicon-th-list'>@Html.ActionLink(" ", "Delete", "Transactions", new { id = transaction.Id }, null)</span>-->
+                                </td>
 
-                            <td>
-                                @transaction.Name
+                                <td>
+                                    @transaction.Name
 
-                            </td>
-                            <td class="text-right">
-                                @{
-                                    string lineClass = "";
-                                    char c = '+';
-                                    if (transaction.IsSpending == true) { lineClass = "text-danger"; c = '-'; }
-                                    else { lineClass = "text-success"; }
-                                }
+                                </td>
+                                <td class="text-right">
+                                    @{
+                                        string lineClass = "";
+                                        char c = '+';
+                                        if (transaction.IsSpending == true) { lineClass = "text-danger"; c = '-'; }
+                                        else { lineClass = "text-success"; }
+                                    }
 
-                                @Html.Label(@c + @transaction.Amount.ToString("### ### ### ###"), new { @class = lineClass + " amt" })
+                                    @Html.Label(@c + @transaction.Amount.ToString("### ### ### ###"), new { @class = lineClass + " amt" })
 
 
-                            </td>
-                            <td>
-                                <span class=''>@Html.ActionLink(" ", "Delete", "Transactions", new { id = transaction.Id }, new { @class = "glyphicon glyphicon-remove del-btn" })</span>
-                            </td>
+                                </td>
+                                <td>
+                                    <span class=''>@Html.ActionLink(" ", "Delete", "Transactions", new { id = transaction.Id }, new { @class = "glyphicon glyphicon-remove del-btn" })</span>
+                                </td>
 
-                        </tr>
+                            </tr>
                         }
                     </tbody>
                 </table>
@@ -106,21 +106,21 @@
 
             @if (Model.MyGoals.Where(x => x.Type == 1).Count() != 0)
             {
-            <div class="card-body">
-                @foreach (var goal in Model.MyGoals.Where(x => x.Type == 1))
-                {
-                <div>
-                    <div class="float-md-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = goal.Id }, new { @class = "glyphicon glyphicon-remove del-btn-crd" })</div>
-                    <div class="goal-card-itm">
-                        <h5 class="">@goal.GoalName<span class="glyphicon glyphicon-folder-open pay-goal"></span></h5>
-                        <span>@goal.CurAmount из</span>
-                        <span>@goal.Amount.ToString("### ### ### ###")</span>
-                    </div>
+                <div class="card-body">
+                    @foreach (var goal in Model.MyGoals.Where(x => x.Type == 1))
+                    {
+                        <div>
+                            <div class="float-md-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = goal.Id }, new { @class = "glyphicon glyphicon-remove del-btn-crd" })</div>
+                            <div class="goal-card-itm">
+                                <h5 class="">@goal.GoalName<span class="glyphicon glyphicon-folder-open pay-goal"></span></h5>
+                                <span>@goal.CurAmount из</span>
+                                <span>@goal.Amount.ToString("### ### ### ###")</span>
+                            </div>
+                        </div>
+                    }
                 </div>
-                }
-            </div>
             }
-        
+
         </div>
 
         <div class="card text-white bg-danger mb-3">
@@ -132,10 +132,10 @@
             @if (Model.MyGoals.Where(x => x.Type == 2).Count() != 0)
             {
                 <div class="card-body">
-                @foreach (var debt in Model.MyGoals.Where(x => x.Type == 2))
-                {
-                 <div>
-                    <div class="float-sm-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = debt.Id }, new { @class = "glyphicon glyphicon-remove del-btn-crd" })</div>
+                    @foreach (var debt in Model.MyGoals.Where(x => x.Type == 2))
+                    {
+                        <div>
+                            <div class="float-sm-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = debt.Id }, new { @class = "glyphicon glyphicon-remove del-btn-crd" })</div>
                             <div class="debt-card-itm">
                                 <h5 class="">@debt.GoalName <span class="glyphicon glyphicon-folder-open pay-goal"></span></h5>
                                 <div>
@@ -143,12 +143,12 @@
                                 </div>
                             </div>
 
-                 </div>
-                }
+                        </div>
+                    }
                 </div>
             }
         </div>
-        
+
 
         <div class="card text-white bg-credit mb-3">
             <div class="card-header">
@@ -159,31 +159,25 @@
 
             @if (Model.MyGoals.Where(x => x.Type == 3).Count() != 0)
             {
-            <div class="card-body">
+                <div class="card-body">
 
-                @foreach (var debt in Model.MyGoals.Where(x => x.Type == 3))
-                {
-                <div>
-                    <div class="float-sm-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = debt.Id }, new { @class = "glyphicon glyphicon-remove del-btn-crd" })</div>
-                    <div class="credit-card-itm">
-                        <h5 class="">@debt.GoalName <span class="glyphicon glyphicon-folder-open pay-goal"></span></h5>
+                    @foreach (var debt in Model.MyGoals.Where(x => x.Type == 3))
+                    {
                         <div>
-                            <span>@debt.CurAmount из </span><span>@debt.Amount</span>
+                            <div class="float-sm-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = debt.Id }, new { @class = "glyphicon glyphicon-remove del-btn-crd" })</div>
+                            <div class="credit-card-itm">
+                                <h5 class="">@debt.GoalName <span class="glyphicon glyphicon-folder-open pay-goal"></span></h5>
+                                <div>
+                                    <span>@debt.CurAmount из </span><span>@debt.Amount</span>
+                                </div>
+                            </div>
+
                         </div>
-                    </div>
-
+                    }
                 </div>
-                }
-            </div>
             }
-        
         </div>
-
-
-
-
     </div>
-
 </div>
 
 <!--<a href="#delDialog" data-toggle="modal">удалить</a>-->
@@ -224,3 +218,44 @@
     </div>
 </div>
     -->
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            jQuery('#sandbox-container').datepicker({
+                format: "MM yyyy",
+                minViewMode: 1,
+                todayBtn: "linked",
+                language: "ru",
+                autoclose: true
+            }).change(function () {
+                var month = jQuery(this).datepicker("getDate").getMonth() + 1;
+                var mnthStr = (month < 10) ? '0' + month.toString() : month.toString();
+                var year = jQuery(this).datepicker("getDate").getFullYear().toString();
+                var dt = mnthStr + year.toString();
+                window.location.href = '/Transactions/MyBudget/' + dt;
+            });
+        });
+        jQuery('#sandbox-container').datepicker({
+            format: "MM yyyy",
+            minViewMode: 1,
+            todayBtn: "linked",
+            language: "ru",
+            autoclose: true,
+            defaultViewDate: { year: 2018, month: 01, day: 01 }
+        });
+
+        function setingDate(r) {
+            var dt = jQuery('#sandbox-container').datepicker('getDate');
+            var dt1 = new Date();
+
+            if (r == 1) {
+                dt1 = new Date(dt.setMonth(dt.getMonth() + 1));
+            } else {
+                dt1 = new Date(dt.setMonth(dt.getMonth() - 1));
+            }
+
+            jQuery('#sandbox-container').datepicker('update', dt1);
+        };
+    </script>
+}

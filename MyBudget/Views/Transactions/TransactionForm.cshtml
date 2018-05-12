@@ -28,37 +28,35 @@
         <div class="row">
             <form-group style="width:100%">
                 <div class="form-group">
-                    <label for="Amount">Сумма</label>
-                    @Html.TextBoxFor(m => m.Transaction.Amount, new { @class = "form-control-lg", style="width:100%", autocomplete="off" })
+                    <label for="Transaction_Amount">Сумма</label>
+                    @Html.TextBoxFor(m => m.Transaction.Amount, new { @class = "form-control-lg", style = "width:100%", autocomplete = "off" })
                 </div>
 
 
                 <div class="form-group">
-                    <label for="Name">Наименование</label>
+                    <label for="Transaction_Name">Наименование</label>
                     @Html.TextBoxFor(m => m.Transaction.Name, new { @class = "form-control", autocomplete = "off" })
                 </div>
 
                 <div class="form-group">
-                    <label for="CategoryId">Категория</label>
+                    <label for="Transaction_CategoryId">Категория</label>
                     @Html.DropDownListFor(m => m.Transaction.CategoryId, new SelectList(Model.Categories, "Id", "Name"), "", new { @class = "form-control" })
                 </div>
-
+                
                 <div class="form-group">
-                    <label for="TransDate">Дата</label>
-                    @if (Model.Transaction == null)
-                    {
-                        @Html.TextBoxFor(m => m.Transaction.TransDate, "{0:dd/MM/yyyy}", new { @class = "form-control", @Value=DateTime.Now.ToShortDateString() })                        
-                    }
-                    else
-                    {
-                        @Html.TextBoxFor(m => m.Transaction.TransDate, "{0:dd/MM/yyyy}", new { @class = "form-control" })
-                    }
-
-
+                    <label for="TransDate" style="display:none">Дата</label>
+                    <div>
+                        @if (Model.Transaction == null)
+                        {                                       
+                            <input type="text" id="sandbox-container" class="form-control lil-dp" name="Transaction.TransDate" value="@DateTime.Now.ToShortDateString()">
+                        }
+                        else
+                        {
+                            <input type="text" id="sandbox-container" class="form-control lil-dp" name="Transaction.TransDate" value="@Model.Transaction.TransDate.ToShortDateString()">
+                        }
+                    </div>
                 </div>
-
-
-
+                <hr/>
                 <div class="form-group" style="display:none">
                     <label for="Description">Подробнее</label>
                     @Html.TextAreaFor(m => m.Transaction.Description, new { @class = "form-control" })
@@ -66,7 +64,10 @@
                 @Html.HiddenFor(m => m.Transaction.IsSpending, new { @Value = Model.IsSpending })
                 @Html.HiddenFor(m => m.Transaction.Id)
                 @Html.HiddenFor(m => m.Transaction.UserId)
-                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <div class="text-center btn-cntnr">
+                    <button type="submit" class="btn btn-success">Сохранить</button>
+                </div>
+
             </form-group>
         </div>
 
@@ -74,3 +75,18 @@
     }
 
 </div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        jQuery('#sandbox-container').datepicker({
+            format: "dd.mm.yyyy",
+            minViewMode: 0,
+            todayBtn: "linked",
+            language: "ru",
+            autoclose: true,
+            defaultViewDate: { year: 2018, month: 01, day: 01 }
+        });
+    </script>
+
+}

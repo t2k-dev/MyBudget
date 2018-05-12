@@ -57,6 +57,7 @@ code {
 }
 
 /*Перезапись */
+.btn {padding:0.5rem 1.3rem}
 .btn-primary {
     background-color: #6095BD;
     border-color: #3F637E;
@@ -86,11 +87,14 @@ code {
 
 /*Новые*/
 .btn-cntnr {
-    margin-top: 30px;
+    margin-top: 20px;
 }
-
+.lil-dp{
+    font-size:1.8rem !important;
+    width:164px;
+    margin:0 auto;
+}
 /*MyBudget*/
-
 .cal-switch {
     cursor: pointer;
     top: -3px;
@@ -103,7 +107,7 @@ code {
     text-align: center;
     margin-bottom: 20px;
 }
-.new-trans{width:80px;}
+.new-trans{width:80px;padding:0.375rem 0.5rem}
 
 .no-records{margin:60px auto}
 .my-add-btn {    

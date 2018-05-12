@@ -1,4 +1,6 @@
 ﻿$(document).ready(function () {       
+
+/*    
     jQuery('#sandbox-container').datepicker({
         format: "MM yyyy",
         minViewMode: 1,
@@ -12,6 +14,6 @@
         var dt = mnthStr + year.toString();        
         window.location.href = '/Transactions/MyBudget/'+dt;
     });    
-
+    */
 
 });

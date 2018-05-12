@@ -41,45 +41,5 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 
-    <script type="text/javascript">
-		jQuery('#sandbox-container').datepicker({
-			format: "MM yyyy",
-			minViewMode: 1,
-			todayBtn: "linked",
-			language: "ru",
-			autoclose: true,
-			defaultViewDate: { year: 2018, month: 01, day: 01 }
-		});
-
-		function setingDate(r){
-			var dt = jQuery('#sandbox-container').datepicker('getDate');
-			var dt1 = new Date();
-
-			if(r==1){
-				dt1 = new Date(dt.setMonth(dt.getMonth()+1));
-			}else{
-				dt1 = new Date(dt.setMonth(dt.getMonth()-1));
-			}
-
-			jQuery('#sandbox-container').datepicker('update', dt1);
-		};
-
-
-$('.counter-count').each(function () {
-        $(this).prop('Counter',0).animate({
-            Counter: $(this).text()
-        }, {
-            duration: 1000,
-            easing: 'swing',
-            step: function (now) {
-                $(this).text(Math.ceil(now));
-            }
-        });
-    });
-
-
-
-
-    </script>
 </body>
 </html>

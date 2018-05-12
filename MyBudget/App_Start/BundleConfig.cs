@@ -23,8 +23,7 @@ namespace MyBudget
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/bootstrap-datepicker.min.js",
                       "~/Scripts/locales/bootstrap-datepicker.ru.min.js",
-                      "~/Scripts/respond.js",
-                      "~/Scripts/site.js"));
+                      "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(                    
                     "~/Content/bootstrap-yeti.css",
