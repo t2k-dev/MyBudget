@@ -147,6 +147,7 @@ code {
 }
 
 .del-btn {
+    padding:0;
     color: #888888;
     text-decoration: none
 }

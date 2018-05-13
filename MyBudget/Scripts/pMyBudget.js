@@ -17,7 +17,11 @@
         $('#putOnId').val($(this).attr("data-goal-id"));
         $('#catType').val($(this).attr("data-catType"));        
     });
-    
+
+    $('.js-del-tr').on("click", function () {
+        $('#transId').val($(this).attr("data-tr-id"));
+        
+    });    
 });
 
 jQuery('#sandbox-container').datepicker({
