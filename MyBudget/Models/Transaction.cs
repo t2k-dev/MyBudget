@@ -19,14 +19,15 @@ namespace MyBudget.Models
         public DateTime TransDate { get; set; }
 
         public Category Category { get; set; }
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
 
         [Required]
         public bool IsSpending { get; set; }
 
         public string Description { get; set; }
-
         
+        public bool IsPlaned { get; set; }
+
         public ApplicationUser User { get; set; }
         [Required]
         [MaxLength(128)]

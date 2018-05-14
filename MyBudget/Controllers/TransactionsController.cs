@@ -37,11 +37,16 @@ namespace MyBudget.Controllers
                 dt = DateTime.ParseExact(id, "MMyyyy", CultureInfo.InvariantCulture, DateTimeStyles.None);
 
             var s = dt.ToString("Y", new CultureInfo("ru-RU"));
+            var transactions = _context.Transactions.Where(m => (m.UserId == UserGuid)).ToList().Where(m => m.TransDate.ToString("MMyyyy") == id).ToList();
+            var myListService = new MyListServices(transactions);
+
             var viewModel = new MyListViewModel
             {                
-                MyTransactions = _context.Transactions.Where(m => (m.UserId == UserGuid)).ToList().Where(m => m.TransDate.ToString("MMyyyy") == id).ToList(),                
+                MyTransactions = transactions,                
                 MyGoals = _context.Goals.Where(m => m.UserId == UserGuid).ToList(),
-                ListDate = dt.ToString("Y", new CultureInfo("ru-RU"))
+                ListDate = dt.ToString("Y", new CultureInfo("ru-RU")),
+                Rest = myListService.Rest,
+                PlanedRest = myListService.PlanedRest
             };
             return View(viewModel);
         }
@@ -77,6 +82,7 @@ namespace MyBudget.Controllers
                 transactionInDb.IsSpending = transaction.IsSpending;
                 transactionInDb.TransDate = transaction.TransDate;
                 transactionInDb.IsSpending = transaction.IsSpending;
+                transactionInDb.IsPlaned = transaction.IsPlaned;
                 transactionInDb.UserId = transaction.UserId;
             }
 
@@ -101,13 +107,19 @@ namespace MyBudget.Controllers
 
         public ActionResult Edit(int id)
         {
+
+            //var categories = _context.Users.Find(UserGuid).Categories.Where(c => c.IsSpendingCategory == id);
+            string UserGuid = User.Identity.GetUserId();           
             var transaction = _context.Transactions.SingleOrDefault(c => c.Id == id);
             if (transaction == null)
                 return HttpNotFound();
+
+            var categories = _context.Users.Find(UserGuid).Categories.Where(c=>c.IsSpendingCategory==transaction.IsSpending);
+
             var viewModel = new TransactionFormViewModel
             {
                 Transaction = transaction,
-                Categories = _context.Categories.ToList(),
+                Categories = categories,
                 IsSpending = transaction.IsSpending
             };
 
@@ -125,5 +137,17 @@ namespace MyBudget.Controllers
             _context.SaveChanges();
             return RedirectToAction("MyBudget", "Transactions");
         }
+
+        public ActionResult ChangeIsPlaned(int id)
+        {
+            var transaction = _context.Transactions.SingleOrDefault(t => t.Id == id);
+            if (transaction == null)
+                return HttpNotFound();
+
+            transaction.IsPlaned = !transaction.IsPlaned;            
+            _context.SaveChanges();
+            return RedirectToAction("MyBudget", "Transactions");
+        }
+
     }
 }

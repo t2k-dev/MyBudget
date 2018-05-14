@@ -33,7 +33,7 @@
             }
             else
             {
-                <table class="table table-hover">
+                <table class="table table-hover tbl-myList">
                     <thead>
                         <tr>
                             <th scope="col" style="width: 20px;"></th>
@@ -47,7 +47,15 @@
                         {
                             <tr>
                                 <td class="text-center">
-                                    <!--<span class='glyphicon glyphicon-th-list'>@Html.ActionLink(" ", "Delete", "Transactions", new { id = transaction.Id }, null)</span>-->
+                                    @{ 
+                                        string btn_planed = "";
+                                        if (transaction.IsPlaned)
+                                        {
+                                            btn_planed = "itm-opacity";
+                                        }
+                                    }
+                                    @Html.ActionLink(" ", "ChangeIsPlaned", "Transactions", new { id = transaction.Id }, new { @class = "glyphicon glyphicon-ok-circle glyph-btn occurred "+ btn_planed })
+                                    
                                 </td>
 
                                 <td onclick="window.location.href = '/Transactions/Edit/'+@transaction.Id;">
@@ -63,19 +71,11 @@
                                     }
 
                                     @Html.Label(@c + @transaction.Amount.ToString("### ### ### ###"), new { @class = lineClass + " amt" })
-
-
                                 </td>
                                 <td class="text-center">
-                                    <button type="button" class="btn btn-link del-btn js-del-tr" data-toggle="modal" data-target="#DelTransactionModal" data-tr-id="@transaction.Id">
+                                    <button type="button" class="btn btn-link glyph-btn js-del-tr" data-toggle="modal" data-target="#DelTransactionModal" data-tr-id="@transaction.Id">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </button>
-
-                                    <!--
-            @Html.ActionLink(" ", "Delete", "Transactions", new { id = transaction.Id }, new { @class = "glyphicon glyphicon-remove del-btn " })
-        -->
-
-
                                 </td>
 
                             </tr>
@@ -89,17 +89,53 @@
     <div class="col-md-3 offset-md-1">
         <div class="card text-white bg-success mb-3">
             <div class="card-header">
-                <h5>Остаток</h5>
+                <h5 class="text-center">Баланс</h5>
             </div>
-            <div class="card-body">
-                @if (Model.Rest == 0)
-                {
-                    <h4 class="text-center">0</h4>
-                }
-                else
-                {
-                    <h4 class="text-center">@Model.Rest.ToString("### ### ### ###")</h4>
-                }
+            <div class="card-body crd-rest-body">
+                <table class="tbl-rest">
+            		<tr>            			
+            			<td class="rest-type">Текущий:</td>
+            			<td class="rest-real">
+                            @if (Model.Rest == 0)
+                            {
+                                <span>0</span>
+                            }
+                            else
+                            {
+                                string rst_class = "";
+                                if (Model.Rest < 0)
+                                {
+                                    rst_class = "text-danger";
+                                }
+                                <span class="@rst_class">@Model.Rest.ToString("### ### ### ###")</span>
+                            }
+
+                        </td>
+                    </tr>
+            		<tr>            			
+            			<td class="rest-type">Плановый:</td>
+            			<td class="rest-planed">
+                            @if (Model.PlanedRest == 0)
+                            {
+                                <span>0</span>
+                            }
+                            else
+                            {
+                                string rst_class = "";
+                                if (Model.PlanedRest < 0)
+                                {
+                                    rst_class = "text-danger";
+                                }
+
+                                <span class="@rst_class">@Model.PlanedRest.ToString("### ### ### ###")</span>
+                            }
+
+                        </td>
+            		</tr>
+            	</table>
+
+                
+                
 
             </div>
         </div>
