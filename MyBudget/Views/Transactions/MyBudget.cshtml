@@ -7,11 +7,11 @@
 
 
 <div class="row">
-    <div class="col-md-8">
-        <div class="row" style="user-select:none;">
+    <div class="col-md-7 offset-md-1">
+        <div class="row" style="user-select:none;margin-bottom:10px;">
             <div class="col-md-7 text-center">
                 <div class="container">
-                    <div class="row" style="margin-bottom:20px;">
+                    <div class="row">
                         <div style="margin: 0 auto;">
                             <span class="glyphicon glyphicon-menu-left cal-switch" onclick="setingDate(2)"></span>
                             <input type="button" id="sandbox-container" value="@Model.ListDate">
@@ -20,7 +20,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 offset-md-1">
+            <div class="col-md-5" style="padding-top:7px;">
                 <a class="btn btn-outline-danger new-trans" href="@Url.Action("TransactionForm", "Transactions", new { id=true} )"><span class="glyphicon glyphicon-minus"></span></a>
                 <a class="btn btn-outline-success new-trans" href="@Url.Action("TransactionForm", "Transactions", new { id=false} )"><span class="glyphicon glyphicon-plus"></span></a>
             </div>
@@ -37,8 +37,8 @@
                     <thead>
                         <tr>
                             <th scope="col" style="width: 20px;"></th>
-                            <th scope="col">Наименование</th>
-                            <th scope="col" style="width:25%;text-align:right;">Сумма</th>
+                            <th scope="col">Платежи</th>
+                            <th scope="col" style="width:25%;text-align:right;"></th>
                             <th scope="col" style="width: 60px;"></th>
                         </tr>
                     </thead>
@@ -54,7 +54,7 @@
                                             btn_planed = "itm-opacity";
                                         }
                                     }
-                                    @Html.ActionLink(" ", "ChangeIsPlaned", "Transactions", new { id = transaction.Id }, new { @class = "glyphicon glyphicon-ok-circle glyph-btn occurred "+ btn_planed })
+                                    @Html.ActionLink(" ", "ChangeIsPlaned", "Transactions", new { id = transaction.Id }, new { @class = "glyphicon glyphicon-ok glyph-btn occurred "+ btn_planed })
                                     
                                 </td>
 
@@ -74,7 +74,7 @@
                                 </td>
                                 <td class="text-center">
                                     <button type="button" class="btn btn-link glyph-btn js-del-tr" data-toggle="modal" data-target="#DelTransactionModal" data-tr-id="@transaction.Id">
-                                        <span class="glyphicon glyphicon-remove"></span>
+                                        <span class="glyphicon glyphicon-trash"></span>
                                     </button>
                                 </td>
 
@@ -86,7 +86,7 @@
         </div>
     </div>
 
-    <div class="col-md-3 offset-md-1">
+    <div class="col-md-3">
         <div class="card text-white bg-success mb-3">
             <div class="card-header">
                 <h5 class="text-center">Баланс</h5>

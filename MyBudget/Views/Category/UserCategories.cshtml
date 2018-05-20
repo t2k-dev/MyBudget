@@ -20,9 +20,9 @@
                 @foreach (var cat in Model.Categories.Where(c => c.IsSpendingCategory == true))
                 {
                     <tr>
-                        <td><span class="@cat.Icon"></span></td>
+                        <td><span class=""></span></td>
                         <td>@cat.Name</td>
-                        <td><span>@Html.ActionLink(" ", "DeleteFromMyCategories", "Category", new { id = cat.Id }, new { @class = "glyphicon glyphicon-remove del-btn" })</span></td>
+                        <td><span>@Html.ActionLink(" ", "DeleteFromMyCategories", "Category", new { id = cat.Id }, new { @class = "glyphicon glyphicon-trash glyph-btn" })</span></td>
                     </tr>
                 }                
             </tbody>
@@ -45,9 +45,9 @@
                 @foreach (var cat in Model.Categories.Where(c => c.IsSpendingCategory == false))
                 {
                     <tr>
-                        <td><span class="@cat.Icon"></span></td>
+                        <td><span class=""></span></td>
                         <td>@cat.Name</td>
-                        <td><span>@Html.ActionLink(" ", "DeleteFromMyCategories", "Category", new { id = cat.Id }, new { @class = "glyphicon glyphicon-remove del-btn" })</span></td>
+                        <td><span>@Html.ActionLink(" ", "DeleteFromMyCategories", "Category", new { id = cat.Id }, new { @class = "glyphicon glyphicon-trash glyph-btn" })</span></td>
                     </tr>
                 }
             </tbody>

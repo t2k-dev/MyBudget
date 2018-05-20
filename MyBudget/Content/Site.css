@@ -143,9 +143,11 @@ code {
 }       
 .new-trans{width: 48%;padding:0.375rem 0.5rem}
 .tbl-myList{
-
+    margin-top:10px;
 }
 .tbl-myList TD{vertical-align:middle;}
+.tbl-myList TH{font-size:0.8rem;}
+
 .itm-opacity{opacity:0.4;}
 .amt {
     font-weight: bold;
@@ -296,4 +298,13 @@ code {
 .cat-add-btn-wr {
     text-align: center;
     margin-bottom: 2rem;
+}
+
+/*Графики*/
+
+.tbl-pie-legend{
+    margin-top:10px;
+}
+.tbl-pie-legend td{
+    padding:0.5rem
 }

@@ -106,9 +106,7 @@ namespace MyBudget.Controllers
         }
 
         public ActionResult Edit(int id)
-        {
-
-            //var categories = _context.Users.Find(UserGuid).Categories.Where(c => c.IsSpendingCategory == id);
+        {            
             string UserGuid = User.Identity.GetUserId();           
             var transaction = _context.Transactions.SingleOrDefault(c => c.Id == id);
             if (transaction == null)
