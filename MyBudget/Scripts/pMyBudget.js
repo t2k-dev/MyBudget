@@ -13,6 +13,30 @@
         window.location.href = '/Transactions/MyBudget/' + dt;
     });
 
+    /*  Высота таблицы  */
+    var heightTbl = $(window).height() - 295;
+    if ($("#tbl-w").height() > heightTbl) {
+        $('#tbl-w').height(heightTbl + 'px');
+        $('#btn-tbl-exp').show();
+    }
+
+    $('#btn-tbl-exp').on("click", function () {
+        var span = $(this).find("span");
+        if ($("#tbl-w").hasClass("tbl-max") == true) {            
+            $('#tbl-w').removeClass("tbl-max", 1000);                        
+            span.removeClass("glyphicon-chevron-up");
+            span.addClass("glyphicon-chevron-down");
+            $("html, body").animate({ scrollTop: 0 }, "slow");
+        }
+        else {
+            $('#tbl-w').addClass("tbl-max", 1000);
+            span.removeClass("glyphicon-chevron-down");
+            span.addClass("glyphicon-chevron-up");
+
+        }
+    });
+    
+
     $('.js-pay-goal').on("click", function () {
         $('#putOnId').val($(this).attr("data-goal-id"));
         $('#catType').val($(this).attr("data-catType"));        

@@ -28,8 +28,11 @@
         <div class="row">
             <form-group style="width:100%">
                 <div class="form-group">
-                    <label for="Transaction_Amount">Сумма</label>
-                    @Html.TextBoxFor(m => m.Transaction.Amount, new { @class = "form-control-lg", style = "width:100%", autocomplete = "off" })
+                    <label for="Transaction_Amount" style="width:100%">Сумма</label>
+                    <div style="text-align:center;">
+                        @Html.TextBoxFor(m => m.Transaction.Amount, new { @class = "form-control-lg amt-inp", autocomplete = "off" })
+                        <span class="cur-inp">₸</span>
+                    </div>
                 </div>
 
 
@@ -48,11 +51,11 @@
                     <div>
                         @if (Model.Transaction == null)
                         {                                       
-                            <input type="text" id="sandbox-container" class="form-control lil-dp" name="Transaction.TransDate" value="@DateTime.Now.ToShortDateString()">
+                            <input type="text" id="sandbox-container" class="form-control lil-dp" name="Transaction.TransDate" value="@DateTime.Now.ToShortDateString()" readonly="yes">
                         }
                         else
                         {
-                            <input type="text" id="sandbox-container" class="form-control lil-dp" name="Transaction.TransDate" value="@Model.Transaction.TransDate.ToShortDateString()">
+                            <input type="text" id="sandbox-container" class="form-control lil-dp" name="Transaction.TransDate" value="@Model.Transaction.TransDate.ToShortDateString()" readonly="yes">
                         }
                     </div>
                 </div>
@@ -70,8 +73,8 @@
                 @Html.HiddenFor(m => m.Transaction.IsSpending, new { @Value = Model.IsSpending })
                 @Html.HiddenFor(m => m.Transaction.Id)
                 @Html.HiddenFor(m => m.Transaction.UserId)
-                <div class="text-center btn-cntnr">
-                    <button type="submit" class="btn btn-success">Сохранить</button>
+                <div class="col-md-10 offset-md-1  btn-cntnr">
+                    <button type="submit" class="btn btn-success form-btn">Сохранить</button>
                 </div>
 
             </form-group>

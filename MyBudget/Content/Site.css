@@ -44,7 +44,7 @@ body {
 /* Not required for template or sticky footer method. */
 
 body > .container {
-    padding: 50px 15px 0;
+    padding: 20px 15px 0;
 }
 
 .footer > .container {
@@ -113,7 +113,26 @@ code {
     text-align: center;
     margin-bottom: 20px;
 }
+.form-btn{
+    width:100%;
+    margin-bottom:2rem;
+}
+.cprght {
+    font-weight: 300;
+    text-align: center;
+    font-size: 0.9rem;
+}
 
+.cur-inp {
+    font-size: 1.4rem;
+    margin-left: 5px;
+}
+
+/*Login*/
+.chb-remember{
+    text-align:center;
+    margin-bottom:0.5rem;
+}
 
 /*Modal*/
 .close-mdl {
@@ -143,8 +162,35 @@ code {
 }       
 .new-trans{width: 48%;padding:0.375rem 0.5rem}
 .tbl-myList{
-    margin-top:10px;
+    margin-bottom:0;
 }
+.tbl-title {
+    width: 100%;
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-align: center;
+    margin-bottom:5px;
+}
+#tbl-w {
+    padding: 0;
+    overflow: auto;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+#tbl-exp {
+    font-size: 1.2rem;
+}
+
+.tbl-max {
+    height: auto !important;
+}
+
+#btn-tbl-exp {
+    width: 100%;
+    margin-bottom: 5px;
+    display: none;
+}
+
 .tbl-myList TD{vertical-align:middle;}
 .tbl-myList TH{font-size:0.8rem;}
 
@@ -216,15 +262,15 @@ code {
     font-size:0.8rem;
 }
 
-.rest-real {
-    text-align:right;
+.rest-real {    
     width: 100px;
     vertical-align: bottom;
-    font-size: 1.3rem;
+    font-weight:bold;
+    font-size: 1.1rem;
 }
 
 .rest-planed {
-    text-align: right;
+    
     font-size: 1rem;
 }
     .crd-itm {
@@ -245,7 +291,8 @@ code {
     top:10px;
     right:10px;
     color: #fff;
-    opacity: 0.6;    
+    opacity: 0.6;
+    font-size:0.9rem;
 }
 .del-btn-crd:hover {
     color: #fff;
@@ -279,7 +326,11 @@ code {
     background-color: #4e968e;
 }
 
-
+/*TransactionForm*/
+.amt-inp {
+    width: 10rem;
+    text-align:center;
+}
 
 
 /*Кабинет*/

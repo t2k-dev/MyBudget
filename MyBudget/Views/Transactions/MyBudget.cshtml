@@ -22,7 +22,7 @@
             </div>
             <div class="col-md-5" style="padding-top:7px;">
                 <a class="btn btn-outline-danger new-trans" href="@Url.Action("TransactionForm", "Transactions", new { id=true} )"><span class="glyphicon glyphicon-minus"></span></a>
-                <a class="btn btn-outline-success new-trans" href="@Url.Action("TransactionForm", "Transactions", new { id=false} )"><span class="glyphicon glyphicon-plus"></span></a>
+                <a class="btn btn-outline-success new-trans" href="@Url.Action("TransactionForm", "Transactions", new { id=false} )" style="float:right"><span class="glyphicon glyphicon-plus"></span></a>
             </div>
         </div>
         <div class="row">
@@ -33,72 +33,78 @@
             }
             else
             {
-                <table class="table table-hover tbl-myList">
-                    <thead>
-                        <tr>
-                            <th scope="col" style="width: 20px;"></th>
-                            <th scope="col">Платежи</th>
-                            <th scope="col" style="width:25%;text-align:right;"></th>
-                            <th scope="col" style="width: 60px;"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var transaction in Model.MyTransactions)
-                        {
-                            <tr>
-                                <td class="text-center">
-                                    @{ 
-                                        string btn_planed = "";
-                                        if (transaction.IsPlaned)
-                                        {
-                                            btn_planed = "itm-opacity";
+                <div class="tbl-title">Платежи</div>
+                <div id="tbl-w" class="col-12">
+                    <table class="table table-hover tbl-myList">
+                        <col style="width: 20px">
+                        <col style="width: auto">
+                        <col style="width: 6.5rem">
+                        <col style="width: 20px">
+
+                        <tbody>
+                            @foreach (var transaction in Model.MyTransactions)
+                            {
+                                <tr>
+                                    <td class="text-center">
+                                        @{
+                                            string btn_planed = "";
+                                            if (transaction.IsPlaned)
+                                            {
+                                                btn_planed = "itm-opacity";
+                                            }
                                         }
-                                    }
-                                    @Html.ActionLink(" ", "ChangeIsPlaned", "Transactions", new { id = transaction.Id }, new { @class = "glyphicon glyphicon-ok glyph-btn occurred "+ btn_planed })
-                                    
-                                </td>
+                                        @Html.ActionLink(" ", "ChangeIsPlaned", "Transactions", new { id = transaction.Id }, new { @class = "glyphicon glyphicon-ok glyph-btn occurred " + btn_planed })
 
-                                <td onclick="window.location.href = '/Transactions/Edit/'+@transaction.Id;">
-                                    @transaction.Name
+                                    </td>
 
-                                </td>
-                                <td class="text-right" onclick="window.location.href = '/Transactions/Edit/'+@transaction.Id;">
-                                    @{
-                                        string lineClass = "";
-                                        char c = '+';
-                                        if (transaction.IsSpending == true) { lineClass = "text-danger"; c = '-'; }
-                                        else { lineClass = "text-success"; }
-                                    }
+                                    <td onclick="window.location.href = '/Transactions/Edit/'+@transaction.Id;">
+                                        @transaction.Name
 
-                                    @Html.Label(@c + @transaction.Amount.ToString("### ### ### ###"), new { @class = lineClass + " amt" })
-                                </td>
-                                <td class="text-center">
-                                    <button type="button" class="btn btn-link glyph-btn js-del-tr" data-toggle="modal" data-target="#DelTransactionModal" data-tr-id="@transaction.Id">
-                                        <span class="glyphicon glyphicon-trash"></span>
-                                    </button>
-                                </td>
+                                    </td>
+                                    <td class="text-right" onclick="window.location.href = '/Transactions/Edit/'+@transaction.Id;">
+                                        @{
+                                            string lineClass = "";
+                                            char c = '+';
+                                            if (transaction.IsSpending == true) { lineClass = "text-danger"; c = '-'; }
+                                            else { lineClass = "text-success"; }
+                                        }
 
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                                        @Html.Label(@c + @transaction.Amount.ToString("### ### ### ###")+ " ₸", new { @class = lineClass + " amt" })
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-link glyph-btn js-del-tr" data-toggle="modal" data-target="#DelTransactionModal" data-tr-id="@transaction.Id">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div id="btn-tbl-exp" class="del-btn text-center"><span class="glyph-btn glyphicon glyphicon-chevron-down glyph-btn"></span></div>
             }
         </div>
     </div>
 
     <div class="col-md-3">
         <div class="card text-white bg-success mb-3">
-            <div class="card-header">
-                <h5 class="text-center">Баланс</h5>
-            </div>
             <div class="card-body crd-rest-body">
-                <table class="tbl-rest">
-            		<tr>            			
-            			<td class="rest-type">Текущий:</td>
-            			<td class="rest-real">
+                <table class="tbl-rest" style="margin:0 auto;color: #888; text-align: center;width: 100%;text-align: center;">
+                    <col style="width: 50%">
+                    <col style="width: 50%">
+                    <tr>
+                        <td class="rest-type">Баланс</td>
+                        <td class="rest-type">
+                            Плановый
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="rest-real">
                             @if (Model.Rest == 0)
                             {
-                                <span>0</span>
+                                <span>0 ₸</span>
                             }
                             else
                             {
@@ -107,17 +113,14 @@
                                 {
                                     rst_class = "text-danger";
                                 }
-                                <span class="@rst_class">@Model.Rest.ToString("### ### ### ###")</span>
+                                <span class="@rst_class">@Model.Rest.ToString("### ### ### ###") ₸</span>
                             }
 
                         </td>
-                    </tr>
-            		<tr>            			
-            			<td class="rest-type">Плановый:</td>
-            			<td class="rest-planed">
+                        <td class="rest-planed">
                             @if (Model.PlanedRest == 0)
                             {
-                                <span>0</span>
+                                <span>0 ₸</span>
                             }
                             else
                             {
@@ -127,15 +130,15 @@
                                     rst_class = "text-danger";
                                 }
 
-                                <span class="@rst_class">@Model.PlanedRest.ToString("### ### ### ###")</span>
+                                <span class="@rst_class">@Model.PlanedRest.ToString("### ### ### ###") ₸</span>
                             }
 
                         </td>
-            		</tr>
-            	</table>
+                    </tr>
+                </table>
 
-                
-                
+
+
 
             </div>
         </div>
@@ -155,7 +158,7 @@
                     {
                         <div class="crd-itm">
                             <div class="crd-content">
-                                <div class="float-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = goal.Id }, new { @class = "glyphicon glyphicon-remove del-btn-crd" })</div>
+                                <div class="float-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = goal.Id }, new { @class = "glyphicon glyphicon-trash del-btn-crd" })</div>
                                 <button type="button" class="btn btn-link crd-caption js-pay-goal" data-toggle="modal" data-target="#myModal" data-goal-id="@goal.Id" data-catType="SYS_5">
                                     @goal.GoalName<span class="glyphicon glyphicon-cloud-download pay-goal"></span>
                                 </button>
@@ -164,7 +167,7 @@
                                         string cA;
                                         if (@goal.CurAmount > 0) { cA = @goal.CurAmount.ToString("### ### ### ###"); } else { cA = "0"; }
                                     }
-                                    <span>@cA из @goal.Amount.ToString("### ### ### ###") </span>
+                                    <span>@cA ₸ из @goal.Amount.ToString("### ### ### ###") ₸</span>
                                 </h6>
                             </div>
                             @{
@@ -193,7 +196,7 @@
                     {
                         <div class="crd-itm">
                             <div class="crd-content">
-                                <div class="float-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = debt.Id }, new { @class = "glyphicon glyphicon-remove del-btn-crd" })</div>
+                                <div class="float-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = debt.Id }, new { @class = "glyphicon glyphicon-trash del-btn-crd" })</div>
                                 <button type="button" class="btn btn-link crd-caption js-pay-goal" data-toggle="modal" data-target="#myModal" data-goal-id="@debt.Id" data-catType="SYS_3">
                                     @debt.GoalName<span class="glyphicon glyphicon-cloud-download pay-goal"></span>
                                 </button>
@@ -202,7 +205,7 @@
                                         string cA;
                                         if (@debt.CurAmount > 0) { cA = @debt.CurAmount.ToString("### ### ### ###"); } else { cA = "0"; }
                                     }
-                                    <span>@cA из @debt.Amount.ToString("### ### ### ###")</span>
+                                    <span>@cA ₸ из @debt.Amount.ToString("### ### ### ###") ₸</span>
                                 </h6>
                             </div>
 
@@ -235,7 +238,7 @@
                     {
                         <div class="crd-itm">
                             <div class="crd-content">
-                                <div class="float-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = debt.Id }, new { @class = "glyphicon glyphicon-remove del-btn-crd" })</div>
+                                <div class="float-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = debt.Id }, new { @class = "glyphicon glyphicon-trash del-btn-crd" })</div>
                                 <button type="button" class="btn btn-link crd-caption js-pay-goal" data-toggle="modal" data-target="#myModal" data-goal-id="@debt.Id" data-catType="SYS_1">
                                     @debt.GoalName<span class="glyphicon glyphicon-cloud-download pay-goal"></span>
                                 </button>
@@ -244,7 +247,7 @@
                                         string cA;
                                         if (@debt.CurAmount > 0) { cA = @debt.CurAmount.ToString("### ### ### ###"); } else { cA = "0"; }
                                     }
-                                    <span>@cA из @debt.Amount.ToString("### ### ### ###")</span>
+                                    <span>@cA ₸ из @debt.Amount.ToString("### ### ### ###") ₸</span>
                                 </h6>
                             </div>
                             @{
@@ -265,62 +268,62 @@
     </div>
 </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="close close-mdl" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span></div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="close close-mdl" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span></div>
 
-                </div>
-                <div class="modal-body">
-                    @using (Html.BeginForm("PutMoney", "Goals"))
-                    {
-                        <div style="text-align:center">
-                            <div class="form-group">
-                                <label for="Amount">Сумма</label>
-                                <input type="text" id="Amount" name="Amount" class="form-control-lg" style="margin-left:10px;" autocomplete="off" />
-                                <input type="hidden" id="putOnId" name="putOnId" />
-                                <input type="hidden" id="catType" name="catType" />
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-success" style="margin:0 auto;">Пополнить</button>
-                            </div>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("PutMoney", "Goals"))
+                {
+                    <div style="text-align:center">
+                        <div class="form-group">
+                            <label for="Amount">Сумма</label>
+                            <input type="text" id="Amount" name="Amount" class="form-control-lg amt-inp" style="margin-left:10px;" autocomplete="off" /><span class="cur-inp">₸</span>
+                            <input type="hidden" id="putOnId" name="putOnId" />
+                            <input type="hidden" id="catType" name="catType" />
                         </div>
-                    }
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success" style="margin:0 auto;">Пополнить</button>
+                        </div>
+                    </div>
+                }
 
 
-                </div>
+            </div>
 
+        </div>
+    </div>
+</div>
+
+<!--Удаление транзакции-->
+<div class="modal fade" id="DelTransactionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="close close-mdl" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span></div>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("Delete", "Transactions"))
+                {
+                    <div style="text-align:center">
+                        <div class="form-group">
+                            <label for="Amount">Удалить выбранную транзакцию?</label>
+                            <input type="hidden" id="transId" name="Id" />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" data-dismiss="modal" class="btn btn-default" style="margin:0 auto;">Нет</button>
+                            <button type="submit" class="btn btn-primary" style="margin:0 auto;">Да</button>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>
-
-    <!--Удаление транзакции-->
-    <div class="modal fade" id="DelTransactionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="close close-mdl" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span></div>
-                </div>
-                <div class="modal-body">
-                    @using (Html.BeginForm("Delete", "Transactions"))
-                    {
-                        <div style="text-align:center">
-                            <div class="form-group">
-                                <label for="Amount">Удалить выбранную транзакцию?</label>
-                                <input type="hidden" id="transId" name="Id" />                                
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" data-dismiss="modal" class="btn btn-default" style="margin:0 auto;">Нет</button>
-                                <button type="submit" class="btn btn-primary" style="margin:0 auto;">Да</button>
-                            </div>
-                        </div>
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
 
 
 
@@ -330,7 +333,9 @@
 
 
 
-    @section scripts
+@section scripts
 {
-        <script src="~/Scripts/pMyBudget.js"></script>
-    }
+    <script src="~/Scripts/pMyBudget.js"></script>
+    <!--<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>-->
+
+}
