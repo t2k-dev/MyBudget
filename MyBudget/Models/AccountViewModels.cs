@@ -68,6 +68,7 @@ namespace MyBudget.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "Имя пользователя")]
         public string UserName { get; set; }
 
         [Required]

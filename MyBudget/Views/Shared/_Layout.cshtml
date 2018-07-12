@@ -22,8 +22,11 @@
                 <div class="collapse navbar-collapse" id="navbarColor01">
                     <ul class="navbar-nav mr-auto">
                         <!--<li>@Html.ActionLink("Мой лист", "MyBudget", "Transactions", null, new { @class = "nav-link" })</li>-->
-                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Pie","Graph")"><span style="margin-right:10px;" class="glyphicon glyphicon-stats"></span>Графики</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Контакты</a></li>
+                        @if (Request.IsAuthenticated)
+                        {
+                            <li class="nav-item"><a class="nav-link" href="@Url.Action("Pie","Graph")"><span style="margin-right:10px;" class="glyphicon glyphicon-stats"></span>Графики</a></li>
+                        }                    
+                        <!--<li class="nav-item"><a class="nav-link" href="#">Контакты</a></li>-->
                     </ul>
                     @Html.Partial("_LoginPartial")
                 </div>
@@ -36,7 +39,7 @@
 
     <footer class="footer">
         <div class="container">
-            <div class="cprght">&copy; @DateTime.Now.Year – приложение ASP.NET</div>
+            <div class="cprght">&copy; @DateTime.Now.Year – MyBudget</div>
         </div>
     </footer>
 

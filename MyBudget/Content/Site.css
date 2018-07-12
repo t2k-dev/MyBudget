@@ -186,8 +186,7 @@ code {
 }
 
 #btn-tbl-exp {
-    width: 100%;
-    margin-bottom: 5px;
+    width: 100%;    
     display: none;
 }
 
@@ -200,7 +199,7 @@ code {
     font-size: 0.9rem;
     margin-bottom: 0px;
 }
-.no-records{margin:60px auto}
+.no-records{margin:60px auto;text-align:center}
 
 .my-add-btn {    
     margin-bottom: 10px;
@@ -217,15 +216,21 @@ code {
 }
 
 .card-header>h5{margin-bottom:0;}
+
+
+
 .crd-add {
-    color: #fff;
-    font-size: 14px;
+    font-size: 0.9rem;
+    margin: 0.5rem auto;
+    text-align: center;
     text-decoration: none;
-    opacity: 0.7;
-    float: right;
-    font-weight: bold;
+    display: block;
 }
-.crd-add:hover{text-decoration: none;color:#fff;opacity:1;}
+
+.crd-add:hover{
+    text-decoration: none;
+}    
+
 
 .crd-caption {
     max-width:94%;
@@ -250,9 +255,9 @@ code {
     text-decoration:none;
 }
 
-.crd-rest-body {
-    background-color: #fff;
-    color: #43ac6a;
+.w-rest{
+    background-color:#f9f9f9;
+    padding:0.3rem;
 }
 .tbl-rest {
     margin: 0 auto;

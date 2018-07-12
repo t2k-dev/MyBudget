@@ -9,7 +9,7 @@
         @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
         @Html.AntiForgeryToken()
-        <h4>Создайте новую учетную запись</h4>
+        
         <hr />
         @Html.ValidationSummary("", new { @class = "text-danger" })
         
@@ -38,7 +38,7 @@
             </div>
         </div>
         <div class="text-center btn-cntnr" style="margin-bottom:30px">            
-                <input type="submit" class="btn btn-lg btn-primary" value="Регистрация" />            
+                <input type="submit" class="btn btn-md btn-primary" value="Регистрация" />            
         </div>
 }
     </div>

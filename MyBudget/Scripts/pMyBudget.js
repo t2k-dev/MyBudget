@@ -15,10 +15,10 @@
 
     /*  Высота таблицы  */
     var heightTbl = $(window).height() - 295;
-    if ($("#tbl-w").height() > heightTbl) {
-        $('#tbl-w').height(heightTbl + 'px');
+    if ($("#tbl-w").height() > heightTbl) {    
         $('#btn-tbl-exp').show();
     }
+    $('#tbl-w').height(heightTbl + 'px');
 
     $('#btn-tbl-exp').on("click", function () {
         var span = $(this).find("span");

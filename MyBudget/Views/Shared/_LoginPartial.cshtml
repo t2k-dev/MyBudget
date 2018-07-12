@@ -6,10 +6,12 @@
     @Html.AntiForgeryToken()
 
     <ul class="nav navbar-nav navbar-right">
-        <li>
-            <a class="nav-link" href="@Url.Action("Index", "Manage")"><span class="glyphicon glyphicon-user"></span> @User.Identity.GetUserName()</a>
-            
-            <!--@Html.ActionLink(User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link", style = "font-weight:bold" })-->
+        <li class="nav-item dropdown" >
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="themes"><span class="glyphicon glyphicon-user"></span> @User.Identity.GetUserName() <span class="caret"></span></a>
+            <div class="dropdown-menu" aria-labelledby="themes">
+                <a class="dropdown-item" href="@Url.Action("Index", "Manage")">Мой кабинет</a>
+                <a class="dropdown-item" href="@Url.Action("UserCategories", "Category")">Категории</a>
+            </div>
         </li>
         <li><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()"><span class="glyphicon glyphicon-log-out"></span> Выйти</a></li>
     </ul>
@@ -19,6 +21,8 @@ else
 {
     <ul class="nav navbar-nav navbar-right">
         <li>@Html.ActionLink("Регистрация", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "nav-link" })</li>
-        <li>@Html.ActionLink("Выполнить вход", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "nav-link" })</li>
+        
+        <li><a class="nav-link" href="@Url.Action("Login","Account")"><span class="glyphicon glyphicon-log-in" style="margin-right:10px;"></span>Вход</a></li>
+
     </ul>
 }
