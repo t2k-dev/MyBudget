@@ -98,6 +98,22 @@ code {
     border-radius: 10px 0 0 10px !important;
 }
 
+/*Датапикер*/
+
+.datepicker td, .datepicker th {font-size: 1rem;width: 30px;height: 30px;}
+@media (max-width: 767px) {
+    .datepicker {left: 50% !important;margin-left: -130px !important;}
+
+}
+.datepicker table {
+    border-collapse: initial;
+    border-spacing: 5px;
+}
+.datepicker table tr td.active.active, .datepicker table tr td span.active.active {
+    background-color: #395971 !important;
+    background-image: none;
+}
+
 
 
 /*Новые*/
@@ -105,10 +121,15 @@ code {
     margin-top: 20px;
 }
 .lil-dp{
-    font-size:1.8rem !important;
+    font-size:1.5rem !important;
     width:164px;
     margin:0 auto;
+    text-align:center;
 }
+.frm1{
+    padding:0 3rem;
+}
+
 .form-title {
     text-align: center;
     margin-bottom: 20px;

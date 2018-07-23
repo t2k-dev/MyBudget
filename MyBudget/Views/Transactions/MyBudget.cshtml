@@ -50,12 +50,10 @@
                                     <td class="text-center">
                                         @{
                                             string btn_planed = "";
-                                            if (transaction.IsPlaned)
-                                            {
-                                                btn_planed = "itm-opacity";
-                                            }
+                                            if (transaction.IsPlaned){btn_planed = "itm-opacity";}
                                         }
-                                        @Html.ActionLink(" ", "ChangeIsPlaned", "Transactions", new { id = transaction.Id }, new { @class = "glyphicon glyphicon-ok glyph-btn occurred " + btn_planed })
+                                        <a href="#" class="glyphicon glyphicon-ok glyph-btn occurred @btn_planed js-switch" data-transaction-id="@transaction.Id"></a>
+                                        <!--@Html.ActionLink(" ", "ChangeIsPlaned", "Transactions", new { id = transaction.Id }, new { @class = "glyphicon glyphicon-ok glyph-btn occurred " + btn_planed })-->
 
                                     </td>
 

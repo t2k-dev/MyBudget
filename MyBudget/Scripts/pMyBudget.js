@@ -45,7 +45,23 @@
     $('.js-del-tr').on("click", function () {
         $('#transId').val($(this).attr("data-tr-id"));
         
-    });    
+    });
+
+    //Смена статуса транзакции
+    $('.js-switch').on('click', function () {
+        var switch_btn = $(this);
+        $.ajax({
+            url: "/api/transactions/SwitchPlaned/?Id=" + switch_btn.attr("data-transaction-id"),
+            method: "PUT",
+            success: function () {                
+                if (switch_btn.hasClass("itm-opacity") == true)
+                    switch_btn.removeClass("itm-opacity");                
+                else 
+                    switch_btn.addClass("itm-opacity");                                                    
+            }
+
+        })
+    })
 });
 
 jQuery('#sandbox-container').datepicker({
