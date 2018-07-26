@@ -6,7 +6,7 @@
 
 
 <div class="row">
-    <div class="col-md-3 offset-md-4" style="margin-top:2rem;">
+    <div class="col-8 offset-2 col-md-3 offset-md-4" style="margin-top:2rem;">
         
         <section id="loginForm">
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
@@ -33,7 +33,7 @@
                     <input type="submit" value="Войти" class="btn btn-primary form-btn"/>
                 </div>
             </div>
-            <p style="margin-top:1rem;text-align:center">
+            <p style="margin-top:1rem;text-align:center;margin-bottom:3rem">
                 @Html.ActionLink("Зарегистрироваться", "Register")
             </p>
             @* Включите, когда будет включено подтверждение учетной записи для функции сброса пароля

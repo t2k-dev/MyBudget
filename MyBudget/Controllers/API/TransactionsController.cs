@@ -1,6 +1,8 @@
-﻿using MyBudget.Models;
+﻿using Microsoft.AspNet.Identity;
+using MyBudget.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -16,6 +18,16 @@ namespace MyBudget.Controllers.API
         {
             _context = new ApplicationDbContext();
         }
+
+        //GET api/transactions
+
+        public IEnumerable<Transaction> GetTransactions(string MMyyyy) 
+        {
+            string UserGuid = User.Identity.GetUserId();                        
+            var transactions = _context.Transactions.Where(m => (m.UserId == UserGuid)).ToList().Where(m => m.TransDate.ToString("MMyyyy") == MMyyyy).ToList();
+            return transactions;
+        }
+
 
         //PUT Меняет статус транзакции, плановая или осуществленная
         [HttpPut]

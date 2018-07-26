@@ -98,6 +98,19 @@ code {
     border-radius: 10px 0 0 10px !important;
 }
 
+.dropdown-menu{
+    border:none;
+}
+.bg-dark .dropdown-menu{
+    background-color: #395971;
+}
+.dropdown-item{
+    padding: 0.5rem 1rem;
+}
+.dropdown-item:hover{
+    background-color: #2e485a !important;
+}
+
 /*Датапикер*/
 
 .datepicker td, .datepicker th {font-size: 1rem;width: 30px;height: 30px;}

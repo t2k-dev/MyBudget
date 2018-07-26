@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="tbl-title">Платежи</div>
+            <div class="tbl-title" onclick="loadTable()">Платежи</div>
             @if (Model.MyTransactions.Count == 0)
             {
                 <div id="tbl-w" class="col-12">
@@ -35,22 +35,22 @@
             }
             else
             {
-                
+
                 <div id="tbl-w" class="col-12">
-                    <table class="table table-hover tbl-myList">
+                    <table id="transactions_table" class="table table-hover tbl-myList">
                         <col style="width: 20px">
                         <col style="width: auto">
-                        <col style="width: 6.5rem">
+                        <col style="width: 7rem">
                         <col style="width: 20px">
 
                         <tbody>
                             @foreach (var transaction in Model.MyTransactions)
                             {
-                                <tr>
+                                <tr data-amt="@transaction.Amount" data-IsPlaned="@transaction.IsPlaned">
                                     <td class="text-center">
                                         @{
                                             string btn_planed = "";
-                                            if (transaction.IsPlaned){btn_planed = "itm-opacity";}
+                                            if (transaction.IsPlaned) { btn_planed = "itm-opacity"; }
                                         }
                                         <a href="#" class="glyphicon glyphicon-ok glyph-btn occurred @btn_planed js-switch" data-transaction-id="@transaction.Id"></a>
                                         <!--@Html.ActionLink(" ", "ChangeIsPlaned", "Transactions", new { id = transaction.Id }, new { @class = "glyphicon glyphicon-ok glyph-btn occurred " + btn_planed })-->
@@ -69,7 +69,7 @@
                                             else { lineClass = "text-success"; }
                                         }
 
-                                        @Html.Label(@c + @transaction.Amount.ToString("### ### ### ###")+ " ₸", new { @class = lineClass + " amt" })
+                                        @Html.Label(@c + @transaction.Amount.ToString("### ### ### ###") + " ₸", new { @class = lineClass + " amt" })
                                     </td>
                                     <td class="text-center">
                                         <button type="button" class="btn btn-link glyph-btn js-del-tr" data-toggle="modal" data-target="#DelTransactionModal" data-tr-id="@transaction.Id">
@@ -83,46 +83,35 @@
                     </table>
                 </div>
             }
-                            <div style="height:22px;width:100%;margin-bottom: 5px;">
-                    <div id="btn-tbl-exp" class="del-btn text-center"><span class="glyph-btn glyphicon glyphicon-chevron-down glyph-btn"></span></div>
-                </div>
+            <div style="height:22px;width:100%;margin-bottom: 5px;">
+                <div id="btn-tbl-exp" class="del-btn text-center"><span class="glyph-btn glyphicon glyphicon-chevron-down glyph-btn"></span></div>
+            </div>
 
         </div>
     </div>
 
-    <div class="col-md-3">                
+    <div class="col-md-3">
         <div class="w-rest">
             <table class="tbl-rest" style="margin:0 auto;color: #888; text-align: center;width: 100%;">
-                <col style="width: 50%"><col style="width: 50%">
+                <col style="width: 50%">
+                <col style="width: 50%">
                 <tr>
                     <td class="rest-type">Баланс</td>
                     <td class="rest-type">Плановый</td>
                 </tr>
                 <tr>
                     <td class="rest-real">
-                        @if (Model.Rest == 0){<span>0 ₸</span>}
-                        else
-                        {
-                            string rst_class = "";
-                            if (Model.Rest < 0){rst_class = "text-danger";}
-                            else{rst_class = "text-success";}
-                            <span class="@rst_class">@Model.Rest.ToString("### ### ### ###") ₸</span>
-                        }
+                        <span id="balten">0</span>
+                        <span> ₸</span>
                     </td>
                     <td class="rest-planed">
-                        @if (Model.PlanedRest == 0){<span>0 ₸</span>}
-                        else
-                        {
-                            string rst_class = "";
-                            if (Model.PlanedRest < 0){rst_class = "text-danger";}
-                            else{rst_class = "text-success";}
-                            <span class="@rst_class">@Model.PlanedRest.ToString("### ### ### ###") ₸</span>
-                        }
+                        <span id="balten_pl">0</span>
+                        <span> ₸</span>
                     </td>
                 </tr>
             </table>
         </div>
-        
+
 
         <div style="margin-bottom: 1rem;">
             <a href="@Url.Action("GoalForm", "Goals" )" class="crd-add">Добавить цель</a>
@@ -134,84 +123,84 @@
         <hr>
 
 
-            @if (Model.MyGoals.Where(x => x.Type == 1).Count() != 0)
-            {
-        <div class="card text-white bg-info mb-3">
-            <div class="card-header">
-                <h5>Цели</h5>
-            </div>
-
-            <div class="card-body">
-                @foreach (var goal in Model.MyGoals.Where(x => x.Type == 1))
-                {
-            <div class="crd-itm">
-                <div class="crd-content">
-                    <div class="float-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = goal.Id }, new { @class = "glyphicon glyphicon-trash del-btn-crd" })</div>
-                    <button type="button" class="btn btn-link crd-caption js-pay-goal" data-toggle="modal" data-target="#myModal" data-goal-id="@goal.Id" data-catType="SYS_5">
-                        @goal.GoalName<span class="glyphicon glyphicon-cloud-download pay-goal"></span>
-                    </button>
-                    <h6>
-                        @{
-                            string cA;
-                            if (@goal.CurAmount > 0) { cA = @goal.CurAmount.ToString("### ### ### ###"); } else { cA = "0"; }
-                        }
-                        <span>@cA ₸ из @goal.Amount.ToString("### ### ### ###") ₸</span>
-                    </h6>
-                </div>
-                @{
-                    string progress = (@goal.CurAmount * 100 / @goal.Amount).ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US"));
-                }
-                <div class="progress progress-goal">
-                    <div class="progress-bar progress-bar-goal" style="width:@progress%;"></div>
-                </div>
-            </div>
-                    }
-            </div>
-        </div>
-                    }
-
-
-
-
-            @if (Model.MyGoals.Where(x => x.Type == 2).Count() != 0)
+        @if (Model.MyGoals.Where(x => x.Type == 1).Count() != 0)
         {
-        <div class="card text-white bg-danger mb-3">
-            <div class="card-header">                
-                <h5>Я должен</h5>
-            </div>
-
-            <div class="card-body">
-                @foreach (var debt in Model.MyGoals.Where(x => x.Type == 2))
-            {
-                <div class="crd-itm">
-                    <div class="crd-content">
-                        <div class="float-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = debt.Id }, new { @class = "glyphicon glyphicon-trash del-btn-crd" })</div>
-                        <button type="button" class="btn btn-link crd-caption js-pay-goal" data-toggle="modal" data-target="#myModal" data-goal-id="@debt.Id" data-catType="SYS_3">
-                            @debt.GoalName<span class="glyphicon glyphicon-cloud-download pay-goal"></span>
-                        </button>
-                        <h6>
-                            @{
-                            string cA;
-                            if (@debt.CurAmount > 0) { cA = @debt.CurAmount.ToString("### ### ### ###"); } else { cA = "0"; }
-                            }
-                            <span>@cA ₸ из @debt.Amount.ToString("### ### ### ###") ₸</span>
-                        </h6>
-                    </div>
-
-                    @{
-                    string progress = (@debt.CurAmount * 100 / @debt.Amount).ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US"));
-                    }
-                    <div class="progress progress-debt">
-                        <div class="progress-bar progress-bar-debt" style="width:@progress%;"></div>
-                    </div>
-
-
+            <div class="card text-white bg-info mb-3">
+                <div class="card-header">
+                    <h5>Цели</h5>
                 </div>
 
-        }
+                <div class="card-body">
+                    @foreach (var goal in Model.MyGoals.Where(x => x.Type == 1))
+                    {
+                        <div class="crd-itm">
+                            <div class="crd-content">
+                                <div class="float-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = goal.Id }, new { @class = "glyphicon glyphicon-trash del-btn-crd" })</div>
+                                <button type="button" class="btn btn-link crd-caption js-pay-goal" data-toggle="modal" data-target="#myModal" data-goal-id="@goal.Id" data-catType="SYS_5">
+                                    @goal.GoalName<span class="glyphicon glyphicon-cloud-download pay-goal"></span>
+                                </button>
+                                <h6>
+                                    @{
+                                        string cA;
+                                        if (@goal.CurAmount > 0) { cA = @goal.CurAmount.ToString("### ### ### ###"); } else { cA = "0"; }
+                                    }
+                                    <span>@cA ₸ из @goal.Amount.ToString("### ### ### ###") ₸</span>
+                                </h6>
+                            </div>
+                            @{
+                                string progress = (@goal.CurAmount * 100 / @goal.Amount).ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US"));
+                            }
+                            <div class="progress progress-goal">
+                                <div class="progress-bar progress-bar-goal" style="width:@progress%;"></div>
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
-        </div>
-    }
+        }
+
+
+
+
+        @if (Model.MyGoals.Where(x => x.Type == 2).Count() != 0)
+        {
+            <div class="card text-white bg-danger mb-3">
+                <div class="card-header">
+                    <h5>Я должен</h5>
+                </div>
+
+                <div class="card-body">
+                    @foreach (var debt in Model.MyGoals.Where(x => x.Type == 2))
+                    {
+                        <div class="crd-itm">
+                            <div class="crd-content">
+                                <div class="float-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = debt.Id }, new { @class = "glyphicon glyphicon-trash del-btn-crd" })</div>
+                                <button type="button" class="btn btn-link crd-caption js-pay-goal" data-toggle="modal" data-target="#myModal" data-goal-id="@debt.Id" data-catType="SYS_3">
+                                    @debt.GoalName<span class="glyphicon glyphicon-cloud-download pay-goal"></span>
+                                </button>
+                                <h6>
+                                    @{
+                                        string cA;
+                                        if (@debt.CurAmount > 0) { cA = @debt.CurAmount.ToString("### ### ### ###"); } else { cA = "0"; }
+                                    }
+                                    <span>@cA ₸ из @debt.Amount.ToString("### ### ### ###") ₸</span>
+                                </h6>
+                            </div>
+
+                            @{
+                                string progress = (@debt.CurAmount * 100 / @debt.Amount).ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US"));
+                            }
+                            <div class="progress progress-debt">
+                                <div class="progress-bar progress-bar-debt" style="width:@progress%;"></div>
+                            </div>
+
+
+                        </div>
+
+                    }
+                </div>
+            </div>
+        }
 
 
 
@@ -224,36 +213,41 @@
                 </div>
 
                 <div class="card-body">
-                @foreach (var debt in Model.MyGoals.Where(x => x.Type == 3))
-                {
-                    <div class="crd-itm">
-                        <div class="crd-content">
-                            <div class="float-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = debt.Id }, new { @class = "glyphicon glyphicon-trash del-btn-crd" })</div>
-                            <button type="button" class="btn btn-link crd-caption js-pay-goal" data-toggle="modal" data-target="#myModal" data-goal-id="@debt.Id" data-catType="SYS_1">
-                                @debt.GoalName<span class="glyphicon glyphicon-cloud-download pay-goal"></span>
-                            </button>
-                            <h6>
-                                @{
-                                string cA;
-                                if (@debt.CurAmount > 0) { cA = @debt.CurAmount.ToString("### ### ### ###"); } else { cA = "0"; }
-                                }
-                                <span>@cA ₸ из @debt.Amount.ToString("### ### ### ###") ₸</span>
-                            </h6>
+                    @foreach (var debt in Model.MyGoals.Where(x => x.Type == 3))
+                    {
+                        <div class="crd-itm">
+                            <div class="crd-content">
+                                <div class="float-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = debt.Id }, new { @class = "glyphicon glyphicon-trash del-btn-crd" })</div>
+                                <button type="button" class="btn btn-link crd-caption js-pay-goal" data-toggle="modal" data-target="#myModal" data-goal-id="@debt.Id" data-catType="SYS_1">
+                                    @debt.GoalName<span class="glyphicon glyphicon-cloud-download pay-goal"></span>
+                                </button>
+                                <h6>
+                                    @{
+                                        string cA;
+                                        if (@debt.CurAmount > 0) { cA = @debt.CurAmount.ToString("### ### ### ###"); } else { cA = "0"; }
+                                    }
+                                    <span>@cA ₸ из @debt.Amount.ToString("### ### ### ###") ₸</span>
+                                </h6>
+                            </div>
+                            @{
+                                string progress = (@debt.CurAmount * 100 / @debt.Amount).ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US"));
+                            }
+                            <div class="progress progress-credit">
+                                <div class="progress-bar progress-bar-credit" style="width:@progress%;"></div>
+                            </div>
                         </div>
-                        @{
-                        string progress = (@debt.CurAmount * 100 / @debt.Amount).ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US"));
-                        }
-                        <div class="progress progress-credit">
-                            <div class="progress-bar progress-bar-credit" style="width:@progress%;"></div>
-                        </div>
-                    </div>
-                }
+                    }
                 </div>
             </div>
         }
 
     </div>
 </div>
+
+
+<!-- ************** -->
+<!-- Модальные окна -->
+<!-- ************** -->
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -269,7 +263,7 @@
                     <div style="text-align:center">
                         <div class="form-group">
                             <label for="Amount">Сумма</label>
-                            <input type="text" id="Amount" name="Amount" class="form-control-lg amt-inp" style="margin-left:10px;" autocomplete="off" /><span class="cur-inp">₸</span>
+                            <input type="text" id="Amount" name="Amount" class="form-control-lg amt-inp jq-money" style="margin-left:10px;" autocomplete="off" /><span class="cur-inp">₸</span>
                             <input type="hidden" id="putOnId" name="putOnId" />
                             <input type="hidden" id="catType" name="catType" />
                         </div>
@@ -298,8 +292,8 @@
                 {
                     <div style="text-align:center">
                         <div class="form-group">
-                            <label for="Amount">Удалить выбранную транзакцию?</label>
-                            <input type="hidden" id="transId" name="Id" />
+                            <label>Удалить выбранную транзакцию?</label>
+                            <input type="hidden" id="mb-del-transId" name="Id" />
                         </div>
                         <div class="modal-footer">
                             <button type="button" data-dismiss="modal" class="btn btn-default" style="margin:0 auto;">Нет</button>
@@ -322,7 +316,7 @@
 
 @section scripts
 {
-    <script src="~/Scripts/pMyBudget.js"></script>
+    <script src="~/Scripts/myBudget.js"></script>
     <!--<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>-->
 
 }
