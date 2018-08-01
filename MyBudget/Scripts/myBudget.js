@@ -19,7 +19,7 @@
     });
 
     /*  Высота таблицы  */
-    var heightTbl = $(window).height() - 295;
+    var heightTbl = $(window).height() - 270;
     if ($("#tbl-w").height() > heightTbl) {    
         $('#btn-tbl-exp').show();
     }
@@ -73,7 +73,7 @@
 
     $('form').submit(function () {
         var textValue = $amt.val();
-        $amt.val(textValue.replace(String.fromCharCode(160), ""));
+        $amt.val(textValue.replace(/[\D\s\._\-]+/g, ""));
     });
     /*---*/
 });
@@ -115,106 +115,124 @@ function loadTable() {
         success: function (result) {
             $('#transactions_table tbody').remove();
             
+
+            
             if (result == false) {
-                $tr = $("<tr>").append($("<td class='text-center' colspan ='4'>").text("В этом месяце ещё нет платежей"));
-                $tr.appendTo('#transactions_table');
             }
-            $.each(result, function (i, item) {
-                var spendingClass = '';
+            if (result != '') {
+                $.each(result, function (i, item) {
+                    var spendingClass = '';
 
-                if (item.IsSpending == true) {
-                    var opChar = '-'
-                    spendingClass = 'text-danger'
-                }
-                else {
-                    var opChar = '+'
-                    spendingClass = 'text-success'
-                }
-
-                var op_class = "";
-                if (item.IsPlaned == true) {
-                    op_class = "itm-opacity";
-                }                
-                var $td_amt = $('<td class="text-right amt ' + spendingClass + '">').text(opChar + String.fromCharCode(160) + item.Amount.toLocaleString("ru-RU") + ' ₸').on("click", function () {
-                    window.location.href = "/Transactions//Edit/" + item.Id;
-                });                
-                var $tr = $('<tr data-amt="' + item.Amount + '" data-IsPlaned="' + item.IsPlaned + '" data-tr-id="' + item.Id + '" data-IsSpending="' + item.IsSpending + '">').append(
-                    /*Кнопка "запланировано"*/
-                    $('<td class="text-center js-switch ' + op_class + '">').append($('<a href="#" class="glyphicon glyphicon-ok glyph-btn occured"></a>')),
-                    /*Наименование*/                    
-                    $("<td>").text(item.Name).on("click", function () {
-                        window.location.href = "/Transactions//Edit/" + item.Id;
-                    }),
-                    /*Сумма*/
-                    $td_amt, 
-                    /*Кнопка "Удалить"*/                    
-                    $('<td class="text-center">').append($('<button type="button" class="btn btn-link glyphicon glyphicon-trash glyph-btn js-del-tr" data-toggle="modal" data-target="#DelTransactionModal">'))
-                );
-
-                $tr.appendTo('#transactions_table');
-                
-            });
-            countBalance();
-
-
-            /*Нажатие на кнопку "Запланировано"*/
-            var $balten = $('#balten');
-            $('.js-switch').on('click', function () {
-                var switch_btn = $(this);
-                var $tr = switch_btn.closest('tr');
-                $.ajax({
-                    url: "/api/transactions/SwitchPlaned/?Id=" + $tr.attr("data-tr-id"),
-                    method: "PUT",
-                    success: function () {
-                        var $balten = $('#balten');
-                        var res = 0;
-                        var $td = $('#balten').closest('td');
-                        var balance = parseInt($balten.text().replace(String.fromCharCode(160), '').replace(' ', ''));
-                        var $amt = parseInt($tr.attr('data-amt'));
-
-                        if ($tr.attr('data-IsSpending') == 'true') {
-                            $amt = -$amt;
-                        }
-
-                        if ($tr.attr('data-IsPlaned') == 'true') {
-                            switch_btn.removeClass('planned');
-                            $tr.attr('data-IsPlaned', 'false');
-                            res = balance + $amt;
-                        }
-                        else {
-                            switch_btn.addClass('planned');
-                            $tr.attr('data-IsPlaned', 'true');
-                            res = balance - $amt;
-                        }
-
-                        $balten.text(res.toLocaleString("ru-RU"));
-
-                        if (res < 0) {
-                            $td.removeClass('text-success');
-                            $td.addClass('text-danger');
-                            $balten.text($balten.text().replace('-', '- '));
-                        } else if (res === 0) {
-                            $td.removeClass('text-danger');
-                            $td.removeClass('text-success');
-                        } else {
-                            $td.removeClass('text-danger');
-                            $td.addClass('text-success');
-                        } 
-                        
-                        if (switch_btn.hasClass("itm-opacity") == true)
-                            switch_btn.removeClass("itm-opacity");
-                        else
-                            switch_btn.addClass("itm-opacity");
+                    if (item.IsSpending == true) {
+                        var opChar = '-'
+                        spendingClass = 'text-danger'
+                    }
+                    else {
+                        var opChar = '+'
+                        spendingClass = 'text-success'
                     }
 
-                })
-            });
+                    var op_class = "";
+                    if (item.IsPlaned == true) {
+                        op_class = "itm-opacity";
+                    }
+                    var $td_amt = $('<td class="text-right amt ' + spendingClass + '">').text(opChar + String.fromCharCode(160) + item.Amount.toLocaleString("ru-RU") + ' ₸').on("click", function () {
+                        window.location.href = "/Transactions//Edit/" + item.Id;
+                    });
+                    var $tr = $('<tr data-amt="' + item.Amount + '" data-IsPlaned="' + item.IsPlaned + '" data-tr-id="' + item.Id + '" data-IsSpending="' + item.IsSpending + '">').append(
+                        /*Кнопка "запланировано"*/
+                        $('<td class="text-center js-switch ' + op_class + '">').append($('<span class="glyphicon glyphicon-ok glyph-btn occured"></span>')),
+                        /*Наименование*/
+                        $("<td>").text(item.Name).on("click", function () {
+                            window.location.href = "/Transactions//Edit/" + item.Id;
+                        }),
+                        /*Сумма*/
+                        $td_amt,
+                        /*Кнопка "Удалить"*/
+                        $('<td class="text-center">').append($('<button type="button" class="btn btn-link glyphicon glyphicon-trash glyph-btn js-del-tr" data-toggle="modal" data-target="#DelTransactionModal">'))
+                    );
 
-            /* Модальное окно "Удалить" */
-            $('.js-del-tr').on("click", function () {
-                $('#mb-del-transId').val($(this).closest('tr').attr("data-tr-id"));
-            });
+                    $tr.appendTo('#transactions_table');
 
+                });
+                countBalance();
+
+
+                /*Нажатие на кнопку "Запланировано"*/
+                var $balten = $('#balten');
+                $('.js-switch').on('click', function () {
+                    var switch_btn = $(this);
+                    var $tr = switch_btn.closest('tr');
+                    $.ajax({
+                        url: "/api/transactions/SwitchPlaned/?Id=" + $tr.attr("data-tr-id"),
+                        method: "PUT",
+                        success: function () {
+                            var $balten = $('#balten');
+                            var res = 0;
+                            var $td = $('#balten').closest('td');
+                            var balance = parseInt($balten.text().replace(String.fromCharCode(160), '').replace(' ', ''));
+                            var $amt = parseInt($tr.attr('data-amt'));
+
+                            if ($tr.attr('data-IsSpending') == 'true') {
+                                $amt = -$amt;
+                            }
+
+                            if ($tr.attr('data-IsPlaned') == 'true') {
+                                switch_btn.removeClass('planned');
+                                $tr.attr('data-IsPlaned', 'false');
+                                res = balance + $amt;
+                            }
+                            else {
+                                switch_btn.addClass('planned');
+                                $tr.attr('data-IsPlaned', 'true');
+                                res = balance - $amt;
+                            }
+
+                            $balten.text(res.toLocaleString("ru-RU"));
+
+                            if (res < 0) {
+                                $td.removeClass('text-success');
+                                $td.addClass('text-danger');
+                                $balten.text($balten.text().replace('-', '- '));
+                            } else if (res === 0) {
+                                $td.removeClass('text-danger');
+                                $td.removeClass('text-success');
+                            } else {
+                                $td.removeClass('text-danger');
+                                $td.addClass('text-success');
+                            }
+
+                            if (switch_btn.hasClass("itm-opacity") == true)
+                                switch_btn.removeClass("itm-opacity");
+                            else
+                                switch_btn.addClass("itm-opacity");
+                        }
+
+                    })
+                });
+
+                /* Модальное окно "Удалить" */
+                $('.js-del-tr').on("click", function () {
+                    $('#mb-del-transId').val($(this).closest('tr').attr("data-tr-id"));
+                });
+            } else {
+                /*Если нет транзакций*/
+                $tr = $("<tr class='no-records'>").append($("<td class='text-center' colspan ='4'>").text("В этом месяце ещё нет платежей"));
+                $tr.appendTo('#transactions_table');
+
+                $('#balten').CssClass = 'zz';
+
+                var $balten = $('#balten');
+                $balten.text('0');
+                $balten.closest('td').removeClass('text-success');
+                $balten.closest('td').removeClass('text-danger');
+
+                var $balten_pl = $('#balten_pl');
+                $balten_pl.closest('td').removeClass('text-success');
+                $balten_pl.closest('td').removeClass('text-danger');
+                $('#balten_pl').text('0');    
+                
+            }
         }
         
     })
@@ -225,8 +243,7 @@ function countBalance() {
     var bal_pl = 0;
         
     $("#transactions_table tr").each(function () {
-        var $tr = $(this);
-
+        var $tr = $(this);        
 
         if ($tr.attr("data-IsSpending") == 'true') {
 
@@ -248,8 +265,7 @@ function countBalance() {
         }
     });
     
-    //alert(bal);
-    
+
 
     var $balten = $('#balten');
     var $td = $balten.closest('td');
@@ -268,6 +284,7 @@ function countBalance() {
 
     var $balten_pl = $('#balten_pl');
     var $td_pl = $balten_pl.closest('td');
+    
 
     if (bal_pl < 0) {
         $td_pl.removeClass('text-success');
@@ -279,6 +296,6 @@ function countBalance() {
     }
     bal_pl = bal_pl.toLocaleString("ru-RU");
     bal_pl = bal_pl.replace('-', '- ');
-        $balten_pl.text(bal_pl);
+        $balten_pl.text(bal_pl);    
 
 };

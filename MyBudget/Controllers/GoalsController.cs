@@ -112,7 +112,7 @@ namespace MyBudget.Controllers
             transaction.Name = "Пополнение для \"" + goal.GoalName+"\"";
             transaction.UserId = User.Identity.GetUserId();
             transaction.TransDate = DateTime.Now;
-            transaction.IsPlaned = true;
+            transaction.IsPlaned = false;
             _context.Transactions.Add(transaction);
 
             _context.SaveChanges();

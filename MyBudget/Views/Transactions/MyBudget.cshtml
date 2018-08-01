@@ -9,7 +9,7 @@
 <div class="row">
     <div class="col-md-7 offset-md-1">
         <div class="row" style="user-select:none;margin-bottom:10px;">
-            <div class="col-md-7 text-center">
+            <div class="col-md-6 offset-md-3 text-center">
                 <div class="container">
                     <div class="row">
                         <div style="margin: 0 auto;">
@@ -20,21 +20,13 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-5" style="padding-top:7px;">
-                <a class="btn btn-outline-danger new-trans" href="@Url.Action("TransactionForm", "Transactions", new { id=true} )"><span class="glyphicon glyphicon-minus"></span></a>
-                <a class="btn btn-outline-success new-trans" href="@Url.Action("TransactionForm", "Transactions", new { id=false} )" style="float:right"><span class="glyphicon glyphicon-plus"></span></a>
-            </div>
         </div>
         <div class="row">
-            <div class="tbl-title" onclick="loadTable()">Платежи</div>
-            @if (Model.MyTransactions.Count == 0)
-            {
-                <div id="tbl-w" class="col-12">
-                    <h6 class="no-records">В этом месяце ещё нет платежей</h6>
-                </div>
-            }
-            else
-            {
+            <div class="col-md-6 offset-md-3 text-center tbl-header">                
+                <a class="btn btn-success new-trans" href="@Url.Action("TransactionForm", "Transactions", new { id=false} )"><span class="glyphicon glyphicon-plus"></span></a>                
+                <div class="tbl-title">Платежи</div>                
+                <a class="btn btn-danger new-trans" href="@Url.Action("TransactionForm", "Transactions", new { id=true} )"><span class="glyphicon glyphicon-minus"></span></a>                
+            </div>
 
                 <div id="tbl-w" class="col-12">
                     <table id="transactions_table" class="table table-hover tbl-myList">
@@ -44,45 +36,10 @@
                         <col style="width: 20px">
 
                         <tbody>
-                            @foreach (var transaction in Model.MyTransactions)
-                            {
-                                <tr data-amt="@transaction.Amount" data-IsPlaned="@transaction.IsPlaned">
-                                    <td class="text-center">
-                                        @{
-                                            string btn_planed = "";
-                                            if (transaction.IsPlaned) { btn_planed = "itm-opacity"; }
-                                        }
-                                        <a href="#" class="glyphicon glyphicon-ok glyph-btn occurred @btn_planed js-switch" data-transaction-id="@transaction.Id"></a>
-                                        <!--@Html.ActionLink(" ", "ChangeIsPlaned", "Transactions", new { id = transaction.Id }, new { @class = "glyphicon glyphicon-ok glyph-btn occurred " + btn_planed })-->
 
-                                    </td>
-
-                                    <td onclick="window.location.href = '/Transactions/Edit/'+@transaction.Id;">
-                                        @transaction.Name
-
-                                    </td>
-                                    <td class="text-right" onclick="window.location.href = '/Transactions/Edit/'+@transaction.Id;">
-                                        @{
-                                            string lineClass = "";
-                                            char c = '+';
-                                            if (transaction.IsSpending == true) { lineClass = "text-danger"; c = '-'; }
-                                            else { lineClass = "text-success"; }
-                                        }
-
-                                        @Html.Label(@c + @transaction.Amount.ToString("### ### ### ###") + " ₸", new { @class = lineClass + " amt" })
-                                    </td>
-                                    <td class="text-center">
-                                        <button type="button" class="btn btn-link glyph-btn js-del-tr" data-toggle="modal" data-target="#DelTransactionModal" data-tr-id="@transaction.Id">
-                                            <span class="glyphicon glyphicon-trash"></span>
-                                        </button>
-                                    </td>
-
-                                </tr>
-                            }
                         </tbody>
                     </table>
                 </div>
-            }
             <div style="height:22px;width:100%;margin-bottom: 5px;">
                 <div id="btn-tbl-exp" class="del-btn text-center"><span class="glyph-btn glyphicon glyphicon-chevron-down glyph-btn"></span></div>
             </div>
@@ -263,7 +220,10 @@
                     <div style="text-align:center">
                         <div class="form-group">
                             <label for="Amount">Сумма</label>
-                            <input type="text" id="Amount" name="Amount" class="form-control-lg amt-inp jq-money" style="margin-left:10px;" autocomplete="off" /><span class="cur-inp">₸</span>
+                            <div>
+                                <input type="text" id="Amount" name="Amount" class="form-control-lg amt-inp-mb jq-money" autocomplete="off" />
+                                <span class="cur-inp">₸</span>
+                            </div>
                             <input type="hidden" id="putOnId" name="putOnId" />
                             <input type="hidden" id="catType" name="catType" />
                         </div>

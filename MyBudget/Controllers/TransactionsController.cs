@@ -37,16 +37,11 @@ namespace MyBudget.Controllers
                 dt = DateTime.ParseExact(id, "MMyyyy", CultureInfo.InvariantCulture, DateTimeStyles.None);
 
             var s = dt.ToString("Y", new CultureInfo("ru-RU"));
-            var transactions = _context.Transactions.Where(m => (m.UserId == UserGuid)).ToList().Where(m => m.TransDate.ToString("MMyyyy") == id).ToList();
-            var myListService = new MyListServices(transactions);
 
             var viewModel = new MyListViewModel
             {                
-                MyTransactions = transactions,                
                 MyGoals = _context.Goals.Where(m => m.UserId == UserGuid).ToList(),
-                ListDate = dt.ToString("Y", new CultureInfo("ru-RU")),
-                Rest = myListService.Rest,
-                PlanedRest = myListService.PlanedRest
+                ListDate = dt.ToString("Y", new CultureInfo("ru-RU"))
             };
             return View(viewModel);
         }
@@ -55,6 +50,11 @@ namespace MyBudget.Controllers
         {
             string UserGuid = User.Identity.GetUserId();            
             var categories = _context.Users.Find(UserGuid).Categories.Where(c => c.IsSpendingCategory==id);
+
+            if (id == true)
+                ViewBag.Head = "Добавить расход";
+            else
+                ViewBag.Head = "Добавить доход";
 
             var viewModel = new TransactionFormViewModel
             {
