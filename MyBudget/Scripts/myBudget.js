@@ -120,6 +120,8 @@ function loadTable() {
             if (result == false) {
             }
             if (result != '') {
+
+                var defCur = $(DefCurr).val();
                 $.each(result, function (i, item) {
                     var spendingClass = '';
 
@@ -136,7 +138,7 @@ function loadTable() {
                     if (item.IsPlaned == true) {
                         op_class = "itm-opacity";
                     }
-                    var $td_amt = $('<td class="text-right amt ' + spendingClass + '">').text(opChar + String.fromCharCode(160) + item.Amount.toLocaleString("ru-RU") + ' ₸').on("click", function () {
+                    var $td_amt = $('<td class="text-right amt ' + spendingClass + '">').text(opChar + String.fromCharCode(160) + item.Amount.toLocaleString("ru-RU") + ' ' + defCur).on("click", function () {
                         window.location.href = "/Transactions//Edit/" + item.Id;
                     });
                     var $tr = $('<tr data-amt="' + item.Amount + '" data-IsPlaned="' + item.IsPlaned + '" data-tr-id="' + item.Id + '" data-IsSpending="' + item.IsSpending + '">').append(

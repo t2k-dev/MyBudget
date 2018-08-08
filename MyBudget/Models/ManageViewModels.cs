@@ -11,7 +11,12 @@ namespace MyBudget.Models
         public IList<UserLoginInfo> Logins { get; set; }
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
-        public bool BrowserRemembered { get; set; }        
+        public bool BrowserRemembered { get; set; }
+
+        /*Config*/
+        public string DefCurrency { get; set; }
+        public bool CarryoverRests { get; set; }
+        public bool UseTemplates { get; set; }
     }
 
     public class ManageLoginsViewModel

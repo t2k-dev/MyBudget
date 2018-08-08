@@ -410,3 +410,22 @@ code {
 .tbl-pie-legend td{
     padding:0.5rem
 }
+
+/*Мой кабинет*/
+.conf-panel {
+    background-color: #fbfbfb;
+    margin-bottom: 1rem;
+    border-radius: 9px;
+    padding: 1.5rem 1rem 1rem;
+}
+.conf-panel a{
+    line-height:2rem;
+}
+.conf-list-box {
+    width: 4.5rem;
+    display: inline-block;
+    float: right;
+}
+.conf-panel .form-group {
+    line-height: 2.2rem;
+}

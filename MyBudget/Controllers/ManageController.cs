@@ -65,17 +65,48 @@ namespace MyBudget.Controllers
                 : message == ManageMessageId.RemovePhoneSuccess ? "Ваш номер телефона удален."
                 : "";
 
-            var userId = User.Identity.GetUserId();                        
+            var userId = User.Identity.GetUserId();
+            var user = _context.Users.Single(u => u.Id == userId);
+            var defCurrency = user.DefCurrency;
+            if (defCurrency == "")
+                defCurrency = "₸";
+
+
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)                
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                DefCurrency = defCurrency,
+                CarryoverRests = user.CarryoverRests,
+                UseTemplates = user.UseTemplates
             };
             return View(model);
         }
+
+        // POST: /Manage/SaveConfig
+        [HttpPost]
+        public ActionResult SaveConfig(IndexViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return null;
+            }
+
+            string userId = User.Identity.GetUserId();
+
+            var userInDbo = _context.Users.Single(u => u.Id == userId);
+            userInDbo.DefCurrency = model.DefCurrency;
+            userInDbo.CarryoverRests = model.CarryoverRests;
+            userInDbo.UseTemplates = model.UseTemplates;
+            _context.SaveChanges();
+
+            return RedirectToAction("MyBudget", "Transactions");
+
+        }
+
 
         //
         // POST: /Manage/RemoveLogin

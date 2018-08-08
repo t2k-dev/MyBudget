@@ -30,7 +30,7 @@
                     <label for="Transaction_Amount">Сумма</label>
                     <div>
                         @Html.TextBoxFor(m => m.Transaction.Amount, new { @class = "form-control-lg amt-inp jq-money", autocomplete = "off", maxlength = "13" })
-                        <span class="cur-inp">₸</span>
+                        <span class="cur-inp">@Model.DefCurrency</span>
                     </div>
                 </div>
 

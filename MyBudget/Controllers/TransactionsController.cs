@@ -27,7 +27,7 @@ namespace MyBudget.Controllers
         {
             string UserGuid = User.Identity.GetUserId();
             DateTime dt;
-
+            
             if (String.IsNullOrEmpty(id))//по умолчанию текущий месяц
             { 
                 dt = DateTime.Now;
@@ -38,10 +38,15 @@ namespace MyBudget.Controllers
 
             var s = dt.ToString("Y", new CultureInfo("ru-RU"));
 
+            var defCurrency = _context.Users.Single(u => u.Id == UserGuid).DefCurrency ;
+            if (defCurrency=="")
+                defCurrency = "₸";
+
             var viewModel = new MyListViewModel
             {                
                 MyGoals = _context.Goals.Where(m => m.UserId == UserGuid).ToList(),
-                ListDate = dt.ToString("Y", new CultureInfo("ru-RU"))
+                ListDate = dt.ToString("Y", new CultureInfo("ru-RU")),
+                DefCurrency =  defCurrency
             };
             return View(viewModel);
         }
@@ -51,6 +56,12 @@ namespace MyBudget.Controllers
             string UserGuid = User.Identity.GetUserId();            
             var categories = _context.Users.Find(UserGuid).Categories.Where(c => c.IsSpendingCategory==id);
 
+            var defCurrency = _context.Users.Single(u => u.Id == UserGuid).DefCurrency;
+            if (defCurrency == "")
+                defCurrency = "₸";
+
+
+
             if (id == true)
                 ViewBag.Head = "Добавить расход";
             else
@@ -59,7 +70,8 @@ namespace MyBudget.Controllers
             var viewModel = new TransactionFormViewModel
             {
                 Categories = categories,
-                IsSpending = id
+                IsSpending = id,
+                DefCurrency = defCurrency
             };
             return View(viewModel);
         }

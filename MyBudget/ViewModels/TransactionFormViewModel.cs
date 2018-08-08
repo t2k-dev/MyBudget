@@ -11,5 +11,7 @@ namespace MyBudget.ViewModels
         public IEnumerable<Category> Categories { get; set; }
         public Transaction Transaction { get; set; }
         public bool? IsSpending { get; set; }
+
+        public string DefCurrency { get; set; }
     }
 }

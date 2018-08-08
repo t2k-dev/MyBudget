@@ -4,8 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-
+<input id="DefCurr" type="hidden" value="@Model.DefCurrency"/>
 <div class="row">
     <div class="col-md-7 offset-md-1">
         <div class="row" style="user-select:none;margin-bottom:10px;">
@@ -22,24 +21,22 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6 offset-md-3 text-center tbl-header">                
-                <a class="btn btn-success new-trans" href="@Url.Action("TransactionForm", "Transactions", new { id=false} )"><span class="glyphicon glyphicon-plus"></span></a>                
-                <div class="tbl-title">Платежи</div>                
-                <a class="btn btn-danger new-trans" href="@Url.Action("TransactionForm", "Transactions", new { id=true} )"><span class="glyphicon glyphicon-minus"></span></a>                
+            <div class="col-md-6 offset-md-3 text-center tbl-header">
+                <a class="btn btn-success new-trans" href="@Url.Action("TransactionForm", "Transactions", new { id=false} )"><span class="glyphicon glyphicon-plus"></span></a>
+                <div class="tbl-title">Платежи</div>
+                <a class="btn btn-danger new-trans" href="@Url.Action("TransactionForm", "Transactions", new { id=true} )"><span class="glyphicon glyphicon-minus"></span></a>
             </div>
 
-                <div id="tbl-w" class="col-12">
-                    <table id="transactions_table" class="table table-hover tbl-myList">
-                        <col style="width: 20px">
-                        <col style="width: auto">
-                        <col style="width: 7rem">
-                        <col style="width: 20px">
+            <div id="tbl-w" class="col-12">
+                <table id="transactions_table" class="table table-hover tbl-myList">
+                    <col style="width: 20px">
+                    <col style="width: auto">
+                    <col style="width: 7rem">
+                    <col style="width: 20px">
 
-                        <tbody>
-
-                        </tbody>
-                    </table>
-                </div>
+                    <tbody></tbody>
+                </table>
+            </div>
             <div style="height:22px;width:100%;margin-bottom: 5px;">
                 <div id="btn-tbl-exp" class="del-btn text-center"><span class="glyph-btn glyphicon glyphicon-chevron-down glyph-btn"></span></div>
             </div>
@@ -59,11 +56,11 @@
                 <tr>
                     <td class="rest-real">
                         <span id="balten">0</span>
-                        <span> ₸</span>
+                        <span> @Model.DefCurrency</span>
                     </td>
                     <td class="rest-planed">
                         <span id="balten_pl">0</span>
-                        <span> ₸</span>
+                        <span> @Model.DefCurrency</span>
                     </td>
                 </tr>
             </table>
@@ -101,7 +98,7 @@
                                         string cA;
                                         if (@goal.CurAmount > 0) { cA = @goal.CurAmount.ToString("### ### ### ###"); } else { cA = "0"; }
                                     }
-                                    <span>@cA ₸ из @goal.Amount.ToString("### ### ### ###") ₸</span>
+                                    <span>@cA @Model.DefCurrency из @goal.Amount.ToString("### ### ### ###") @Model.DefCurrency</span>
                                 </h6>
                             </div>
                             @{
@@ -140,7 +137,7 @@
                                         string cA;
                                         if (@debt.CurAmount > 0) { cA = @debt.CurAmount.ToString("### ### ### ###"); } else { cA = "0"; }
                                     }
-                                    <span>@cA ₸ из @debt.Amount.ToString("### ### ### ###") ₸</span>
+                                    <span>@cA @Model.DefCurrency из @debt.Amount.ToString("### ### ### ###") @Model.DefCurrency</span>
                                 </h6>
                             </div>
 
@@ -183,7 +180,7 @@
                                         string cA;
                                         if (@debt.CurAmount > 0) { cA = @debt.CurAmount.ToString("### ### ### ###"); } else { cA = "0"; }
                                     }
-                                    <span>@cA ₸ из @debt.Amount.ToString("### ### ### ###") ₸</span>
+                                    <span>@cA @Model.DefCurrency из @debt.Amount.ToString("### ### ### ###") @Model.DefCurrency</span>
                                 </h6>
                             </div>
                             @{
@@ -205,7 +202,6 @@
 <!-- ************** -->
 <!-- Модальные окна -->
 <!-- ************** -->
-
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -222,7 +218,7 @@
                             <label for="Amount">Сумма</label>
                             <div>
                                 <input type="text" id="Amount" name="Amount" class="form-control-lg amt-inp-mb jq-money" autocomplete="off" />
-                                <span class="cur-inp">₸</span>
+                                <span class="cur-inp">@Model.DefCurrency</span>
                             </div>
                             <input type="hidden" id="putOnId" name="putOnId" />
                             <input type="hidden" id="catType" name="catType" />
