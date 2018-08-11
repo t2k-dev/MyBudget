@@ -19,11 +19,6 @@
     });
 
     /*  Высота таблицы  */
-    var heightTbl = $(window).height() - 270;
-    if ($("#tbl-w").height() > heightTbl) {    
-        $('#btn-tbl-exp').show();
-    }
-    $('#tbl-w').height(heightTbl + 'px');
 
     $('#btn-tbl-exp').on("click", function () {
         var span = $(this).find("span");
@@ -45,7 +40,14 @@
     $('.js-pay-goal').on("click", function () {
         $('#putOnId').val($(this).attr("data-goal-id"));
         $('#catType').val($(this).attr("data-catType"));        
-    });        
+    }); 
+
+    /* Модальное окно "Удалить цель, долг" */
+    $('.js-del-goal').on("click", function () {
+        $('#mb-del-goallId').val($(this).attr("data-goal-id"));
+    });
+
+
 
     /*Для поля Сумма*/
     var $amt = $('.jq-money');
@@ -109,6 +111,11 @@ function loadTable() {
     var dt = mnthStr + year.toString();
     
 
+    /*Высота таблицы*/
+    var heightTbl = $(window).height() - 260;
+    $('#tbl-w').height(heightTbl + 'px');
+
+
     $.ajax({
         url: "/api/transactions?MMyyyy=" + dt,
         method: "GET",
@@ -118,6 +125,7 @@ function loadTable() {
 
             
             if (result == false) {
+                $('#btn-tbl-exp').hide();
             }
             if (result != '') {
 
@@ -155,9 +163,15 @@ function loadTable() {
                     );
 
                     $tr.appendTo('#transactions_table');
-
                 });
-                countBalance();
+                countBalance();               
+                
+                /*Кнопка свернуть-развернуть*/
+                if ($("#transactions_table").height() > heightTbl) {
+                    $('#btn-tbl-exp').show();
+                } else {                    
+                    $('#btn-tbl-exp').hide();
+                }
 
 
                 /*Нажатие на кнопку "Запланировано"*/
@@ -213,7 +227,7 @@ function loadTable() {
                     })
                 });
 
-                /* Модальное окно "Удалить" */
+                /* Модальное окно "Удалить транзакцию" */
                 $('.js-del-tr').on("click", function () {
                     $('#mb-del-transId').val($(this).closest('tr').attr("data-tr-id"));
                 });

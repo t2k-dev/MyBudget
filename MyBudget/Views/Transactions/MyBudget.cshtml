@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<input id="DefCurr" type="hidden" value="@Model.DefCurrency"/>
+<input id="DefCurr" type="hidden" value="@Model.DefCurrency" />
 <div class="row">
     <div class="col-md-7 offset-md-1">
         <div class="row" style="user-select:none;margin-bottom:10px;">
@@ -20,13 +20,18 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6 offset-md-3 text-center tbl-header">
+        <div class="row" style="margin-bottom:0.4rem;">
+            <div class="col-4">
                 <a class="btn btn-success new-trans" href="@Url.Action("TransactionForm", "Transactions", new { id=false} )"><span class="glyphicon glyphicon-plus"></span></a>
-                <div class="tbl-title">Платежи</div>
+            </div>
+            <div class="col-4 tbl-title">
+                Платежи
+            </div>
+            <div class="col-4 text-right">
                 <a class="btn btn-danger new-trans" href="@Url.Action("TransactionForm", "Transactions", new { id=true} )"><span class="glyphicon glyphicon-minus"></span></a>
             </div>
-
+        </div>
+        <div class="row">
             <div id="tbl-w" class="col-12">
                 <table id="transactions_table" class="table table-hover tbl-myList">
                     <col style="width: 20px">
@@ -46,7 +51,7 @@
 
     <div class="col-md-3">
         <div class="w-rest">
-            <table class="tbl-rest" style="margin:0 auto;color: #888; text-align: center;width: 100%;">
+            <table class="tbl-rest" style="">
                 <col style="width: 50%">
                 <col style="width: 50%">
                 <tr>
@@ -67,16 +72,6 @@
         </div>
 
 
-        <div style="margin-bottom: 1rem;">
-            <a href="@Url.Action("GoalForm", "Goals" )" class="crd-add">Добавить цель</a>
-            <a href="@Url.Action("DebtForm", "Goals" )" class="crd-add">Взять в долг</a>
-            <a href="@Url.Action("CreditForm", "Goals" )" class="crd-add">Дать в долг</a>
-        </div>
-
-
-        <hr>
-
-
         @if (Model.MyGoals.Where(x => x.Type == 1).Count() != 0)
         {
             <div class="card text-white bg-info mb-3">
@@ -89,7 +84,9 @@
                     {
                         <div class="crd-itm">
                             <div class="crd-content">
-                                <div class="float-right">@Html.ActionLink(" ", "Delete", "Goals", new { id = goal.Id }, new { @class = "glyphicon glyphicon-trash del-btn-crd" })</div>
+                                <div class="float-right">
+                                    <button data-goal-id="@goal.Id" type="button" class="btn btn-link glyphicon glyphicon-trash glyph-btn del-btn-crd js-del-goal" data-toggle="modal" data-target="#DelTemplateModal"></button>                                    
+                                </div>
                                 <button type="button" class="btn btn-link crd-caption js-pay-goal" data-toggle="modal" data-target="#myModal" data-goal-id="@goal.Id" data-catType="SYS_5">
                                     @goal.GoalName<span class="glyphicon glyphicon-cloud-download pay-goal"></span>
                                 </button>
@@ -194,6 +191,15 @@
                 </div>
             </div>
         }
+        <hr/>
+        <div>
+            <a href="@Url.Action("GoalForm", "Goals" )" class="crd-add">Добавить цель</a>
+            <a href="@Url.Action("DebtForm", "Goals" )" class="crd-add">Взять в долг</a>
+            <a href="@Url.Action("CreditForm", "Goals" )" class="crd-add">Дать в долг</a>
+        </div>
+        <hr/>
+
+
 
     </div>
 </div>
@@ -202,7 +208,7 @@
 <!-- ************** -->
 <!-- Модальные окна -->
 <!-- ************** -->
-<!-- Modal -->
+<!-- Пополнить цель, долг -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -235,6 +241,33 @@
         </div>
     </div>
 </div>
+
+<!--Удаление цели, долга-->
+<div class="modal fade" id="DelTemplateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="close close-mdl" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span></div>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("Delete", "Goals"))
+                {
+                    <div style="text-align:center">
+                        <div class="form-group">
+                            <label>Удалить выбранный элемент?</label>
+                            <input type="hidden" id="mb-del-goallId" name="Id" />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" data-dismiss="modal" class="btn btn-default" style="margin:0 auto;">Нет</button>
+                            <button type="submit" class="btn btn-primary" style="margin:0 auto;">Да</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!--Удаление транзакции-->
 <div class="modal fade" id="DelTransactionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

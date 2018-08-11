@@ -44,7 +44,7 @@ body {
 /* Not required for template or sticky footer method. */
 
 body > .container {
-    padding: 20px 15px 0;
+    padding: 1rem 15px 0;
 }
 
 .footer > .container {
@@ -194,10 +194,11 @@ code {
 .cal-switch:hover {
     color: #0079a1;
 }
-.new-trans {
-    width: 5rem;
+.new-trans {    
     padding: 0.2rem 2rem;
     border-radius: 15px;
+    font-size: 0.8rem;
+    text-align: center;
 }
 .tbl-myList{
     margin-bottom:0;
@@ -205,18 +206,16 @@ code {
 .tbl-header{
     margin-bottom:0.3rem;
 }
-.tbl-title {
-    display: inline-block;
+.tbl-title {    
     font-weight: bold;
     font-size: 0.8rem;
     text-align: center;
-    margin: 0 2rem 0.5rem;
+    margin-top:5px;
 }
 #tbl-w {
     padding: 0;
     overflow: auto;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;    
 }
 #tbl-exp {
     font-size: 1.2rem;
@@ -229,6 +228,7 @@ code {
 #btn-tbl-exp {
     width: 100%;    
     display: none;
+    border-top:1px solid #ddd;
 }
 
 .tbl-myList TD{vertical-align:middle;}
@@ -298,13 +298,18 @@ code {
     text-decoration:none;
 }
 
-.w-rest{
-    background-color:#f9f9f9;
-    padding:0.3rem;
+.w-rest {
+    background-color: #f7f7f7;
+    padding: 0.3rem;
+    margin-bottom: 1rem;
+    border-radius:0.5rem;
 }
 .tbl-rest {
     margin: 0 auto;
-    color: #888;
+    color: #888;            
+    text-align: center;
+    width: 100%;
+    
 }
 .rest-type{
     font-size:0.8rem;
@@ -413,7 +418,7 @@ code {
 
 /*Мой кабинет*/
 .conf-panel {
-    background-color: #fbfbfb;
+    background-color: #f7f7f7;
     margin-bottom: 1rem;
     border-radius: 9px;
     padding: 1.5rem 1rem 1rem;
