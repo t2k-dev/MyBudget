@@ -20,17 +20,23 @@ namespace MyBudget.Controllers
 
         
         public ActionResult DebtForm()
-        {                        
+        {
+            string UserGuid = User.Identity.GetUserId();
+            ViewBag.DefCurrency = _context.Users.SingleOrDefault(u => u.Id == UserGuid).DefCurrency;
             return View();
         }
 
         public ActionResult GoalForm()
         {
+            string UserGuid = User.Identity.GetUserId();
+            ViewBag.DefCurrency = _context.Users.SingleOrDefault(u => u.Id == UserGuid).DefCurrency;
             return View();
         }
 
         public ActionResult CreditForm()
         {
+            string UserGuid = User.Identity.GetUserId();
+            ViewBag.DefCurrency = _context.Users.SingleOrDefault(u => u.Id == UserGuid).DefCurrency;
             return View();
         }
 

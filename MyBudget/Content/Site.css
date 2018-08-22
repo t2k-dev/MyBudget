@@ -415,6 +415,13 @@ code {
 .tbl-pie-legend td{
     padding:0.5rem
 }
+.graph-term-w{
+    margin-top:1rem;
+}
+.leg-marker {
+    width: 2rem;
+    height: 1rem;
+}
 
 /*Мой кабинет*/
 .conf-panel {

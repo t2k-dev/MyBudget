@@ -458,7 +458,7 @@ namespace MyBudget.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("MyBudget", "Transactions");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

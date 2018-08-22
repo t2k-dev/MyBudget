@@ -9,23 +9,18 @@ using System.Web.Http;
 
 namespace MyBudget.Controllers.API
 {
-    public class GraphController : ApiController
+    public class GraphPieController : ApiController
     {
-        private ApplicationDbContext _context;
+        
+        //GET api/graphpie/?term=# 1 - за всё время, 2 - за месяц;
 
-
-        public GraphController()
-        {
-            _context = new ApplicationDbContext();
-        }
-
-
-        public GraphPie GetPie()
+        public IEnumerable<GraphItem> GetGraphPie(int Term)
         {
             string UserGuid = User.Identity.GetUserId();
-            GraphPie graphPie = new GraphPie(UserGuid);
-            return graphPie;
+            GraphPie graphPie = new GraphPie(UserGuid,Term);
+            return graphPie.GraphDataList;
         }
+        
 
 
     }

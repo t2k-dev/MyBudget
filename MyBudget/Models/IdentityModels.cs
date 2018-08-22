@@ -18,7 +18,7 @@ namespace MyBudget.Models
         public string DefCurrency { get; set; }
         public bool CarryoverRests { get; set; }
         public bool UseTemplates { get; set; }
-        public DateTime UpdateDate { get; set; }
+        public DateTime? UpdateDate { get; set; }
 
 
         public ApplicationUser(){

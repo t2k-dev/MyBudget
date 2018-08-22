@@ -19,7 +19,7 @@ namespace MyBudget.Models
         public List<GraphItem> GraphDataList { get; set; }
         //private List<GraphItem> graphDataList;
         
-        public GraphPie(string UserGuid)
+        public GraphPie(string UserGuid, int Term)
         {
             ApplicationDbContext _context = new ApplicationDbContext();
             GraphDataList = new List<GraphItem>();
@@ -42,6 +42,11 @@ namespace MyBudget.Models
             var categories = _context.Users.Find(UserGuid).Categories.Where(c => c.IsSpendingCategory == true);
             var transactions = _context.Transactions.Where(t => t.UserId == UserGuid);
 
+            if (Term == 1) //За текущий месяц
+            {
+                transactions = transactions.Where(t => t.TransDate.Month == DateTime.Now.Month);
+            }
+            
             int i=0;
             foreach (var cat in categories)
             {
@@ -55,6 +60,19 @@ namespace MyBudget.Models
                     i++;
                 }
             }
+
+            /*Для "Без категории"*/
+            GraphItem NullItem = new GraphItem();
+            NullItem.Amount = transactions.Where(t => (t.CategoryId == null)&&(t.IsSpending==true)).ToList().Sum(s => s.Amount);
+            if (NullItem.Amount > 0)
+            {
+                NullItem.Caption = "Без категории";
+                NullItem.Color = arrColors[i];
+                GraphDataList.Add(NullItem);
+                i++;
+            }
+
+
         }
 
         //Строка значений

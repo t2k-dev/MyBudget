@@ -10,12 +10,19 @@ namespace MyBudget.Controllers
 {
     public class GraphController : Controller
     {
-        
+        private ApplicationDbContext _context;
+
+        public GraphController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
+
         public ActionResult Pie()
         {
             string UserGuid = User.Identity.GetUserId();
-            GraphPie graphPie = new GraphPie(UserGuid);
-            return View(graphPie);
+            ViewBag.DefCurrency = _context.Users.SingleOrDefault(u=>u.Id==UserGuid).DefCurrency;
+            return View();
         }
     }
 }

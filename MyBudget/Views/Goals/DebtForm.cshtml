@@ -1,6 +1,6 @@
 ﻿@model MyBudget.Models.Goal
 @{
-    ViewBag.Title = "DebtForm";
+    ViewBag.Title = "Взять в долг";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="row">
@@ -16,7 +16,7 @@
             <div class="form-group">
                 <label for="GoalName">Сумма</label>
                 @Html.TextBoxFor(m => m.Amount, new { @class = "form-control-lg amt-inp jq-money", autocomplete = "off", maxlength = "13" })
-                <span class="cur-inp">₸</span>
+                <span class="cur-inp">@ViewBag.DefCurrency</span>
             </div>
 
             <hr />

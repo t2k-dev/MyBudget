@@ -5,7 +5,7 @@
 }
 <div class="row">
     <div class="col-md-8 offset-md-2">
-        <h2>График расходов</h2>
+        <h2 class="text-center">График расходов</h2>
 
         <div id="canvas-holder" style="width:100%;">
             <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
@@ -18,15 +18,17 @@
             </div>
             <canvas id="chart-area" width="762" height="381" class="chartjs-render-monitor" style="display: block; width: 762px; height: 381px;"></canvas>
         </div>
-        <table class="table tbl-pie-legend">
-        @foreach (var item in @Model.GraphDataList)
-        {
-            <tr>
-                <td><div style="width:40px;height:20px;background-color:@item.Color"></div></td>
-                <td>@item.Caption</td>
-                <td class="text-right">@item.Amount.ToString("### ### ### ###") ₸</td>
-            </tr>
-        }
+
+        <div class="text-center form-group graph-term-w col-md-4 offset-md-4">
+            <select id="graphTerm" class="form-control">
+                <option value="1">За текущий месяц</option>
+                <option value="2">За всё время</option>                
+            </select>
+        </div>
+
+        <input id="DefCurrency" type="hidden" value="@ViewBag.DefCurrency"/>
+        <table id="graphLegend" class="table tbl-pie-legend">
+
         </table>
 
     </div>
@@ -35,27 +37,19 @@
 @section Scripts{
     <script src="~/Scripts/Chart.bundle.js"></script>    
     <script src="~/Scripts/utils.js"></script>
+    <script src="~/Scripts/graph.js"></script>
+
     <script>
-        var randomScalingFactor = function () {
-            return Math.round(Math.random() * 100);
-        };
 
         var config = {
             type: 'pie',
             data: {
                 datasets: [{
-                    data: [@Model.AmountsString()
-                    ],
-                    backgroundColor: [
-                        @Html.Raw(@Model.ColorsString())
-                        ],
+                    data: [],
+                    backgroundColor: [],
                     label: 'Dataset 1'
                 }],
-                labels: [
-                    @Html.Raw(@Model.CaptionsString())
-                    
-                    
-                ]
+                labels: []
             },
             options: {
                 responsive: true,
@@ -71,41 +65,7 @@
             var ctx = document.getElementById('chart-area').getContext('2d');
             window.myPie = new Chart(ctx, config);
         };
-
-        document.getElementById('randomizeData').addEventListener('click', function () {
-            config.data.datasets.forEach(function (dataset) {
-                dataset.data = dataset.data.map(function () {
-                    return randomScalingFactor();
-                });
-            });
-
-            window.myPie.update();
-        });
-
-        var colorNames = Object.keys(window.chartColors);
-        document.getElementById('addDataset').addEventListener('click', function () {
-            var newDataset = {
-                backgroundColor: [],
-                data: [],
-                label: 'New dataset ' + config.data.datasets.length,
-            };
-
-            for (var index = 0; index < config.data.labels.length; ++index) {
-                newDataset.data.push(randomScalingFactor());
-
-                var colorName = colorNames[index % colorNames.length];
-                var newColor = window.chartColors[colorName];
-                newDataset.backgroundColor.push(newColor);
-            }
-
-            config.data.datasets.push(newDataset);
-            window.myPie.update();
-        });
-
-        document.getElementById('removeDataset').addEventListener('click', function () {
-            config.data.datasets.splice(0, 1);
-            window.myPie.update();
-        });
+        
     </script>
 
 
