@@ -24,7 +24,7 @@ namespace MyBudget.Controllers.API
         public IEnumerable<Transaction> GetTransactions(string MMyyyy) 
         {
             string UserGuid = User.Identity.GetUserId();                        
-            var transactions = _context.Transactions.Where(m => (m.UserId == UserGuid)).ToList().Where(m => m.TransDate.ToString("MMyyyy") == MMyyyy).ToList().OrderBy(m=> m.TransDate);
+            var transactions = _context.Transactions.Where(m => (m.UserId == UserGuid)).ToList().Where(m => m.TransDate.ToString("MMyyyy") == MMyyyy).ToList().OrderByDescending(m=> m.TransDate);
             return transactions;
         }
 

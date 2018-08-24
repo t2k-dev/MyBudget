@@ -26,27 +26,33 @@ namespace MyBudget.Controllers
         public ActionResult MyBudget(string id)
         {
             string UserGuid = User.Identity.GetUserId();
-            DateTime dt;
-            
-            if (String.IsNullOrEmpty(id))//по умолчанию текущий месяц
-            { 
-                dt = DateTime.Now;
-                id = dt.ToString("MMyyyy");
-            }
+            var  user = _context.Users.Single(u => u.Id == UserGuid);
+
+
+
+            DateTime dt;            
+            if (String.IsNullOrEmpty(id))             
+                dt = DateTime.Now; //по умолчанию текущий месяц            
             else
                 dt = DateTime.ParseExact(id, "MMyyyy", CultureInfo.InvariantCulture, DateTimeStyles.None);
 
-            var s = dt.ToString("Y", new CultureInfo("ru-RU"));
+            //Ежемесячные платежи
+            if (UpdateDateExpired(user.UpdateDate))
+            {
+                if (user.CarryoverRests)                
+                    AddRestTransaction(UserGuid);                                    
 
-            var defCurrency = _context.Users.Single(u => u.Id == UserGuid).DefCurrency ;
-            if (defCurrency=="")
-                defCurrency = "₸";
+                user.UpdateDate = DateTime.Now;
+                _context.SaveChanges();
+            }
+
+
 
             var viewModel = new MyListViewModel
             {                
                 MyGoals = _context.Goals.Where(m => m.UserId == UserGuid).ToList(),
                 ListDate = dt.ToString("Y", new CultureInfo("ru-RU")),
-                DefCurrency =  defCurrency
+                DefCurrency = user.DefCurrency
             };
             return View(viewModel);
         }
@@ -119,7 +125,9 @@ namespace MyBudget.Controllers
 
         public ActionResult Edit(int id)
         {            
-            string UserGuid = User.Identity.GetUserId();           
+            string UserGuid = User.Identity.GetUserId();
+            var defCurrency = _context.Users.Single(u => u.Id == UserGuid).DefCurrency;
+
             var transaction = _context.Transactions.SingleOrDefault(c => c.Id == id);
             if (transaction == null)
                 return HttpNotFound();
@@ -130,7 +138,8 @@ namespace MyBudget.Controllers
             {
                 Transaction = transaction,
                 Categories = categories,
-                IsSpending = transaction.IsSpending
+                IsSpending = transaction.IsSpending,
+                DefCurrency = defCurrency
             };
 
             return View("TransactionForm",viewModel);
@@ -157,6 +166,44 @@ namespace MyBudget.Controllers
             transaction.IsPlaned = !transaction.IsPlaned;            
             _context.SaveChanges();
             return RedirectToAction("MyBudget", "Transactions");
+        }
+
+        
+        private bool UpdateDateExpired(DateTime? UpdateDate)
+        {
+            if (UpdateDate == null)
+                return true;
+
+            var mDate = (DateTime)UpdateDate;
+            if (mDate.Year < DateTime.Now.Year)
+                return true;
+            else if (mDate.Month < DateTime.Now.Month)
+                return true;
+
+            return false;
+        }
+
+        private void AddRestTransaction(string UserGuid)
+        {            
+            string sDate = DateTime.Now.AddMonths(-1).ToString("MMyyyy");
+            var transactions = _context.Transactions.Where(m => (m.UserId == UserGuid) && (m.IsPlaned==false)).ToList().Where(m => m.TransDate.ToString("MMyyyy") == sDate).ToList();
+            double sum = transactions.Where(x => x.IsSpending == false).Sum(x => x.Amount) - transactions.Where(x => x.IsSpending == true).Sum(x => x.Amount);
+
+            if (sum <= 0)
+                return;
+
+            var transaction = new Transaction
+            {
+                Amount = sum,
+                IsPlaned = false,
+                IsSpending = false,
+                Name = "Остаток за прошлый месяц",
+                UserId = UserGuid,
+                TransDate = DateTime.Now,
+                CategoryId = _context.Categories.SingleOrDefault(c=> c.CreatedBy == "SYS_2").Id
+            };
+
+            _context.Transactions.Add(transaction);
         }
 
     }
