@@ -25,7 +25,7 @@ html {
 
 body {
     /* Margin bottom by footer height */
-    margin-bottom: 60px;
+    margin-bottom: 80px;
 }
 
 .footer {
@@ -33,8 +33,8 @@ body {
     bottom: 0;
     width: 100%;
     /* Set the fixed height of the footer here */
-    height: 60px;
-    line-height: 60px; /* Vertically center the text there */
+    height: 80px;
+    line-height: 80px; /* Vertically center the text there */
     background-color: #f5f5f5;
 }
 
@@ -71,7 +71,7 @@ code {
 .bg-info {background-color: #6095BD !important;}
 .bg-credit {background-color:#52aba2;} /*это новый класс*/
 
-.table th, .table td{font-size:14px;}
+.table th, .table td{font-size:14px;padding:0.5rem}
 .table-hover tbody tr:hover {background-color: rgba(192, 204, 228, 0.075)}
 .card-body {padding: 0.6rem;}
 .form-control-lg {border: 1px solid #ccc;}
@@ -98,11 +98,11 @@ code {
     border-radius: 10px 0 0 10px !important;
 }
 
-.dropdown-menu{
-    border:none;
+.dropdown-menu {
+    border: none;    
 }
-.bg-dark .dropdown-menu{
-    background-color: #395971;
+.bg-dark .dropdown-menu {
+    background-color: #334e63;
 }
 .dropdown-item{
     padding: 0.5rem 1rem;
@@ -130,6 +130,68 @@ code {
 
 
 /*Новые*/
+.h-logo {
+    display: inline-block;
+    margin-top: -0.5rem;
+    background: transparent url('./img/logo-svg.svg')0 0 no-repeat;
+    width: 90px;
+    height: 30px;
+    opacity: 0.9;
+}
+.h-logo:hover{
+    opacity:1;
+}
+/*Hamburger*/
+.hamburger {
+    outline: none !important;
+    border: none !important;
+}
+.hamburger .line {
+    width: 30px;
+    height: 2px;
+    background-color: #ecf0f1;
+    display: block;
+    margin: 6px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.hamburger:hover {
+    cursor: pointer;
+}
+
+/* TEN */
+
+#hamburger-10 {
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+#hamburger-10.is-active {
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+#hamburger-10.is-active .line:nth-child(3) {
+    width: 18px
+}
+
+#hamburger-10.is-active .line:nth-child(2) {
+    width: 24px
+}
+
+/*Validation*/
+.input-validation-error{
+    outline:1px solid red;
+}
+.field-validation-error{
+    font-size:0.8rem;
+}
+
 .btn-cntnr {
     margin-top: 20px;
 }
@@ -167,7 +229,13 @@ code {
     text-align:center;
     margin-bottom:0.5rem;
 }
-
+.enter-btn{
+    width:100%;
+    margin:1rem 0;
+}
+.register-lnk{
+    line-height:inherit !important;
+}
 /*Modal*/
 .close-mdl {
     position: absolute;
@@ -175,7 +243,7 @@ code {
     right: 10px;
     color: #888888;
     opacity: 1;
-    font-size:14px;
+    font-size: 14px;
 }
 .close-mdl:hover {
     color: #ff950d;
@@ -276,33 +344,40 @@ code {
 
 
 .crd-caption {
-    max-width:94%;
+    max-width:100%;
     font-size: 1.2rem;
     font-weight: 300;
-    margin-bottom: 0.5rem;
+    margin:0 0.8rem 0.5rem;
+
     color: #fff;
     user-select: none;
     padding: 0;
     text-decoration: none;
     white-space:normal;
-    text-align:left;
+    text-align:center;
 }
-.crd-caption:hover {
+/*.crd-caption:hover {
     color: #ffe30e;
     text-decoration:none;
-}
+}*/
+
 .crd-caption:active {    
     text-decoration:none;
 }
+
 .crd-caption:focus {    
     text-decoration:none;
 }
 
+.crd-bot{
+    text-align:right;
+    font-size:0.8rem;
+}
 .w-rest {
     background-color: #f7f7f7;
     padding: 0.3rem;
     margin-bottom: 1rem;
-    border-radius:0.5rem;
+    border-radius: 0.5rem;
 }
 .tbl-rest {
     margin: 0 auto;
@@ -334,21 +409,37 @@ code {
 .crd-content {
     position: relative;
     z-index: 1;
-    padding: 12px;
+    padding: 10px;
 }
 
-.pay-goal{margin-left:10px;}
+.pay-goal {
+    position: absolute;
+    bottom: 3px;
+    padding: 0;
+    height: 28px;
+    width: 34px;
+    background: transparent url('./img/cash.svg')0 0 no-repeat;
+    opacity: 0.7;
+}
+
+.pay-goal:hover {
+    opacity:1;
+}
 
 .del-btn-crd {
-    position:absolute;
-    top:10px;
-    right:10px;
+    position: absolute;
     color: #fff;
     opacity: 0.6;
-    font-size:0.9rem;
+    font-size: 0.9rem;
+    
+    top: 0px;
+    right: 0px;
+    padding: 0;
+    color: #fff;
+    margin: 5px 8px;
 }
 .del-btn-crd:hover {
-    color: #fff;
+    color: #fff !important;
     opacity: 1;
     text-decoration: none;
 }
@@ -428,7 +519,7 @@ code {
     background-color: #f7f7f7;
     margin-bottom: 1rem;
     border-radius: 9px;
-    padding: 1.5rem 1rem 1rem;
+    padding: 1rem;
 }
 .conf-panel a{
     line-height:2rem;

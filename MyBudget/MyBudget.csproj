@@ -264,6 +264,10 @@
     <Content Include="Content\datapicker.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\glyph.css" />
+    <Content Include="Content\img\favicon.png" />
+    <Content Include="Content\img\cash.svg" />
+    <Content Include="Content\img\logo-svg.svg" />
+    <Content Include="Content\img\logo.png" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />

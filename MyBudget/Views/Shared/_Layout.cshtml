@@ -1,10 +1,10 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link rel="icon" type="image/png" href="~/Content/img/favicon.png" />
 
     <title>@ViewBag.Title – MyBudget</title>
     @Styles.Render("~/Content/css")
@@ -12,24 +12,25 @@
 
 </head>
 <body>
-    <header>
-        <div class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                @Html.ActionLink("MyBudget", "MyBudget", "Transactions", null, new { @class = "navbar-brand" })                
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarColor01">
-                    <ul class="navbar-nav mr-auto">
-                        <!--<li>@Html.ActionLink("Мой лист", "MyBudget", "Transactions", null, new { @class = "nav-link" })</li>-->
-                        @if (Request.IsAuthenticated)
-                        {
-                            <li class="nav-item"><a class="nav-link" href="@Url.Action("Pie","Graph")"><span style="margin-right:10px;" class="glyphicon glyphicon-stats"></span>Графики</a></li>
-                        }                    
-                        <!--<li class="nav-item"><a class="nav-link" href="#">Контакты</a></li>-->
-                    </ul>
-                    @Html.Partial("_LoginPartial")
+    <header style="background-color:#395971 !important">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 offset-md-1" style="padding:0;">
+                    <div class="navbar navbar-expand-lg navbar-dark bg-dark">
+                        
+                        @Html.ActionLink(" ", "MyBudget", "Transactions", null, new { @class = "h-logo" })
+                        <button class="navbar-toggler hamburger" id="hamburger-10" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="line"></span>
+                            <span class="line"></span>
+                            <span class="line"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarColor01">
+                            <ul class="navbar-nav mr-auto"></ul>
+                            @Html.Partial("_LoginPartial")
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
     </header>
@@ -39,7 +40,15 @@
 
     <footer class="footer">
         <div class="container">
-            <div class="cprght">&copy; @DateTime.Now.Year – MyBudget</div>
+            <div class="row" style="padding-top:15px;">
+                <div class="col-md-4 offset-md-4 text-center">
+
+                    <h6>&copy;2018 – MyBudget</h6>
+                    <h6 style="font-size: 0.8rem;">Email: <a href="mailto:t2k.dev@gmail.com">t2k.dev@gmail.com</a></h6>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
         </div>
     </footer>
 
@@ -47,5 +56,12 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".hamburger").click(function () {
+                $(this).toggleClass("is-active");
+            });
+        });
+    </script>
 </body>
 </html>

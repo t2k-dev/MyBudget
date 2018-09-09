@@ -26,16 +26,16 @@
             </div>
             <div class="form-group">
                 <div class="col-md-10 offset-md-1">
-                    <div class="checkbox chb-remember">
+                    <div class="checkbox chb-remember" style="display:none;">
                         @Html.CheckBoxFor(m => m.RememberMe)
                         @Html.LabelFor(m => m.RememberMe)
                     </div>
-                    <input type="submit" value="Войти" class="btn btn-primary form-btn"/>
+                    <input type="submit" value="Войти" class="btn btn-primary enter-btn"/>
                 </div>
             </div>
-            <p style="margin-top:1rem;text-align:center;margin-bottom:3rem">
-                @Html.ActionLink("Зарегистрироваться", "Register")
-            </p>
+            <div class="conf-panel" style="margin-bottom: 3rem;">
+                @Html.ActionLink("Зарегистрируйтесь", "Register", null, new { @class="register-lnk"}), если у Вас всё ещё нет учетной записи
+            </div>
             @* Включите, когда будет включено подтверждение учетной записи для функции сброса пароля
             <p>
                 @Html.ActionLink("Забыли пароль?", "ForgotPassword")

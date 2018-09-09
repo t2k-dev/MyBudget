@@ -6,6 +6,7 @@
     @Html.AntiForgeryToken()
 
     <ul class="nav navbar-nav navbar-right">
+        <li class="nav-item"><a class="nav-link" href="@Url.Action("Pie","Graph")"><span style="margin-right:10px;" class="glyphicon glyphicon-stats"></span>Графики</a></li>
         <li class="nav-item dropdown" >
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="themes"><span class="glyphicon glyphicon-user"></span> @User.Identity.GetUserName() <span class="caret"></span></a>
             <div class="dropdown-menu" aria-labelledby="themes">
