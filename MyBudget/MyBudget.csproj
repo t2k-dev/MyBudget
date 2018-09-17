@@ -248,6 +248,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MyListServices.cs" />
+    <Compile Include="Models\OpeningConfig.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -264,8 +265,11 @@
     <Content Include="Content\datapicker.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\glyph.css" />
+    <Content Include="Content\img\cash_g.svg" />
     <Content Include="Content\img\favicon.png" />
-    <Content Include="Content\img\cash.svg" />
+    <Content Include="Content\img\cash.svg">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Content\img\logo-svg.svg" />
     <Content Include="Content\img\logo.png" />
     <Content Include="Content\themes\base\accordion.css" />
@@ -466,6 +470,7 @@
     <Content Include="Views\Category\CategoryForm.cshtml" />
     <Content Include="Views\Category\UserCategories.cshtml" />
     <Content Include="Views\Graph\Pie.cshtml" />
+    <Content Include="Views\Manage\OpeningConfig.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

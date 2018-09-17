@@ -63,10 +63,6 @@ namespace MyBudget.Controllers
             var categories = _context.Users.Find(UserGuid).Categories.Where(c => c.IsSpendingCategory==id);
 
             var defCurrency = _context.Users.Single(u => u.Id == UserGuid).DefCurrency;
-            if (defCurrency == "")
-                defCurrency = "₸";
-
-
 
             if (id == true)
                 ViewBag.Head = "Добавить расход";
@@ -85,6 +81,21 @@ namespace MyBudget.Controllers
         [HttpPost]
         public ActionResult Save(Transaction transaction)
         {
+            if (!ModelState.IsValid)
+            {
+                string UserGuid = User.Identity.GetUserId();
+                var categories = _context.Users.Find(UserGuid).Categories.Where(c => c.IsSpendingCategory == transaction.IsSpending);
+
+                var viewModel = new TransactionFormViewModel()
+                {
+                    Transaction = transaction,
+                    Categories = categories
+                };
+
+                return RedirectToAction("TransactionForm", "Transactions", new { id = "True" });
+                    //View("TransactionForm", viewModel,);
+            }
+
             if (transaction.Id == 0)
             {
                 transaction.UserId = User.Identity.GetUserId();

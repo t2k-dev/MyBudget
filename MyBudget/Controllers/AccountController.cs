@@ -172,7 +172,7 @@ namespace MyBudget.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Подтверждение учетной записи", "Подтвердите вашу учетную запись, щелкнув <a href=\"" + callbackUrl + "\">здесь</a>");
 
-                    return RedirectToAction("MyBudget", "Transactions");
+                    return RedirectToAction("OpeningConfig", "Manage");
                 }
                 AddErrors(result);
             }

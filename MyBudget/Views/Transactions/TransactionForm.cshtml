@@ -75,51 +75,51 @@ else
 
     </div>
 </div>
-    @section scripts
+@section scripts
 {
-        <script type="text/javascript">
-            $(document).ready(function () {
+    <script type="text/javascript">
+        $(document).ready(function () {
 
-                /*Для поля Сумма*/
-                var $amt = $('.jq-money');
+            /*Для поля Сумма*/
+            var $amt = $('.jq-money');
 
-                if ($amt.val() !== '') {
-                    var num = parseInt($amt.val(), 10);
-                    $amt.val(num.toLocaleString("ru-RU"));
-                }
+            if ($amt.val() !== '') {
+                var num = parseInt($amt.val(), 10);
+                $amt.val(num.toLocaleString("ru-RU"));
+            }
 
-                $amt.on("keyup", function (event) {
-                    var selection = window.getSelection().toString();
-                    if (selection !== '') { return; }
+            $amt.on("keyup", function (event) {
+                var selection = window.getSelection().toString();
+                if (selection !== '') { return; }
 
-                    if ($.inArray(event.keyCode, [38, 40, 37, 39]) !== -1) { return; }
+                if ($.inArray(event.keyCode, [38, 40, 37, 39]) !== -1) { return; }
 
-                    var $this = $(this);
-                    var input = $this.val();
+                var $this = $(this);
+                var input = $this.val();
 
-                    input = input.replace(/[\D\s\._\-]+/g, "");
-                    input = input ? parseInt(input, 10) : 0;
-                    $this.val(function () {
-                        return (input === 0) ? "" : input.toLocaleString("ru-RU");
-                    });
+                input = input.replace(/[\D\s\._\-]+/g, "");
+                input = input ? parseInt(input, 10) : 0;
+                $this.val(function () {
+                    return (input === 0) ? "" : input.toLocaleString("ru-RU");
                 });
-
-                $('form').submit(function () {
-                    var textValue = $amt.val();
-                    $amt.val(textValue.replace(String.fromCharCode(160), ""));
-                });
-                /*---*/
             });
 
-
-            jQuery('#sandbox-container').datepicker({
-                format: "dd.mm.yyyy",
-                minViewMode: 0,
-                todayBtn: "linked",
-                language: "ru",
-                autoclose: true,
-                defaultViewDate: { year: 2018, month: 01, day: 01 }
+            $('form').submit(function () {
+                var textValue = $amt.val();
+                $amt.val(textValue.replace(/[\D\s\._\-]+/g, ""));
             });
-        </script>
+            /*---*/
+        });
+
+
+        jQuery('#sandbox-container').datepicker({
+            format: "dd.mm.yyyy",
+            minViewMode: 0,
+            todayBtn: "linked",
+            language: "ru",
+            autoclose: true,
+            defaultViewDate: { year: 2018, month: 01, day: 01 }
+        });
+    </script>
 
     }

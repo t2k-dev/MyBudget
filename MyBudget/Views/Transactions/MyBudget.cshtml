@@ -56,7 +56,10 @@
                 <col style="width: 50%">
                 <tr>
                     <td class="rest-type">Баланс</td>
-                    <td class="rest-type">Плановый</td>
+                    <td class="rest-type">
+                        Плановый
+                        <span style="position: absolute;top: 0.25rem; margin-left: 0.5rem" class="details-btn" data-toggle="modal" data-target="#planedBudgInfo">?</span>
+                    </td>
                 </tr>
                 <tr>
                     <td class="rest-real">
@@ -84,10 +87,10 @@
                     {
                         <div class="crd-itm">
                             <div class="crd-content">
-                                <button data-goal-id="@goal.Id" type="button" class="btn btn-link glyphicon glyphicon-trash del-btn-crd js-del-goal" data-toggle="modal" data-target="#DelTemplateModal"></button>                                    
-                                
+                                <button data-goal-id="@goal.Id" type="button" class="btn btn-link glyphicon glyphicon-trash del-btn-crd js-del-goal" data-toggle="modal" data-target="#DelTemplateModal"></button>
+
                                 <div class="crd-caption">@goal.GoalName</div>
-                                
+
                                 <button type="button" class="btn btn-link js-pay-goal pay-goal" data-toggle="modal" data-target="#myModal" data-goal-id="@goal.Id" data-catType="SYS_5"></button>
 
                                 <div class="crd-bot">
@@ -129,8 +132,8 @@
 
                                 <div class="crd-caption">@debt.GoalName</div>
 
-                                <button type="button" class="btn btn-link js-pay-goal pay-goal" data-toggle="modal" data-target="#myModal" data-goal-id="@debt.Id" data-catType="SYS_3"></button>                                
-                              
+                                <button type="button" class="btn btn-link js-pay-goal pay-goal" data-toggle="modal" data-target="#myModal" data-goal-id="@debt.Id" data-catType="SYS_3"></button>
+
                                 <div class="crd-bot">
                                     @{
                                         string cA;
@@ -177,11 +180,11 @@
                                         if (@debt.CurAmount > 0) { cA = @debt.CurAmount.ToString("### ### ### ###"); } else { cA = "0"; }
                                     }
                                     <span>@cA @Model.DefCurrency из @debt.Amount.ToString("### ### ### ###") @Model.DefCurrency</span>
-                                    </div>
                                 </div>
-                                @{
-                                    string progress = (@debt.CurAmount * 100 / @debt.Amount).ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US"));
-                                }
+                            </div>
+                            @{
+                                string progress = (@debt.CurAmount * 100 / @debt.Amount).ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US"));
+                            }
                             <div class="progress progress-credit">
                                 <div class="progress-bar progress-bar-credit" style="width:@progress%;"></div>
                             </div>
@@ -190,13 +193,17 @@
                 </div>
             </div>
         }
-        <hr/>
-        <div>
+        <hr />
+        <div style="position: relative;">
             <a href="@Url.Action("GoalForm", "Goals" )" class="crd-add">Добавить цель</a>
             <a href="@Url.Action("DebtForm", "Goals" )" class="crd-add">Взять в долг</a>
             <a href="@Url.Action("CreditForm", "Goals" )" class="crd-add">Дать в долг</a>
+            <div style="position: absolute;top:-10px;right: 1rem;">
+                <span class="details-btn" data-toggle="modal" data-target="#goalsInfo">?</span>
+            </div>
+
         </div>
-        <hr/>
+        <hr />
 
 
 
@@ -294,8 +301,56 @@
     </div>
 </div>
 
+<!-- Подсказка по плановому балансу -->
+<div class="modal fade" id="planedBudgInfo" tabindex="-1" role="dialog" aria-labelledby="planedBudgInfo">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="close close-mdl" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+                </div>
+            </div>
+            <div class="modal-body info-body">
+                <p>
+                    <b>"Плановый"</b> баланс позволяет отследить остаток средств с учетом ещё не проведенных, но запланированных выплат.
+                </p>
+                <div style="width: 200px; margin: 0 auto 1rem">
+                    <span style="margin-right: 1rem;color: #888888;" class="glyphicon glyphicon-ok"></span> проведенный платеж<br />
+                    <span style="opacity: 0.4; margin-right:1rem;color: #888888;" class="glyphicon glyphicon-ok"></span> запланированный платеж
+                </div>
+                <p>
+                    Чтобы перевести платеж в статус "запланированный" нажмите на галочку перед наименованием платежа.
+                </p>
 
+            </div>
 
+        </div>
+    </div>
+</div>
+
+<!-- Подсказка по целям -->
+<div class="modal fade" id="goalsInfo" tabindex="-1" role="dialog" aria-labelledby="goalsInfo">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="close close-mdl" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+                </div>
+            </div>
+            <div class="modal-body info-body">
+                <p>
+                    В приложении <span style="color: #395971;font-weight: bold;">MyBudget</span> можно вести учет своих целей и долгов.
+                </p>
+                <!--<p>Для того чтобы редактировать, нажмите на наименование.</p>-->
+                <p>
+                    Для того, чтобы отложить деньги на цель или долг нажмите кнопку "пополнить" <span class="pay-goal-g"></span> .
+                    При этом появится соответствующий платеж в общем списке.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 
 

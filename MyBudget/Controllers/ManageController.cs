@@ -366,7 +366,33 @@ namespace MyBudget.Controllers
             base.Dispose(disposing);
         }
 
-#region Вспомогательные приложения
+        // GET: /Manage/OpeningConfig
+        public ActionResult OpeningConfig()
+        {
+            return View();
+        }
+
+        // POST: /Manage/SetOpeningConfig
+        [HttpPost]
+        public ActionResult SetOpeningConfig(OpeningConfig model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return null;
+            }
+
+            string userId = User.Identity.GetUserId();
+
+            var userInDbo = _context.Users.Single(u => u.Id == userId);
+            userInDbo.DefCurrency = model.DefCurrency;
+            userInDbo.CarryoverRests = model.CarryoverRests;            
+            _context.SaveChanges();
+
+            return RedirectToAction("MyBudget", "Transactions");            
+        }
+
+
+        #region Вспомогательные приложения
         // Используется для защиты от XSRF-атак при добавлении внешних имен входа
         private const string XsrfKey = "XsrfId";
 
