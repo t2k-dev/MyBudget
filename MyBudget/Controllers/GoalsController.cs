@@ -18,78 +18,99 @@ namespace MyBudget.Controllers
             _context = new ApplicationDbContext();
         }
 
-        
-        public ActionResult DebtForm()
-        {
-            string UserGuid = User.Identity.GetUserId();
-            ViewBag.DefCurrency = _context.Users.SingleOrDefault(u => u.Id == UserGuid).DefCurrency;
-            return View();
-        }
-
         public ActionResult GoalForm()
         {
             string UserGuid = User.Identity.GetUserId();
             ViewBag.DefCurrency = _context.Users.SingleOrDefault(u => u.Id == UserGuid).DefCurrency;
-            return View();
+
+            Goal goal = new Goal
+            {
+                UserId = UserGuid,
+                Type = 1
+            };
+
+            return View(goal);
+        }
+
+        public ActionResult DebtForm()
+        {
+            string UserGuid = User.Identity.GetUserId();
+            ViewBag.DefCurrency = _context.Users.SingleOrDefault(u => u.Id == UserGuid).DefCurrency;
+
+            Goal goal = new Goal
+            {
+                UserId = UserGuid,
+                Type = 2
+            };
+
+            return View(goal);
         }
 
         public ActionResult CreditForm()
         {
             string UserGuid = User.Identity.GetUserId();
             ViewBag.DefCurrency = _context.Users.SingleOrDefault(u => u.Id == UserGuid).DefCurrency;
-            return View();
-        }
 
+            Goal goal = new Goal
+            {
+                UserId = UserGuid,
+                Type = 3
+            };
 
-        [HttpPost]
-        public ActionResult SaveDebt(Goal goal)
-        {
-            if (goal.Id == 0)
-            {
-                goal.Type = 2; //Для новых определяем что это мой долг
-                goal.UserId = User.Identity.GetUserId();
-                _context.Goals.Add(goal);
-            }
-            else
-            {
-            }
-            _context.SaveChanges();
-            return RedirectToAction("MyBudget", "Transactions");
+            return View(goal);
+
         }
 
         [HttpPost]
         public ActionResult SaveGoal(Goal goal)
         {
+            if (!ModelState.IsValid)
+            {
+                string formName = "";
+                switch (goal.Type) {
+                    case 1:
+                        formName = "GoalForm";
+                        break;
+                    case 2:
+                        formName = "DebtForm";
+                        break;
+                    case 3:
+                        formName = "CreditForm";
+                        break;
+                }
+                return View(formName, goal);
+            }
+
+
             if (goal.Id == 0)
             {
-                goal.Type = 1; //Для новых определяем что это цель
-                goal.UserId = User.Identity.GetUserId();
                 _context.Goals.Add(goal);
+
+                /*if (goal.Type==2)
+                {
+                    Transaction transaction = new Transaction
+                    {
+                        Amount = goal.Amount,
+                        CategoryId = cat.Id,
+                        IsSpending = cat.IsSpendingCategory,
+                        Name = "Пополнение для \"" + goal.GoalName + "\"",
+                        UserId = User.Identity.GetUserId(),
+                        TransDate = DateTime.Now,
+                        IsPlaned = false
+                    };
+                    _context.Transactions.Add(transaction);
+
+                }*/
+
+
             }
             else
             {
+                /*Редактирование*/
             }
             _context.SaveChanges();
             return RedirectToAction("MyBudget", "Transactions");
         }
-
-        [HttpPost]
-        public ActionResult SaveCredit(Goal goal)
-        {
-            if (goal.Id == 0)
-            {
-                goal.Type = 3; //Для новых определяем что это долг мне
-                goal.UserId = User.Identity.GetUserId();
-                _context.Goals.Add(goal);
-            }
-            else
-            {
-            }
-            _context.SaveChanges();
-            return RedirectToAction("MyBudget", "Transactions");
-        }
-
-
 
         public ActionResult Delete(int id)
         {
@@ -111,14 +132,16 @@ namespace MyBudget.Controllers
 
             goal.CurAmount += Amount;
 
-            Transaction transaction = new Transaction();
-            transaction.Amount = Amount;
-            transaction.CategoryId = cat.Id;
-            transaction.IsSpending = cat.IsSpendingCategory;
-            transaction.Name = "Пополнение для \"" + goal.GoalName+"\"";
-            transaction.UserId = User.Identity.GetUserId();
-            transaction.TransDate = DateTime.Now;
-            transaction.IsPlaned = false;
+            Transaction transaction = new Transaction
+            {
+                Amount = Amount,
+                CategoryId = cat.Id,
+                IsSpending = cat.IsSpendingCategory,
+                Name = "Пополнение для \"" + goal.GoalName + "\"",
+                UserId = User.Identity.GetUserId(),
+                TransDate = DateTime.Now,
+                IsPlaned = false
+            };
             _context.Transactions.Add(transaction);
 
             _context.SaveChanges();

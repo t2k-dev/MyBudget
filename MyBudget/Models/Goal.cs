@@ -10,13 +10,15 @@ namespace MyBudget.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required (ErrorMessage="Введите название")]
+        [Display(Name = "Название")]
         public string GoalName { get; set; }
 
         [Required]
         public byte Type { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Введите сумму")]
+        [Display(Name = "Сумма")]
         public double Amount { get; set; } /*Общая сумма*/
 
         public double CurAmount { get; set; } /*Накопленная сумма*/

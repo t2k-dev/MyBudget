@@ -12,8 +12,7 @@
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
         {
             @Html.AntiForgeryToken()
-            
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        
             <div class="form-group">
                 <label for="UserName" class="control-label">Имя пользователя</label>                
                     @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
@@ -33,7 +32,8 @@
                     <input type="submit" value="Войти" class="btn btn-primary enter-btn"/>
                 </div>
             </div>
-            <div class="conf-panel" style="margin-bottom: 3rem;">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger login-error" })
+            <div class="conf-panel" style="margin-bottom: 3rem;text-align:center;">
                 @Html.ActionLink("Зарегистрируйтесь", "Register", null, new { @class="register-lnk"}), если у Вас всё ещё нет учетной записи
             </div>
             @* Включите, когда будет включено подтверждение учетной записи для функции сброса пароля

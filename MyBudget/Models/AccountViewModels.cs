@@ -67,16 +67,16 @@ namespace MyBudget.Models
 
     public class RegisterViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Введите имя пользователя")]
         [Display(Name = "Имя пользователя")]
         public string UserName { get; set; }
 
-        [Required]
-        [EmailAddress]
-        [Display(Name = "Адрес электронной почты")]
+        [Required(ErrorMessage = "Введите Email")]
+        [EmailAddress(ErrorMessage ="Введите корректный email")]
+        [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Введите пароль")]
         [StringLength(100, ErrorMessage = "Значение {0} должно содержать не менее {2} символов.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]

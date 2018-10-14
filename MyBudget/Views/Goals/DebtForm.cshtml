@@ -7,17 +7,21 @@
     <div class="col-md-4 offset-md-4 frm1">
         <h3 class="form-title">Новый долг</h3>
 
-        @using (Html.BeginForm("SaveDebt", "Goals"))
+        @using (Html.BeginForm("SaveGoal", "Goals"))
         {
             <div class="form-group">
                 <label for="GoalName">Наименование</label>
                 @Html.TextBoxFor(m => m.GoalName, new { @class = "form-control", autocomplete = "off", spellcheck = "false" })
+                @Html.ValidationMessageFor(m => m.GoalName, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
                 <label for="GoalName">Сумма</label>
-                @Html.TextBoxFor(m => m.Amount, new { @class = "form-control-lg amt-inp jq-money", autocomplete = "off", maxlength = "13" })
+                @Html.TextBoxFor(m => m.Amount, new { @class = "form-control-lg amt-inp jq-money", autocomplete = "off", maxlength = "13", type = "tel" })
+                @Html.ValidationMessageFor(m => m.Amount, "", new { @class = "text-danger" })
                 <span class="cur-inp">@ViewBag.DefCurrency</span>
             </div>
+            @Html.HiddenFor(m => m.UserId)
+            @Html.HiddenFor(m => m.Type)
 
             <hr />
             <div class="col-md-10 offset-md-1 btn-cntnr text-center ">
@@ -34,6 +38,9 @@
 
         /*Для поля Сумма*/
         var $amt = $('.jq-money');
+        
+        if ($amt.val() == "0")
+            $amt.val("");                                            
 
         if ($amt.val() !== '') {
             var num = parseInt($amt.val(), 10);

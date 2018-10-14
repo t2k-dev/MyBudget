@@ -81,7 +81,7 @@ namespace MyBudget.Controllers
         [HttpPost]
         public ActionResult Save(Transaction transaction)
         {
-            if (!ModelState.IsValid)
+            /*if (!ModelState.IsValid)
             {
                 string UserGuid = User.Identity.GetUserId();
                 var categories = _context.Users.Find(UserGuid).Categories.Where(c => c.IsSpendingCategory == transaction.IsSpending);
@@ -94,7 +94,7 @@ namespace MyBudget.Controllers
 
                 return RedirectToAction("TransactionForm", "Transactions", new { id = "True" });
                     //View("TransactionForm", viewModel,);
-            }
+            }*/
 
             if (transaction.Id == 0)
             {
