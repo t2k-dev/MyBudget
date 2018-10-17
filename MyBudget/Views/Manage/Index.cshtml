@@ -78,71 +78,90 @@
                         }
                     }*@
             </dd>-->
-            <hr/>
-            <a href="@Url.Action("UserCategories", "Category")">Категории</a><br />            
+            <hr />
+            <a href="@Url.Action("UserCategories", "Category")">Категории</a><br />
         </div>
         <h6 class="pr-sec-ttl">Персональные настройки</h6>
         @using (Html.BeginForm("SaveConfig", "Manage"))
         {
-        <div class="conf-panel">
-            <div class="form-group">
-                <span>Валюта по умолчанию </span>
-                @Html.DropDownList("DefCurrency", new SelectList(
-                  new[]
-                  {
-                    new { Value = "", Text = "" },
-                    new { Value = "₸", Text = "₸" },
-                    new { Value = "$", Text = "$" },
-                    new { Value = "€", Text = "€" },
-                    new { Value = "₽", Text = "₽" },
-                    new { Value = "£", Text = "£" }
-                  },
-                  "Value",
-                  "Text",
-                  Model.DefCurrency
-              ), new { @class = "form-control conf-list-box" })
+            <div class="conf-panel">
+                <div class="form-group">
+                    <span>Валюта по умолчанию </span>
+                    @Html.DropDownList("DefCurrency", new SelectList(
+                           new[]
+                           {
+                        new { Value = "", Text = "" },
+                        new { Value = "₸", Text = "₸" },
+                        new { Value = "$", Text = "$" },
+                        new { Value = "€", Text = "€" },
+                        new { Value = "₽", Text = "₽" },
+                        new { Value = "£", Text = "£" }
+                           },
+                           "Value",
+                           "Text",
+                           Model.DefCurrency
+                       ), new { @class = "form-control conf-list-box" })
+                </div>
+                <div class="form-group">
+                    <span>Перенос остатка </span>
+                    <span style="margin-left: 0.5rem" class="details-btn" data-toggle="modal" data-target="#RestModal">?</span>
+
+                    @Html.DropDownList("CarryoverRests", new SelectList(
+                          new[]
+                          {
+                        new { Value = "true", Text = "Да" },
+                        new { Value = "false", Text = "Нет" },
+                          },
+                          "Value",
+                          "Text",
+                          Model.CarryoverRests
+                      ), new { @class = "form-control conf-list-box" })
+
+                </div>
+                <div class="form-group" style="opacity:0.5;">
+                    <span>Ежемесячные платежи </span>
+                    @Html.DropDownList("UseTemplates", new SelectList(
+                          new[]
+                          {
+                        new { Value = "true", Text = "Да" },
+                        new { Value = "false", Text = "Нет" },
+                          },
+                          "Value",
+                          "Text",
+                          Model.UseTemplates
+                      ), new { @class = "form-control conf-list-box", disabled = "yes" })
+
+                </div>
+
+
+
+                <div class="text-right" style="margin-top:2rem;">
+                    <input type="submit" value="Сохранить изменения" class="btn btn-sm btn-primary" />
+                </div>
             </div>
-            <div class="form-group">
-                <span>Перенос остатка </span>
-                @Html.DropDownList("CarryoverRests", new SelectList(
-                 new[]
-                 {
-                    new { Value = "true", Text = "Да" },
-                    new { Value = "false", Text = "Нет" },
-                 },
-                 "Value",
-                 "Text",
-                 Model.CarryoverRests
-             ), new { @class = "form-control conf-list-box" })
-
-            </div>
-            <div class="form-group" style="opacity:0.5;">
-                <span>Ежемесячные платежи </span>
-                @Html.DropDownList("UseTemplates", new SelectList(
-                 new[]
-                 {
-                    new { Value = "true", Text = "Да" },
-                    new { Value = "false", Text = "Нет" },
-                 },
-                 "Value",
-                 "Text",
-                 Model.UseTemplates
-             ), new { @class = "form-control conf-list-box", disabled = "yes" })
-
-            </div>
-
-
-
-            <div class="text-right" style="margin-top:2rem;">
-                <input type="submit" value="Сохранить изменения" class="btn btn-sm btn-primary" />
-            </div>
-        </div>
         }
     </div>
 </div>
+<!-- ************** -->
+<!-- Модальные окна -->
+<!-- ************** -->
+<!-- Переносить остаток Инфо -->
+<div class="modal fade" id="RestModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                Перенос остатка
+                <div class="close close-mdl" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span></div>
+            </div>
+            <div class="modal-body">
+                <label>Если у Вас остались средства на балансе за прошлый месяц, они появятся как доход в новом месяце.</label>
+            </div>
 
+        </div>
+    </div>
+</div>
 @section scripts
 {
     <script src="~/Scripts/manage.js"></script>
-        
+
 }

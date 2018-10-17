@@ -86,12 +86,12 @@ namespace MyBudget.Controllers
             {
                 _context.Goals.Add(goal);
 
-                /*if (goal.Type==2)
+                /*if (goal.Type==Goal.TypeDebt)
                 {
                     Transaction transaction = new Transaction
                     {
                         Amount = goal.Amount,
-                        CategoryId = cat.Id,
+                        CategoryId = ,
                         IsSpending = cat.IsSpendingCategory,
                         Name = "Пополнение для \"" + goal.GoalName + "\"",
                         UserId = User.Identity.GetUserId(),
@@ -109,6 +109,7 @@ namespace MyBudget.Controllers
                 /*Редактирование*/
             }
             _context.SaveChanges();
+
             return RedirectToAction("MyBudget", "Transactions");
         }
 

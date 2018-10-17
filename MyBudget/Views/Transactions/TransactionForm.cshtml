@@ -6,13 +6,17 @@
 <div class="row">
     <div class="col-md-4 offset-md-4 frm1">
 
-        @if (Model.Transaction != null)
+        @if (Model.Transaction.Id != 0)
         {
             <h3 class="form-title">Редактировать</h3>
         }
-        else
+        else if (Model.Transaction.IsSpending==true)
         {
-            <h3 class="form-title">@ViewBag.Head</h3>
+            <h3 class="form-title">Добавить расход</h3>
+        }
+        else if (Model.Transaction.IsSpending==false)
+        {
+            <h3 class="form-title">Добавить доход</h3>
         }
 
 
@@ -22,22 +26,23 @@
             <form-group>
 
                 <div class="form-group">
-                    <label for="Transaction_Name">Описание</label>
-                    @Html.TextBoxFor(m => m.Transaction.Name, new { @class = "form-control", autocomplete = "off", spellcheck = "false" })
+                    <label for="Transaction_CategoryId">Категория</label>
+                    @Html.DropDownListFor(m => m.Transaction.CategoryId, new SelectList(Model.Categories, "Id", "Name"), "Без категории", new { @class = "form-control inp-short" })
+                    <a href="@Url.Action("UserCategories", "Category" )" class="glyphicon glyphicon-cog glyph-btn glyph-btn-lg"></a>
                 </div>
 
                 <div class="form-group">
-                    <label for="Transaction_Amount">Сумма</label>
+                    <label for="Transaction_Amount">Сумма <span class="txt-orange">*</span></label>
                     <div>
                         @Html.TextBoxFor(m => m.Transaction.Amount, new { @class = "form-control-lg amt-inp jq-money", autocomplete = "off", maxlength = "13", type = "tel" })
                         <span class="cur-inp">@Model.DefCurrency</span>
+                        @Html.ValidationMessageFor(m => m.Transaction.Amount, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="Transaction_CategoryId">Категория</label>
-                    @Html.DropDownListFor(m => m.Transaction.CategoryId, new SelectList(Model.Categories, "Id", "Name"), "Без категории", new { @class = "form-control inp-short" })
-                    <a href="@Url.Action("UserCategories", "Category" )" class="glyphicon glyphicon-cog glyph-btn glyph-btn-lg"></a> 
+                    <label for="Transaction_Name">Описание</label>
+                    @Html.TextBoxFor(m => m.Transaction.Name, new { @class = "form-control", autocomplete = "off", spellcheck = "false" })
                 </div>
 
                 <div class="form-group">
@@ -64,7 +69,7 @@ else
                     <label for="Description">Подробнее</label>
                     @Html.TextAreaFor(m => m.Transaction.Description, new { @class = "form-control" })
                 </div>
-                @Html.HiddenFor(m => m.Transaction.IsSpending, new { @Value = Model.IsSpending })
+                @Html.HiddenFor(m => m.Transaction.IsSpending)
                 @Html.HiddenFor(m => m.Transaction.Id)
                 @Html.HiddenFor(m => m.Transaction.UserId)
                 <div class="col-md-10 offset-md-1  btn-cntnr">
@@ -83,6 +88,10 @@ else
 
             /*Для поля Сумма*/
             var $amt = $('.jq-money');
+
+            if ($amt.val() == '0') {
+                $amt.val('');
+            }
 
             if ($amt.val() !== '') {
                 var num = parseInt($amt.val(), 10);

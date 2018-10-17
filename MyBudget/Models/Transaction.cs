@@ -9,11 +9,11 @@ namespace MyBudget.Models
     public class Transaction
     {
         public int Id { get; set; }
-
-        [Required]
+        
         public string Name { get; set; }
 
-        [Required]
+        [Range(1, 100000000, ErrorMessage ="Сумма должна быть больше нуля")]
+        [Required(ErrorMessage ="Укажите сумму")]
         public double Amount { get; set; }
 
         public DateTime TransDate { get; set; }

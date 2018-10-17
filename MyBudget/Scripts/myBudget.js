@@ -141,6 +141,12 @@ function loadTable() {
                         var opChar = '+'
                         spendingClass = 'text-success'
                     }
+                    
+                    if (item.Name == null) {
+                        
+                        item.Name = "Без описания";
+                    }
+
 
                     var op_class = "";
                     if (item.IsPlaned == true) {

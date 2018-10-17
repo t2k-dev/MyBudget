@@ -208,9 +208,12 @@ code {
     width: 24px
 }
 
+.txt-orange {
+    color:#ff950d;
+}
 /*Validation*/
-.input-validation-error{
-    outline:1px solid #F04124;
+.input-validation-error {
+    outline: 1px solid #F04124;
 }
 .field-validation-error{
     font-size:0.8rem;
@@ -308,6 +311,11 @@ code {
 }
 .modal-footer{padding-bottom:0px;}
 
+.modal-header {
+    color: #395971;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
 
 /*MyBudget*/
 .cal-switch {
@@ -554,7 +562,7 @@ code {
 .glyph-btn-lg {
     font-size: 1.6rem;        
     top: 0.35rem;
-    margin-left: 0.5rem
+    margin-left: 0.1rem
 }
 /*Кабинет*/
 .pr-sec-ttl {

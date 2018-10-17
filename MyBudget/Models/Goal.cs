@@ -18,6 +18,7 @@ namespace MyBudget.Models
         public byte Type { get; set; }
 
         [Required(ErrorMessage = "Введите сумму")]
+        [Range(1, 100000000, ErrorMessage ="Введите Сумму")]
         [Display(Name = "Сумма")]
         public double Amount { get; set; } /*Общая сумма*/
 
@@ -34,5 +35,8 @@ namespace MyBudget.Models
 
         public DateTime? CompleteDate { get; set; }
 
+        public static readonly byte TypeGoal = 1;
+        public static readonly byte TypeDebt = 2;
+        public static readonly byte TypeCredit = 3;
     }
 }

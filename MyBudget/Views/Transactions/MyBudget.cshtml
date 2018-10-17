@@ -22,13 +22,13 @@
         </div>
         <div class="row" style="margin-bottom:0.4rem;">
             <div class="col-4">
-                <a class="btn btn-success new-trans" href="@Url.Action("TransactionForm", "Transactions", new { id=false} )"><span class="glyphicon glyphicon-plus"></span></a>
+                <a class="btn btn-success new-trans" href="@Url.Action("AddIncome", "Transactions")"><span class="glyphicon glyphicon-plus"></span></a>
             </div>
             <div class="col-4 tbl-title">
                 Платежи
             </div>
             <div class="col-4 text-right">
-                <a class="btn btn-danger new-trans" href="@Url.Action("TransactionForm", "Transactions", new { id=true} )"><span class="glyphicon glyphicon-minus"></span></a>
+                <a class="btn btn-danger new-trans" href="@Url.Action("AddSpending", "Transactions")"><span class="glyphicon glyphicon-minus"></span></a>
             </div>
         </div>
         <div class="row">
@@ -227,16 +227,16 @@
                 {
                     <div style="text-align:center">
                         <div class="form-group">
-                            <label for="Amount">Сумма</label>
-                            <div>
-                                <input type="tel" id="Amount" name="Amount" class="form-control-lg amt-inp-mb jq-money" autocomplete="off" maxlength="13"/>
+                            <label for="Amount" style="margin-right:1rem;">Сумма</label>
+                            <div style="display:inline-block;">
+                                <input type="tel" id="Amount" name="Amount" style="width:10rem;" class="form-control-lg amt-inp-mb jq-money" autocomplete="off" maxlength="13"/>
                                 <span class="cur-inp">@Model.DefCurrency</span>
                             </div>
                             <input type="hidden" id="putOnId" name="putOnId" />
                             <input type="hidden" id="catType" name="catType" />
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-success" style="margin:0 auto;">Пополнить</button>
+                            <button type="submit" class="btn btn-success" style="margin:0 auto;padding:0.5rem 3rem;">Пополнить</button>
                         </div>
                     </div>
                 }
@@ -306,13 +306,14 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
+                Планирование
                 <div class="close close-mdl" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true" class="glyphicon glyphicon-remove"></span>
                 </div>
             </div>
             <div class="modal-body info-body">
                 <p>
-                    <b>"Плановый"</b> баланс позволяет отследить остаток средств с учетом ещё не проведенных, но запланированных выплат.
+                    <b style="color:#395971;">"Плановый"</b> баланс позволяет отследить остаток средств с учетом ещё не проведенных, но запланированных выплат.
                 </p>
                 <div style="width: 200px; margin: 0 auto 1rem">
                     <span style="margin-right: 1rem;color: #888888;" class="glyphicon glyphicon-ok"></span> проведенный платеж<br />
@@ -333,6 +334,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
+                Цели, долги
                 <div class="close close-mdl" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true" class="glyphicon glyphicon-remove"></span>
                 </div>

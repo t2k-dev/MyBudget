@@ -71,34 +71,80 @@ namespace MyBudget.Controllers
 
             var viewModel = new TransactionFormViewModel
             {
+                Transaction = new Transaction(),
                 Categories = categories,
-                IsSpending = id,
+                //IsSpending = id,
                 DefCurrency = defCurrency
             };
             return View(viewModel);
         }
 
+        public ActionResult AddSpending()
+        {
+            ViewBag.Head = "Добавить расход";
+            string UserGuid = User.Identity.GetUserId();
+            var categories = _context.Users.Find(UserGuid).Categories.Where(c => c.IsSpendingCategory == true).OrderBy(c => c.Name);
+            var defCurrency = _context.Users.Single(u => u.Id == UserGuid).DefCurrency;
+            
+            var transaction = new Transaction();
+            transaction.IsSpending = true;
+            transaction.TransDate = DateTime.Now;
+            transaction.UserId = UserGuid;
+
+            var viewModel = new TransactionFormViewModel
+            {
+                Transaction = transaction,
+                Categories = categories,                
+                DefCurrency = defCurrency
+            };
+
+            return View("TransactionForm", viewModel);
+        }
+
+        public ActionResult AddIncome()
+        {
+            ViewBag.Head = "Добавить доход";
+            string UserGuid = User.Identity.GetUserId();
+            var categories = _context.Users.Find(UserGuid).Categories.Where(c => c.IsSpendingCategory == false).OrderBy(c=>c.Name);
+            var defCurrency = _context.Users.Single(u => u.Id == UserGuid).DefCurrency;
+
+            var transaction = new Transaction();
+            transaction.IsSpending = false;
+            transaction.TransDate = DateTime.Now;
+            transaction.UserId = UserGuid;
+
+            var viewModel = new TransactionFormViewModel
+            {
+                Transaction = transaction,
+                Categories = categories,                
+                DefCurrency = defCurrency
+            };
+
+            return View("TransactionForm", viewModel);
+        }
+
+
         [HttpPost]
         public ActionResult Save(Transaction transaction)
         {
-            /*if (!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 string UserGuid = User.Identity.GetUserId();
-                var categories = _context.Users.Find(UserGuid).Categories.Where(c => c.IsSpendingCategory == transaction.IsSpending);
+                var categories = _context.Users.Find(UserGuid).Categories.Where(c => c.IsSpendingCategory == transaction.IsSpending).OrderBy(c => c.Name);
+                var defCurrency = _context.Users.Single(u => u.Id == UserGuid).DefCurrency;
 
                 var viewModel = new TransactionFormViewModel()
                 {
-                    Transaction = transaction,
-                    Categories = categories
+                    Transaction = transaction,                    
+                    Categories = categories,
+                    DefCurrency = defCurrency
                 };
 
-                return RedirectToAction("TransactionForm", "Transactions", new { id = "True" });
-                    //View("TransactionForm", viewModel,);
-            }*/
+                return View("TransactionForm", viewModel);
+            }
 
             if (transaction.Id == 0)
-            {
-                transaction.UserId = User.Identity.GetUserId();
+            {                
                 _context.Transactions.Add(transaction);
             }
             else
@@ -131,6 +177,8 @@ namespace MyBudget.Controllers
                 }
             }
 
+            
+
             return RedirectToAction("MyBudget", "Transactions");
         }
 
@@ -149,7 +197,7 @@ namespace MyBudget.Controllers
             {
                 Transaction = transaction,
                 Categories = categories,
-                IsSpending = transaction.IsSpending,
+                //IsSpending = transaction.IsSpending,
                 DefCurrency = defCurrency
             };
 
