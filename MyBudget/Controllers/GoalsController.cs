@@ -18,47 +18,77 @@ namespace MyBudget.Controllers
             _context = new ApplicationDbContext();
         }
 
-        public ActionResult GoalForm()
+        public ActionResult AddGoal()
         {
             string UserGuid = User.Identity.GetUserId();
-            ViewBag.DefCurrency = _context.Users.SingleOrDefault(u => u.Id == UserGuid).DefCurrency;
 
-            Goal goal = new Goal
+            var goal = new Goal
             {
-                UserId = UserGuid,
-                Type = 1
+                Type = 1, /*Цель*/
+                UserId = UserGuid
             };
 
-            return View(goal);
+            var viewModel = new GoalFormViewModel
+            {
+                Goal = goal,
+                DefCurrency = _context.Users.SingleOrDefault(u => u.Id == UserGuid).DefCurrency
+            };
+
+            return View("GoalForm",viewModel);
         }
 
-        public ActionResult DebtForm()
+        public ActionResult AddDebt()
         {
             string UserGuid = User.Identity.GetUserId();
-            ViewBag.DefCurrency = _context.Users.SingleOrDefault(u => u.Id == UserGuid).DefCurrency;
 
-            Goal goal = new Goal
+            var goal = new Goal
             {
-                UserId = UserGuid,
-                Type = 2
+                Type = 2, /*Взять в долг*/
+                UserId = UserGuid
             };
 
-            return View(goal);
+            var viewModel = new GoalFormViewModel
+            {
+                Goal = goal,
+                DefCurrency = _context.Users.SingleOrDefault(u => u.Id == UserGuid).DefCurrency
+            };
+
+            return View("GoalForm", viewModel);
         }
 
-        public ActionResult CreditForm()
+        public ActionResult AddCredit()
         {
             string UserGuid = User.Identity.GetUserId();
-            ViewBag.DefCurrency = _context.Users.SingleOrDefault(u => u.Id == UserGuid).DefCurrency;
 
-            Goal goal = new Goal
+            
+            var goal = new Goal
             {
-                UserId = UserGuid,
-                Type = 3
+                Type = 3, /*Дать в долг*/
+                UserId = UserGuid
             };
 
-            return View(goal);
+            var viewModel = new GoalFormViewModel
+            {
+                Goal = goal,
+                DefCurrency = _context.Users.SingleOrDefault(u => u.Id == UserGuid).DefCurrency
+            };
 
+            return View("GoalForm", viewModel);
+        }
+
+
+        public ActionResult Edit(int id)
+        {
+            string UserGuid = User.Identity.GetUserId();            
+            var goal = _context.Goals.SingleOrDefault(g => g.Id == id);
+
+            var viewModel = new GoalFormViewModel
+            {
+                Goal = goal,
+                DefCurrency = _context.Users.SingleOrDefault(u => u.Id == UserGuid).DefCurrency
+            };
+
+            return View("GoalForm", viewModel);
         }
 
         [HttpPost]
@@ -66,19 +96,15 @@ namespace MyBudget.Controllers
         {
             if (!ModelState.IsValid)
             {
-                string formName = "";
-                switch (goal.Type) {
-                    case 1:
-                        formName = "GoalForm";
-                        break;
-                    case 2:
-                        formName = "DebtForm";
-                        break;
-                    case 3:
-                        formName = "CreditForm";
-                        break;
-                }
-                return View(formName, goal);
+                string UserGuid = User.Identity.GetUserId();
+
+                var viewModel = new GoalFormViewModel
+                {
+                    Goal = goal,
+                    DefCurrency = _context.Users.SingleOrDefault(u => u.Id == UserGuid).DefCurrency
+                };
+
+                return View("GoalForm", viewModel);
             }
 
 
@@ -104,9 +130,14 @@ namespace MyBudget.Controllers
 
 
             }
-            else
+            else /*Редактирование*/
             {
-                /*Редактирование*/
+                var goalInDb = _context.Goals.Single(g => g.Id == goal.Id);
+                goalInDb.GoalName = goal.GoalName;
+                goalInDb.Amount = goal.Amount;
+                goalInDb.CurAmount = goal.CurAmount;                
+                goalInDb.CompleteDate = goal.CompleteDate;
+                goalInDb.IsActive = goal.IsActive;                
             }
             _context.SaveChanges();
 

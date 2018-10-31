@@ -19,6 +19,15 @@
     });
 
     /*  Высота таблицы  */
+    $('#btnPutMoney').on('click', function () {
+
+        amtInp = $('#Amount');        
+        if (amtInp.val() == '') {
+            amtInp.addClass('input-validation-error');            
+            return false;
+        }
+        
+    })
 
     $('#btn-tbl-exp').on("click", function () {
         var span = $(this).find("span");
@@ -38,6 +47,8 @@
     
     /*Пополнить цель/долг*/
     $('.js-pay-goal').on("click", function () {
+
+        $('#Amount').removeClass('input-validation-error')
         $('#putOnId').val($(this).attr("data-goal-id"));
         $('#catType').val($(this).attr("data-catType"));        
     }); 
@@ -144,7 +155,7 @@ function loadTable() {
                     
                     if (item.Name == null) {
                         
-                        item.Name = "Без описания";
+                        item.Name = "---";
                     }
 
 

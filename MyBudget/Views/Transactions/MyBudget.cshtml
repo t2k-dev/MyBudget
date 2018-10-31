@@ -89,7 +89,7 @@
                             <div class="crd-content">
                                 <button data-goal-id="@goal.Id" type="button" class="btn btn-link glyphicon glyphicon-trash del-btn-crd js-del-goal" data-toggle="modal" data-target="#DelTemplateModal"></button>
 
-                                <div class="crd-caption">@goal.GoalName</div>
+                                <a class="crd-caption" href="@Url.Action("Edit", "Goals", new { id = goal.Id})">@goal.GoalName </a>
 
                                 <button type="button" class="btn btn-link js-pay-goal pay-goal" data-toggle="modal" data-target="#myModal" data-goal-id="@goal.Id" data-catType="SYS_5"></button>
 
@@ -130,7 +130,7 @@
                             <div class="crd-content">
                                 <button data-goal-id="@debt.Id" type="button" class="btn btn-link glyphicon glyphicon-trash del-btn-crd js-del-goal" data-toggle="modal" data-target="#DelTemplateModal"></button>
 
-                                <div class="crd-caption">@debt.GoalName</div>
+                                <a class="crd-caption" href="@Url.Action("Edit", "Goals", new { id = debt.Id})">@debt.GoalName </a>
 
                                 <button type="button" class="btn btn-link js-pay-goal pay-goal" data-toggle="modal" data-target="#myModal" data-goal-id="@debt.Id" data-catType="SYS_3"></button>
 
@@ -171,7 +171,7 @@
                         <div class="crd-itm">
                             <div class="crd-content">
                                 <button data-goal-id="@debt.Id" type="button" class="btn btn-link glyphicon glyphicon-trash del-btn-crd js-del-goal" data-toggle="modal" data-target="#DelTemplateModal"></button>
-                                <div class="crd-caption">@debt.GoalName</div>
+                                <a class="crd-caption" href="@Url.Action("Edit", "Goals", new { id = debt.Id})">@debt.GoalName </a>
 
                                 <button type="button" class="btn btn-link js-pay-goal pay-goal" data-toggle="modal" data-target="#myModal" data-goal-id="@debt.Id" data-catType="SYS_1"></button>
                                 <div class="crd-bot">
@@ -195,9 +195,9 @@
         }
         <hr />
         <div style="position: relative;">
-            <a href="@Url.Action("GoalForm", "Goals" )" class="crd-add">Добавить цель</a>
-            <a href="@Url.Action("DebtForm", "Goals" )" class="crd-add">Взять в долг</a>
-            <a href="@Url.Action("CreditForm", "Goals" )" class="crd-add">Дать в долг</a>
+            <a href="@Url.Action("AddGoal", "Goals" )" class="crd-add">Добавить цель</a>
+            <a href="@Url.Action("AddDebt", "Goals" )" class="crd-add">Взять в долг</a>
+            <a href="@Url.Action("AddCredit", "Goals" )" class="crd-add">Дать в долг</a>
             <div style="position: absolute;top:-10px;right: 1rem;">
                 <span class="details-btn" data-toggle="modal" data-target="#goalsInfo">?</span>
             </div>
@@ -236,7 +236,7 @@
                             <input type="hidden" id="catType" name="catType" />
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-success" style="margin:0 auto;padding:0.5rem 3rem;">Пополнить</button>
+                            <button type="submit" id="btnPutMoney" class="btn btn-success" style="margin:0 auto;padding:0.5rem 3rem;">Пополнить</button>
                         </div>
                     </div>
                 }
@@ -343,7 +343,7 @@
                 <p>
                     В приложении <span style="color: #395971;font-weight: bold;">MyBudget</span> можно вести учет своих целей и долгов.
                 </p>
-                <!--<p>Для того чтобы редактировать, нажмите на наименование.</p>-->
+                <p>Для того чтобы редактировать, нажмите на наименование.</p>
                 <p>
                     Для того, чтобы отложить деньги на цель или долг нажмите кнопку "пополнить" <span class="pay-goal-g"></span> .
                     При этом появится соответствующий платеж в общем списке.

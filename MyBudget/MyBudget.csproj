@@ -257,6 +257,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CategoryFormViewModel.cs" />
+    <Compile Include="ViewModels\GoalFormViewModel.cs" />
     <Compile Include="ViewModels\MyListViewModel.cs" />
     <Compile Include="ViewModels\TransactionFormViewModel.cs" />
     <Compile Include="ViewModels\UserCategoriesViewModel.cs" />
@@ -468,9 +469,7 @@
       <BrowseToURL>~/Transactions/MyBudget</BrowseToURL>
     </Content>
     <Content Include="Views\Transactions\TransactionForm.cshtml" />
-    <Content Include="Views\Goals\DebtForm.cshtml" />
     <Content Include="Views\Goals\GoalForm.cshtml" />
-    <Content Include="Views\Goals\CreditForm.cshtml" />
     <Content Include="Views\Category\CategoryForm.cshtml" />
     <Content Include="Views\Category\UserCategories.cshtml" />
     <Content Include="Views\Graph\Pie.cshtml" />
