@@ -24,6 +24,15 @@
         {
 
             <form-group>
+                <div class="form-group">
+                    <label for="Transaction_Amount">Сумма <span class="txt-orange">*</span></label>
+                    <div>
+                        @Html.TextBoxFor(m => m.Transaction.Amount, new { @class = "form-control-lg amt-inp jq-money", autocomplete = "off", maxlength = "13", type = "tel", autofocus = "true" })
+                        <span class="cur-inp">@Model.DefCurrency</span>
+                        @Html.ValidationMessageFor(m => m.Transaction.Amount, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
 
                 <div class="form-group">
                     <label for="Transaction_CategoryId">Категория</label>
@@ -31,14 +40,6 @@
                     <a href="@Url.Action("UserCategories", "Category" )" class="glyphicon glyphicon-cog glyph-btn glyph-btn-lg"></a>
                 </div>
 
-                <div class="form-group">
-                    <label for="Transaction_Amount">Сумма <span class="txt-orange">*</span></label>
-                    <div>
-                        @Html.TextBoxFor(m => m.Transaction.Amount, new { @class = "form-control-lg amt-inp jq-money", autocomplete = "off", maxlength = "13", type = "tel" })
-                        <span class="cur-inp">@Model.DefCurrency</span>
-                        @Html.ValidationMessageFor(m => m.Transaction.Amount, "", new { @class = "text-danger" })
-                    </div>
-                </div>
 
                 <div class="form-group">
                     <label for="Transaction_Name">Описание</label>

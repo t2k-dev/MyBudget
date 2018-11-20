@@ -78,13 +78,15 @@
                         }
                     }*@
             </dd>-->
-            <hr />
-            <a href="@Url.Action("UserCategories", "Category")">Категории</a><br />
         </div>
         <h6 class="pr-sec-ttl">Персональные настройки</h6>
         @using (Html.BeginForm("SaveConfig", "Manage"))
         {
             <div class="conf-panel">
+                <div class="form-group">                                
+                    <a href="@Url.Action("UserCategories", "Category")">Мои категории</a>
+                    <hr />
+                </div>
                 <div class="form-group">
                     <span>Валюта по умолчанию </span>
                     @Html.DropDownList("DefCurrency", new SelectList(

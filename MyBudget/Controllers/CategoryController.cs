@@ -34,15 +34,58 @@ namespace MyBudget.Controllers
         {
             var viewModel = new CategoryFormViewModel
             {                
-                IsSpending = id
+                
             };
             return View(viewModel);            
+        }
+
+        public ActionResult AddSpendingCategory()
+        {
+            var category = new Category()
+            {
+                IsSpendingCategory = true,
+                CreatedBy = User.Identity.GetUserId()
+            };
+
+            var viewmodel = new CategoryFormViewModel
+            {
+                Category = category                
+            };
+
+            return View("CategoryForm",viewmodel);
+        }
+
+        public ActionResult AddIncomeCategory()
+        {
+            var category = new Category()
+            {
+                IsSpendingCategory = false,
+                CreatedBy = User.Identity.GetUserId()
+            };
+
+            var viewmodel = new CategoryFormViewModel
+            {
+                Category = category                
+            };
+
+            return View("CategoryForm", viewmodel);
         }
 
 
         [HttpPost]
         public ActionResult Save(Category category)
         {
+            if (!ModelState.IsValid)
+            {
+                var viewmodel = new CategoryFormViewModel
+                {
+                    Category = category                    
+                };
+
+                return View("CategoryForm", viewmodel);
+            }
+                
+
             if (category.Id == 0)
             {
                 var UserGuid = User.Identity.GetUserId();
@@ -55,7 +98,7 @@ namespace MyBudget.Controllers
                 /*Для редактирования*/
             }
             _context.SaveChanges();
-            return RedirectToAction("Index", "Manage");
+            return RedirectToAction("UserCategories", "Category");
         }
 
         public ActionResult DeleteFromMyCategories(int id)

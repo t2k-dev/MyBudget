@@ -13,10 +13,12 @@
         <div class="form-group">
             <label for="Name">Название</label>
             @Html.TextBoxFor(m => m.Category.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Category.Name, "", new { @class = "text-danger" })
         </div>
-        @Html.HiddenFor(m => m.Category.IsSpendingCategory, new { @Value = Model.IsSpending })
+        @Html.HiddenFor(m => m.Category.IsSpendingCategory)
         @Html.HiddenFor(m => m.Category.Id)
         @Html.HiddenFor(m => m.Category.CreatedBy)
+        <hr/>
         <div class="text-center btn-cntnr">
             <button type="submit" class="btn btn-success">Сохранить</button>
         </div>

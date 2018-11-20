@@ -11,7 +11,7 @@ namespace MyBudget.Models
     {        
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Введите название")]
         [MaxLength(50)]        
         public String Name { get; set; }
         public bool IsSpendingCategory { get; set; }

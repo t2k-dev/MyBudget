@@ -8,8 +8,6 @@ namespace MyBudget.ViewModels
 {
     public class CategoryFormViewModel
     {
-        public Category Category { get; set; } 
-        public bool? IsSpending { get; set; }
-        
+        public Category Category { get; set; }                 
     }
 }

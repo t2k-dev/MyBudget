@@ -112,21 +112,38 @@ namespace MyBudget.Controllers
             {
                 _context.Goals.Add(goal);
 
-                /*if (goal.Type==Goal.TypeDebt)
+                if (goal.Type==Goal.TypeCredit) //Дать в долг
                 {
                     Transaction transaction = new Transaction
                     {
                         Amount = goal.Amount,
-                        CategoryId = ,
-                        IsSpending = cat.IsSpendingCategory,
-                        Name = "Пополнение для \"" + goal.GoalName + "\"",
+                        CategoryId = _context.Categories.SingleOrDefault(c=> c.CreatedBy == "SYS_4").Id,
+                        IsSpending = true,
+                        Name = "Дать в долг \"" + goal.GoalName + "\"",
                         UserId = User.Identity.GetUserId(),
                         TransDate = DateTime.Now,
                         IsPlaned = false
                     };
                     _context.Transactions.Add(transaction);
 
-                }*/
+                }
+                else if (goal.Type == Goal.TypeDebt) //Взять в долг
+                {
+                    Transaction transaction = new Transaction
+                    {
+                        Amount = goal.Amount,
+                        CategoryId = _context.Categories.SingleOrDefault(c => c.CreatedBy == "SYS_6").Id,
+                        IsSpending = false,
+                        Name = "Взять в долг \"" + goal.GoalName + "\"",
+                        UserId = User.Identity.GetUserId(),
+                        TransDate = DateTime.Now,
+                        IsPlaned = false
+                    };
+                    _context.Transactions.Add(transaction);
+
+                }
+
+
 
 
             }
