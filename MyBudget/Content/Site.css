@@ -396,7 +396,11 @@ code {
 
 .card-header>h5{margin-bottom:0;}
 
-
+.cat-name {
+    color: #395971;
+    font-weight: bold;
+    font-size: 0.7rem;
+}
 
 .crd-add {
     width: 70%;

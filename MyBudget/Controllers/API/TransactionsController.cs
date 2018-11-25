@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
+using MyBudget.Dtos;
 using MyBudget.Models;
 using System;
 using System.Collections.Generic;
@@ -21,11 +23,15 @@ namespace MyBudget.Controllers.API
 
         //GET api/transactions
 
-        public IEnumerable<Transaction> GetTransactions(string MMyyyy) 
-        {
-            string UserGuid = User.Identity.GetUserId();                        
-            var transactions = _context.Transactions.Where(m => (m.UserId == UserGuid)).ToList().Where(m => m.TransDate.ToString("MMyyyy") == MMyyyy).ToList().OrderByDescending(m=> m.TransDate);
-            return transactions;
+        public IEnumerable<TransactionDto> GetTransactions(int year,int month) 
+        {            
+            string UserGuid = User.Identity.GetUserId();
+            //var transactions = _context.Transactions.Where(m => (m.UserId == UserGuid)).ToList().Where(m => m.TransDate.ToString("MMyyyy") == MMyyyy).ToList().OrderByDescending(m=> m.TransDate);
+            var transactions = from c in _context.Transactions.Include("Category")
+                               where c.UserId == UserGuid && c.TransDate.Year == year && c.TransDate.Month == month
+                               orderby c.TransDate descending
+                               select c;
+            return transactions.Select(Mapper.Map<Transaction,TransactionDto>);
         }
 
 

@@ -117,9 +117,9 @@ function setingDate(r) {
 function loadTable() {
     
     var month = $('#sandbox-container').datepicker("getDate").getMonth() + 1;
-    var mnthStr = (month < 10) ? '0' + month.toString() : month.toString();
+    //var mnthStr = (month < 10) ? '0' + month.toString() : month.toString();
     var year = $('#sandbox-container').datepicker("getDate").getFullYear().toString();
-    var dt = mnthStr + year.toString();
+    //var dt = mnthStr + year.toString();
     
 
     /*Высота таблицы*/
@@ -128,7 +128,7 @@ function loadTable() {
 
 
     $.ajax({
-        url: "/api/transactions?MMyyyy=" + dt,
+        url: "/api/transactions?year=" + year + "&month=" + month,
         method: "GET",
         success: function (result) {
             $('#transactions_table tbody').remove();
@@ -153,9 +153,11 @@ function loadTable() {
                         spendingClass = 'text-success'
                     }
                     
-                    if (item.Name == null) {
-                        
+                    if (item.Name == null) {                        
                         item.Name = "---";
+                    }
+                    if (item.CategoryName == null) {
+                        item.CategoryName = "";
                     }
 
 
@@ -170,9 +172,13 @@ function loadTable() {
                         /*Кнопка "запланировано"*/
                         $('<td class="text-center js-switch ' + op_class + '">').append($('<span class="glyphicon glyphicon-ok glyph-btn occured"></span>')),
                         /*Наименование*/
-                        $("<td>").text(item.Name).on("click", function () {
+                        $("<td>").text(item.Name).append($('<div class="cat-name">').text(item.CategoryName)).on("click", function () {
                             window.location.href = "/Transactions//Edit/" + item.Id;
                         }),
+
+                        /*$("<td>").text(item.Name).on("click", function () {
+                            window.location.href = "/Transactions//Edit/" + item.Id;
+                        }),*/
                         /*Сумма*/
                         $td_amt,
                         /*Кнопка "Удалить"*/

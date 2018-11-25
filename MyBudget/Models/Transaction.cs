@@ -33,5 +33,6 @@ namespace MyBudget.Models
         [MaxLength(128)]
         public string UserId { get; set; }
 
+
     }
 }
