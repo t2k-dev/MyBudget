@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using ClosedXML.Excel;
+using Microsoft.AspNet.Identity;
 using MyBudget.Models;
 using MyBudget.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -264,6 +266,73 @@ namespace MyBudget.Controllers
             };
 
             _context.Transactions.Add(transaction);
+        }
+
+        public FileResult ExportToExcel(DateTime? ExcelSince, DateTime? ExcelTill)
+        {
+
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Транзакции");
+
+                //создадим заголовки у столбцов
+                worksheet.Cell("A" + 1).Value = "Дата";
+                worksheet.Cell("B" + 1).Value = "Наименование";
+                worksheet.Cell("C" + 1).Value = "Категория";
+                worksheet.Cell("D" + 1).Value = "Сумма";
+
+                worksheet.Range("A1:D1").Style.Fill.BackgroundColor = XLColor.FromArgb(59,89,113);
+                worksheet.Range("A1:D1").Style.Font.FontColor = XLColor.White;
+                
+                // Заполняем данными
+                string UserGuid = User.Identity.GetUserId();
+                var transactions = from c in _context.Transactions.Include("Category")
+                                   where c.UserId == UserGuid                                   
+                                   select c;
+
+                if (ExcelSince != null)
+                    transactions = transactions.Where(t => t.TransDate >= ExcelSince);
+
+                if (ExcelTill != null)
+                    transactions = transactions.Where(t => t.TransDate <= ExcelTill);
+                
+                int k = 1;
+                foreach(var t in transactions)
+                {
+                    k++;
+                    worksheet.Cell("A" + k).Value = t.TransDate.ToShortDateString();
+                    worksheet.Cell("B" + k).Value = t.Name;
+                    if (t.Category != null)
+                        worksheet.Cell("C" + k).Value = t.Category.Name;                    
+                    if (t.IsSpending) {
+                        worksheet.Cell("D" + k).Value = -t.Amount;
+                        worksheet.Cell("D" + k).Style.Font.FontColor = XLColor.FromArgb(245, 105, 93);
+                    }
+                    else {
+                        worksheet.Cell("D" + k).Value = t.Amount;
+                        worksheet.Cell("D" + k).Style.Font.FontColor = XLColor.FromArgb(67, 172, 106);                        
+                    }
+                    worksheet.Cell("D" + k).Style.Font.Bold = true;
+                }
+
+                // пример создания сетки в диапазоне
+                var rngTable = worksheet.Range("A2:D" + k);
+                rngTable.Style.Border.RightBorder = XLBorderStyleValues.Thin;
+                rngTable.Style.Border.BottomBorder = XLBorderStyleValues.Thin;
+
+                worksheet.Columns().AdjustToContents(); //ширина столбца по содержимому
+
+                // вернем пользователю файл без сохранения его на сервере
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "MyBudget.xlsx");
+                }
+
+
+            };
+            
+            
         }
 
 

@@ -12,6 +12,33 @@
     
 }
 
+.datepicker td, .datepicker th {
+    font-size: 1rem;
+    width: 30px;
+    height: 30px;
+}
+
+@media (max-width: 767px) {
+    .datepicker {
+        left: 50% !important;
+        margin-left: -130px !important;
+    }
+}
+
+.datepicker table {
+    border-collapse: initial;
+    border-spacing: 5px;
+}
+
+.datepicker table tr td.active.active, .datepicker table tr td span.active.active {
+    background-color: #395971 !important;
+    background-image: none;
+}        
+
+.datepicker{
+    border: 1px solid #ddd !important;
+}
+
 .progress {
     height: 8px;
     background: #e3e3e3;
@@ -60,4 +87,12 @@
     0% {
         width: 10%;
     }
+}
+
+.dt-inp-modal {
+    max-width:96px;
+    border: 1px solid #ddd;
+    font-weight: 300;
+    cursor: pointer;
+    background-color: transparent;
 }

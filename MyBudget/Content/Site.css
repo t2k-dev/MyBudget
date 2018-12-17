@@ -118,22 +118,6 @@ code {
 .navbar-nav {
     text-align: center;
 }
-/*Датапикер*/
-
-.datepicker td, .datepicker th {font-size: 1rem;width: 30px;height: 30px;}
-@media (max-width: 767px) {
-    .datepicker {left: 50% !important;margin-left: -130px !important;}
-
-}
-.datepicker table {
-    border-collapse: initial;
-    border-spacing: 5px;
-}
-.datepicker table tr td.active.active, .datepicker table tr td span.active.active {
-    background-color: #395971 !important;
-    background-image: none;
-}
-
 
 
 /*Новые*/
@@ -167,6 +151,11 @@ code {
 .info-body {
     text-align: justify;
     font-size: 0.8rem
+}
+
+.hlp-text{
+    font-size:0.8rem;
+    color:#888;
 }
 
 /*Hamburger*/
@@ -321,6 +310,11 @@ code {
     font-size: 0.9rem;
 }
 
+.bg-calendar {
+    background: transparent url('./img/calendar.svg')0 0 no-repeat;
+    width: 1.4rem;
+    margin: 0.35rem 0 0 0.3rem;
+}
 /*MyBudget*/
 .cal-switch {
     cursor: pointer;
@@ -529,8 +523,18 @@ code {
     text-decoration: none;
 }
 
+.excel-btn {    
+    bottom: 3px;
+    padding: 0;
+    height: 50px;
+    width: 50px;    
+    opacity: 0.7;
+}
 
 
+.excel-btn svg:hover path{    
+    fill:#217345;
+}
 
 
 .progress-goal {

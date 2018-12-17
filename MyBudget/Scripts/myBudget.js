@@ -18,6 +18,28 @@
         loadTable();
     });
 
+    // Параметры для экспорта в Excel
+    jQuery('#ExcelSince').datepicker({
+        format: "dd.mm.yyyy",
+        minViewMode: 0,
+        todayBtn: "linked",
+        language: "ru",
+        autoclose: true
+    });
+
+    jQuery('#ExcelTill').datepicker({
+        format: "dd.mm.yyyy",
+        minViewMode: 0,
+        todayBtn: "linked",
+        language: "ru",
+        autoclose: true
+    });
+
+    $('#btnExportExcel').on('click', function () {
+        $('#ExcelSince').val('');
+        $('#ExcelTill').val('');
+    })
+
     /*  Высота таблицы  */
     $('#btnPutMoney').on('click', function () {
 
