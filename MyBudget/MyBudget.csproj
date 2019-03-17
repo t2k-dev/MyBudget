@@ -217,8 +217,11 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\API\AuthController.cs" />
+    <Compile Include="Controllers\API\GoalsController.cs" />
     <Compile Include="Controllers\API\GraphPieController.cs" />
     <Compile Include="Controllers\API\ManageController.cs" />
+    <Compile Include="Controllers\API\MobTransactionsController.cs" />
     <Compile Include="Controllers\API\TransactionsController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\GoalsController.cs" />
