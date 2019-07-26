@@ -1,0 +1,76 @@
+﻿@model MyBudget.ViewModels.TemplateListViewModel
+@{
+    ViewBag.Title = "TemplateList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h3 class="text-center">Ежемесячные платежи</h3>
+            <div class="container">
+                <div class="row" style="margin-bottom:0.4rem;">
+                    <div class="col-4 text-left">
+                        <a class="btn btn-success new-trans" href="@Url.Action("AddTemplate", "Template",new { IsSpending = false })"><span class="glyphicon glyphicon-plus"></span></a>
+                    </div>
+                    <div class="col-4 tbl-title">
+                        Шаблоны
+                    </div>
+                    <div class="col-4 text-right">
+                        <a class="btn btn-danger new-trans" href="@Url.Action("AddTemplate", "Template",new { IsSpending = true })"><span class="glyphicon glyphicon-minus"></span></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="tbl-w" class="col-12">
+                        <table id="transactions_table" class="table table-hover tbl-myList">
+                            <col style="width: 30px">
+                            <col style="width: auto">
+                            <col style="width: 7rem">
+                            <col style="width: 20px">
+
+                            <tbody>
+                                @foreach (var template in Model.MyTemplates)
+                                {
+                                    string amtClass, amtChar;
+                                    if (template.IsSpending)
+                                    {
+                                        amtChar = "- ";
+                                        amtClass = "text-danger";
+                                    }
+                                    else
+                                    {
+                                        amtChar = "+ ";
+                                        amtClass = "text-success";
+
+                                    }
+
+                                <tr>
+                                    <td class="day-cell">@template.Day</td>
+                                    <td>
+                                        @{
+                                            if (String.IsNullOrEmpty(template.Name))
+                                            {
+                                                template.Name = "---";
+                                            }
+                                        }
+                                        @template.Name 
+                                    <div class="cat-name">  @template.Category.Name</div></td>
+                                    <td class="text-right amt @amtClass">@amtChar @template.Amount.ToString("### ### ### ###") @Model.DefCurrency</td>
+                                    <td><span>@Html.ActionLink(" ", "DeleteFromMyCategories", "Category", new { id = template.Id }, new { @class = "glyphicon glyphicon-trash glyph-btn" })</span></td>
+                                </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="height:22px;width:100%;margin-bottom: 5px;">
+                        <div id="btn-tbl-exp" class="del-btn text-center"><span class="glyph-btn glyphicon glyphicon-chevron-down glyph-btn"></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>        
+
+
+

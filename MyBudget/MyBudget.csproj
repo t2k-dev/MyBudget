@@ -65,12 +65,40 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=5.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.5.4.0\lib\net451\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=5.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.5.4.0\lib\net451\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.4.0\lib\net451\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Jwt, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Jwt.4.0.1\lib\net45\Microsoft.Owin.Security.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.4.0\lib\net451\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -138,9 +166,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -159,23 +184,14 @@
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin">
-      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Owin.Host.SystemWeb">
       <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security">
-      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.Security.Facebook">
       <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.Security.Cookies">
       <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.OAuth">
-      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.Security.Google">
       <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
@@ -216,11 +232,17 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="BusinessLogic\CategoryService.cs" />
+    <Compile Include="BusinessLogic\GoalService.cs" />
+    <Compile Include="BusinessLogic\MonthlyOpsService.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\API\AccountController.cs" />
     <Compile Include="Controllers\API\AuthController.cs" />
+    <Compile Include="Controllers\API\CategoriesController.cs" />
     <Compile Include="Controllers\API\GoalsController.cs" />
     <Compile Include="Controllers\API\GraphPieController.cs" />
     <Compile Include="Controllers\API\ManageController.cs" />
+    <Compile Include="Controllers\API\MobGraphsController.cs" />
     <Compile Include="Controllers\API\MobTransactionsController.cs" />
     <Compile Include="Controllers\API\TransactionsController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
@@ -228,11 +250,18 @@
     <Compile Include="Controllers\GraphController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TemplateController.cs" />
     <Compile Include="Controllers\TransactionsController.cs" />
     <Compile Include="Dtos\TransactionDto.cs" />
+    <Compile Include="FiltersApi\AddChallengeOnUnauthorizedResult.cs" />
+    <Compile Include="FiltersApi\AuthenticationFailureResult.cs" />
+    <Compile Include="FiltersApi\HttpAuthenticationChallengeContextExtensions.cs" />
+    <Compile Include="FiltersApi\JwtAuthenticationAttribute.cs" />
+    <Compile Include="FiltersApi\ValidateModelAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="JwtManager.cs" />
     <Compile Include="Migrations\201805090437170_Initial_Model.cs" />
     <Compile Include="Migrations\201805090437170_Initial_Model.Designer.cs">
       <DependentUpon>201805090437170_Initial_Model.cs</DependentUpon>
@@ -265,8 +294,30 @@
     <Compile Include="Migrations\201810141521255_NameIsnotReq.Designer.cs">
       <DependentUpon>201810141521255_NameIsnotReq.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905050940529_IsSystemCategoryFieldAdded.cs" />
+    <Compile Include="Migrations\201905050940529_IsSystemCategoryFieldAdded.Designer.cs">
+      <DependentUpon>201905050940529_IsSystemCategoryFieldAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905051022042_AddNoCategoryValues.cs" />
+    <Compile Include="Migrations\201905051022042_AddNoCategoryValues.Designer.cs">
+      <DependentUpon>201905051022042_AddNoCategoryValues.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906161259092_AddTemplates.cs" />
+    <Compile Include="Migrations\201906161259092_AddTemplates.Designer.cs">
+      <DependentUpon>201906161259092_AddTemplates.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ApiDTOs\CategoryDTO.cs" />
+    <Compile Include="Models\ApiDTOs\CredentialModel.cs" />
+    <Compile Include="Models\ApiDTOs\GoalCreateRequestDTO.cs" />
+    <Compile Include="Models\ApiDTOs\GoalUpdateRequesDTO.cs" />
+    <Compile Include="Models\ApiDTOs\LoginRequestDTO.cs" />
+    <Compile Include="Models\ApiDTOs\LoginResponseDTO.cs" />
+    <Compile Include="Models\ApiDTOs\RegisterRequestDTO.cs" />
+    <Compile Include="Models\ApiDTOs\TransactionCreateRequestDTO.cs" />
+    <Compile Include="Models\ApiDTOs\TransactionUpdateRequestDTO.cs" />
+    <Compile Include="Models\ApiDTOs\UserSettingsUpdateRequestDTO.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Goal.cs" />
     <Compile Include="Models\GraphPie.cs" />
@@ -274,12 +325,15 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MyListServices.cs" />
     <Compile Include="Models\OpeningConfig.cs" />
+    <Compile Include="Models\Template.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CategoryFormViewModel.cs" />
     <Compile Include="ViewModels\GoalFormViewModel.cs" />
     <Compile Include="ViewModels\MyListViewModel.cs" />
+    <Compile Include="ViewModels\TemplateFormViewModel.cs" />
+    <Compile Include="ViewModels\TemplateListViewModel.cs" />
     <Compile Include="ViewModels\TransactionFormViewModel.cs" />
     <Compile Include="ViewModels\UserCategoriesViewModel.cs" />
   </ItemGroup>
@@ -497,9 +551,12 @@
     <Content Include="Views\Category\UserCategories.cshtml" />
     <Content Include="Views\Graph\Pie.cshtml" />
     <Content Include="Views\Manage\OpeningConfig.cshtml" />
+    <Content Include="Views\Template\TemplateList.cshtml" />
+    <Content Include="Views\Template\TemplateForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\TemplateFormViewModel\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -537,6 +594,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810141521255_NameIsnotReq.resx">
       <DependentUpon>201810141521255_NameIsnotReq.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905050940529_IsSystemCategoryFieldAdded.resx">
+      <DependentUpon>201905050940529_IsSystemCategoryFieldAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905051022042_AddNoCategoryValues.resx">
+      <DependentUpon>201905051022042_AddNoCategoryValues.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906161259092_AddTemplates.resx">
+      <DependentUpon>201906161259092_AddTemplates.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

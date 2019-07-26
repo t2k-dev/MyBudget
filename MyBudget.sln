@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBudget", "MyBudget\MyBudget.csproj", "{53A11EF3-9682-481E-9BC5-55F6BD18A775}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBudget.Api", "MyBudget.Api\MyBudget.Api.csproj", "{8D018A6D-11EE-4FAC-B74F-B5B6BE8333A9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{53A11EF3-9682-481E-9BC5-55F6BD18A775}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53A11EF3-9682-481E-9BC5-55F6BD18A775}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53A11EF3-9682-481E-9BC5-55F6BD18A775}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D018A6D-11EE-4FAC-B74F-B5B6BE8333A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D018A6D-11EE-4FAC-B74F-B5B6BE8333A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D018A6D-11EE-4FAC-B74F-B5B6BE8333A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D018A6D-11EE-4FAC-B74F-B5B6BE8333A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

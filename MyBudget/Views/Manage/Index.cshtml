@@ -120,8 +120,8 @@
                       ), new { @class = "form-control conf-list-box" })
 
                 </div>
-                <div class="form-group" style="opacity:0.5;">
-                    <span>Ежемесячные платежи </span>
+                <div class="form-group">
+                    <a href="@Url.Action("TemplateList", "Template")">Ежемесячные платежи </a>                    
                     @Html.DropDownList("UseTemplates", new SelectList(
                           new[]
                           {
@@ -131,7 +131,7 @@
                           "Value",
                           "Text",
                           Model.UseTemplates
-                      ), new { @class = "form-control conf-list-box", disabled = "yes" })
+                      ), new { @class = "form-control conf-list-box"})
 
                 </div>
 

@@ -35,8 +35,19 @@ namespace MyBudget.Models
 
         public DateTime? CompleteDate { get; set; }
 
+        /// <summary>
+        /// Goal
+        /// </summary>
         public static readonly byte TypeGoal = 1;
+        
+        /// <summary>
+        /// Take money from somebody
+        /// </summary>
         public static readonly byte TypeDebt = 2;
+
+        /// <summary>
+        /// Give money to somebody
+        /// </summary>
         public static readonly byte TypeCredit = 3;
     }
 }

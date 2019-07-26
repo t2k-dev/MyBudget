@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using MyBudget.BusinessLogic;
 using MyBudget.Models;
 using MyBudget.ViewModels;
 using System;
@@ -176,24 +177,10 @@ namespace MyBudget.Controllers
         [HttpPost]
         public ActionResult PutMoney(double Amount, int putOnId, string catType)
         {
-            var goal = _context.Goals.Find(putOnId);
-            var cat = _context.Categories.SingleOrDefault(c => c.CreatedBy == catType);
+            //TODO catType убрать
+            GoalService goalService = new GoalService(putOnId);
+            goalService.PutMoney(Amount);
 
-            goal.CurAmount += Amount;
-
-            Transaction transaction = new Transaction
-            {
-                Amount = Amount,
-                CategoryId = cat.Id,
-                IsSpending = cat.IsSpendingCategory,
-                Name = "Пополнение для \"" + goal.GoalName + "\"",
-                UserId = User.Identity.GetUserId(),
-                TransDate = DateTime.Now,
-                IsPlaned = false
-            };
-            _context.Transactions.Add(transaction);
-
-            _context.SaveChanges();
             return RedirectToAction("MyBudget", "Transactions");
         }
     }

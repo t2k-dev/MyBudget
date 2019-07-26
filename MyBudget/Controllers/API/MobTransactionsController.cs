@@ -1,11 +1,14 @@
 ﻿using AutoMapper;
 using MyBudget.Dtos;
+using MyBudget.FiltersApi;
 using MyBudget.Models;
+using MyBudget.Models.ApiDTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace MyBudget.Controllers.API
@@ -20,13 +23,13 @@ namespace MyBudget.Controllers.API
             _context = new ApplicationDbContext();
         }
 
-        
+
         [HttpGet]
-        public IHttpActionResult GetTransactions(string id,int year, int month)
+        public IHttpActionResult GetTransactions(string id, int year, int month)
         {
             try
             {
-                var transactions = _context.Transactions.Where(t => t.UserId == id && t.TransDate.Year == year && t.TransDate.Month == month).ToList();
+                var transactions = _context.Transactions.Where(t => t.UserId == id && t.TransDate.Year == year && t.TransDate.Month == month).OrderBy(t=> t.TransDate).ToList();
 
                 var result = transactions;
 
@@ -37,54 +40,81 @@ namespace MyBudget.Controllers.API
             }
             catch (Exception)
             {
-                
+
             }
             return BadRequest();
         }
 
-        public class TransactionDTO
-        {
-            public int Id { get; set; }
-            public string Name { get; set; }
-            public double Amount { get; set; }
-            public DateTime TransDate { get; set; }            
-            public int? CategoryId { get; set; }
-            public bool IsSpending { get; set; }
-            public string Description { get; set; }
-            public bool IsPlaned { get; set; }
-            public string UserId { get; set; }
-        }
 
+        /// <summary>
+        /// Add new transaction
+        /// </summary>
+        /// <param name="model"></param>
         [HttpPost]
-        public IHttpActionResult Add([FromBody]TransactionDTO request)
+        [ValidateModel]
+        public async Task<IHttpActionResult> Add([FromBody]TransactionCreateRequestDTO model)
         {
-            string errorMessage = null;
             try
             {
+                if (model == null)
+                    return BadRequest("You've sent an empty model");
+
                 Transaction transaction = new Transaction()
-                {                    
-                    Name = request.Name,
-                    Amount = request.Amount,
-                    TransDate = request.TransDate,
-                    CategoryId = request.CategoryId,
-                    IsSpending = request.IsSpending,
-                    Description = request.Description,
-                    IsPlaned = request.IsPlaned,
-                    UserId = request.UserId
+                {
+                    Name = model.Name,
+                    Amount = model.Amount,
+                    TransDate = model.TransDate,
+                    CategoryId = model.CategoryId,
+                    IsSpending = model.IsSpending,                    
+                    IsPlaned = model.IsPlaned,
+                    UserId = model.UserId
                 };
 
                 _context.Transactions.Add(transaction);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
 
-                return Ok(transaction.Id);
+                return Created("", transaction.Id);
             }
             catch (Exception ex)
             {
-                errorMessage = ex.Message;
+                return BadRequest(ex.Message);
             }
-            return BadRequest(errorMessage);
         }
 
+        /// <summary>
+        /// Edit transaction
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="model"></param>        
+        [HttpPut]
+        [ValidateModel]
+        [Route("api/MobTransactions/{id}")]
+        public async Task<IHttpActionResult> Put(int id, [FromBody]TransactionUpdateRequestDTO model)
+        {            
+            try
+            {
+                if (model == null)
+                    return BadRequest("You've sent an empty model");
+
+                var TransactionInDB = _context.Transactions.SingleOrDefault(t => t.Id == id);
+                if (TransactionInDB == null)
+                    return NotFound();
+
+                TransactionInDB.Name = model.Name ?? TransactionInDB.Name;
+                TransactionInDB.Amount = model.Amount ?? TransactionInDB.Amount;
+                TransactionInDB.CategoryId = model.CategoryId;
+                TransactionInDB.IsPlaned = model.IsPlaned ?? TransactionInDB.IsPlaned;
+                TransactionInDB.TransDate = model.TransDate ?? TransactionInDB.TransDate;
+
+                await _context.SaveChangesAsync();
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }            
+        }
 
         [HttpDelete]
         public IHttpActionResult DeleteTransaction(int id)
@@ -96,7 +126,7 @@ namespace MyBudget.Controllers.API
                     return NotFound();
 
                 _context.Transactions.Remove(transaction);
-                _context.SaveChanges();                                    
+                _context.SaveChanges();
 
                 return Ok($"Transaction id = {id} is successfully deleted");
             }
