@@ -48,7 +48,7 @@ namespace MyBudget.Controllers.API
             public string Name { get; set; }
             public double Amount { get; set; }
             public DateTime TransDate { get; set; }            
-            public int? CategoryId { get; set; }
+            public int CategoryId { get; set; }
             public bool IsSpending { get; set; }
             public string Description { get; set; }
             public bool IsPlaned { get; set; }
