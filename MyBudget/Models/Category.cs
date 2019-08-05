@@ -26,5 +26,7 @@ namespace MyBudget.Models
 
         [MaxLength(128)]
         public string CreatedBy { get; set; }
+
+        public bool IsSystem { get; set; }
     }
 }
