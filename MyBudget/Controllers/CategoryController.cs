@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using MyBudget.BusinessLogic;
 using MyBudget.Models;
 using MyBudget.ViewModels;
 using System;
@@ -21,10 +22,10 @@ namespace MyBudget.Controllers
 
         public ActionResult UserCategories()
         {
-            var userId = User.Identity.GetUserId();           
+            var userId = User.Identity.GetUserId();
             var viewmodel = new UserCategoriesViewModel
             {
-                Categories = _context.Users.Find(userId).Categories.Where(c => (c.CreatedBy == null) || (c.CreatedBy== userId)).ToList()
+                Categories = _context.Users.Find(userId).Categories.Where(c => (!c.IsSystem)).OrderBy(c => c.Name).ToList()
             };
             return View(viewmodel);
         }
@@ -33,10 +34,10 @@ namespace MyBudget.Controllers
         public ActionResult CategoryForm(bool? id)
         {
             var viewModel = new CategoryFormViewModel
-            {                
-                
+            {
+
             };
-            return View(viewModel);            
+            return View(viewModel);
         }
 
         public ActionResult AddSpendingCategory()
@@ -49,10 +50,10 @@ namespace MyBudget.Controllers
 
             var viewmodel = new CategoryFormViewModel
             {
-                Category = category                
+                Category = category
             };
 
-            return View("CategoryForm",viewmodel);
+            return View("CategoryForm", viewmodel);
         }
 
         public ActionResult AddIncomeCategory()
@@ -65,7 +66,7 @@ namespace MyBudget.Controllers
 
             var viewmodel = new CategoryFormViewModel
             {
-                Category = category                
+                Category = category
             };
 
             return View("CategoryForm", viewmodel);
@@ -79,12 +80,12 @@ namespace MyBudget.Controllers
             {
                 var viewmodel = new CategoryFormViewModel
                 {
-                    Category = category                    
+                    Category = category
                 };
 
                 return View("CategoryForm", viewmodel);
             }
-                
+
 
             if (category.Id == 0)
             {
@@ -102,11 +103,12 @@ namespace MyBudget.Controllers
         }
 
         public ActionResult DeleteFromMyCategories(int id)
-        {            
+        {
             var editUser = _context.Users.Find(User.Identity.GetUserId());
-            var editCat = _context.Categories.First(c => c.Id == id);
-            editUser.Categories.Remove(editCat);
-            _context.SaveChanges();
+
+            var categoryService = new CategoryService(id, editUser.Id);
+            categoryService.DeleteCategory();
+
             return RedirectToAction("UserCategories");
         }
 

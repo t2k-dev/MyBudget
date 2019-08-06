@@ -216,8 +216,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="BusinessLogic\CategoryService.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\API\AuthController.cs" />
+    <Compile Include="Controllers\API\CategoriesController.cs" />
     <Compile Include="Controllers\API\GoalsController.cs" />
     <Compile Include="Controllers\API\GraphPieController.cs" />
     <Compile Include="Controllers\API\ManageController.cs" />
@@ -275,6 +277,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ApiDTOs\CategoryDTO.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Goal.cs" />
     <Compile Include="Models\GraphPie.cs" />
