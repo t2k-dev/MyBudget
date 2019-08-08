@@ -282,6 +282,9 @@
     <Compile Include="Models\ApiDTOs\CategoryDTO.cs" />
     <Compile Include="Models\ApiDTOs\GoalCreateRequestDTO.cs" />
     <Compile Include="Models\ApiDTOs\GoalUpdateRequesDTO.cs" />
+    <Compile Include="Models\ApiDTOs\TransactionCreateRequestDTO.cs" />
+    <Compile Include="Models\ApiDTOs\TransactionUpdateRequestDTO.cs" />
+    <Compile Include="Models\ApiDTOs\UserSettingsUpdateRequestDTO.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Goal.cs" />
     <Compile Include="Models\GraphPie.cs" />

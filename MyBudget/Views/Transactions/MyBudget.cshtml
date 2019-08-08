@@ -22,13 +22,13 @@
         </div>
         <div class="row" style="margin-bottom:0.4rem;">
             <div class="col-4">
-                <a class="btn btn-success new-trans" href="@Url.Action("AddIncome", "Transactions")"><span class="glyphicon glyphicon-plus"></span></a>
+                <a class="btn btn-success new-trans" href="@Url.Action("AddTransaction", "Transactions", new { isSpending = false})"><span class="glyphicon glyphicon-plus"></span></a>
             </div>
             <div class="col-4 tbl-title">
                 Платежи
             </div>
             <div class="col-4 text-right">
-                <a class="btn btn-danger new-trans" href="@Url.Action("AddSpending", "Transactions")"><span class="glyphicon glyphicon-minus"></span></a>
+                <a class="btn btn-danger new-trans" href="@Url.Action("AddTransaction", "Transactions", new { isSpending = true})"><span class="glyphicon glyphicon-minus"></span></a>
             </div>
         </div>
         <div class="row">

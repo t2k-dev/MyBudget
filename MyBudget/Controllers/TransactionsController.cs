@@ -25,13 +25,14 @@ namespace MyBudget.Controllers
         }
 
 
-        //Главное окно        
+        /// <summary>
+        /// Главное окно
+        /// </summary>
+        /// <param name="id">MMyyyy</param>        
         public ActionResult MyBudget(string id)
         {
             string UserGuid = User.Identity.GetUserId();
             var  user = _context.Users.Single(u => u.Id == UserGuid);
-
-
 
             DateTime dt;            
             if (String.IsNullOrEmpty(id))             
@@ -49,8 +50,6 @@ namespace MyBudget.Controllers
                 _context.SaveChanges();
             }
 
-
-
             var viewModel = new MyListViewModel
             {                
                 MyGoals = _context.Goals.Where(m => m.UserId == UserGuid).ToList(),
@@ -62,8 +61,16 @@ namespace MyBudget.Controllers
 
         public ActionResult TransactionForm(bool? id)
         {
-            string UserGuid = User.Identity.GetUserId();            
-            var categories = _context.Users.Find(UserGuid).Categories.Where(c => c.IsSpendingCategory==id);
+            string UserGuid = User.Identity.GetUserId();
+            
+            int DefCatId = id == true ? Category.SpendingCategoryDefault : Category.IncomeCategoryDefault;
+            
+            var categories = _context.Users.Find(UserGuid).Categories.Where(c => c.IsSpendingCategory == id).ToList();
+            var defCategory = categories.First(c => c.Id == DefCatId);
+            categories.Remove(defCategory);
+            categories.OrderBy(c => c.Name);
+            categories.Insert(0, defCategory);
+
 
             var defCurrency = _context.Users.Single(u => u.Id == UserGuid).DefCurrency;
 
@@ -82,50 +89,44 @@ namespace MyBudget.Controllers
             return View(viewModel);
         }
 
-        public ActionResult AddSpending()
+        public ActionResult AddTransaction(bool isSpending)
         {
-            ViewBag.Head = "Добавить расход";
-            string UserGuid = User.Identity.GetUserId();
-            var categories = _context.Users.Find(UserGuid).Categories.Where(c => c.IsSpendingCategory == true).OrderBy(c => c.Name);
-            var defCurrency = _context.Users.Single(u => u.Id == UserGuid).DefCurrency;
+            int NoCategoryID;
+            if (isSpending)
+            {
+                ViewBag.Head = "Добавить расход";
+                NoCategoryID = Category.SpendingCategoryDefault;
+            }
+            else
+            {
+                ViewBag.Head = "Добавить доход";
+                NoCategoryID = Category.IncomeCategoryDefault;
+            }
             
-            var transaction = new Transaction();
-            transaction.IsSpending = true;
-            transaction.TransDate = DateTime.Now;
-            transaction.UserId = UserGuid;
-
-            var viewModel = new TransactionFormViewModel
-            {
-                Transaction = transaction,
-                Categories = categories,                
-                DefCurrency = defCurrency
-            };
-
-            return View("TransactionForm", viewModel);
-        }
-
-        public ActionResult AddIncome()
-        {
-            ViewBag.Head = "Добавить доход";
             string UserGuid = User.Identity.GetUserId();
-            var categories = _context.Users.Find(UserGuid).Categories.Where(c => c.IsSpendingCategory == false).OrderBy(c=>c.Name);
+
+            var categories = _context.Users.Find(UserGuid).Categories.Where(c => c.IsSpendingCategory == isSpending).ToList();
+            var defCategory = categories.First(c => c.Id == NoCategoryID);
+            categories.Remove(defCategory);
+            categories = categories.OrderBy(c => c.Name).ToList();
+            categories.Insert(0, defCategory);
+
             var defCurrency = _context.Users.Single(u => u.Id == UserGuid).DefCurrency;
 
             var transaction = new Transaction();
-            transaction.IsSpending = false;
+            transaction.IsSpending = isSpending;
             transaction.TransDate = DateTime.Now;
             transaction.UserId = UserGuid;
 
             var viewModel = new TransactionFormViewModel
             {
                 Transaction = transaction,
-                Categories = categories,                
+                Categories = categories,
                 DefCurrency = defCurrency
             };
 
             return View("TransactionForm", viewModel);
         }
-
 
         [HttpPost]
         public ActionResult Save(Transaction transaction)
@@ -158,8 +159,7 @@ namespace MyBudget.Controllers
                 transactionInDb.CategoryId = transaction.CategoryId;
                 transactionInDb.Description = transaction.Description;
                 transactionInDb.IsSpending = transaction.IsSpending;
-                transactionInDb.TransDate = transaction.TransDate;
-                transactionInDb.IsSpending = transaction.IsSpending;
+                transactionInDb.TransDate = transaction.TransDate;                
                 transactionInDb.IsPlaned = transaction.IsPlaned;
                 transactionInDb.UserId = transaction.UserId;
             }
@@ -194,7 +194,17 @@ namespace MyBudget.Controllers
             if (transaction == null)
                 return HttpNotFound();
 
-            var categories = _context.Users.Find(UserGuid).Categories.Where(c=>c.IsSpendingCategory==transaction.IsSpending);
+            //var categories = _context.Users.Find(UserGuid).Categories.Where(c=>c.IsSpendingCategory==transaction.IsSpending);
+
+            int DefCatId = transaction.IsSpending ? Category.SpendingCategoryDefault : Category.IncomeCategoryDefault;
+
+            var categories = _context.Users.Find(UserGuid).Categories.Where(c => c.IsSpendingCategory == transaction.IsSpending).ToList();
+            var defCategory = categories.First(c => c.Id == DefCatId);
+            categories.Remove(defCategory);
+            categories = categories.OrderBy(c => c.Name).ToList();
+            categories.Insert(0, defCategory);
+
+
 
             var viewModel = new TransactionFormViewModel
             {
@@ -262,7 +272,7 @@ namespace MyBudget.Controllers
                 Name = "Остаток за прошлый месяц",
                 UserId = UserGuid,
                 TransDate = DateTime.Now,
-                CategoryId = _context.Categories.SingleOrDefault(c=> c.CreatedBy == "SYS_2").Id
+                CategoryId = Category.Rest
             };
 
             _context.Transactions.Add(transaction);

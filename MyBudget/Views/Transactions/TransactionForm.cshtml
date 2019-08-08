@@ -36,7 +36,7 @@
 
                 <div class="form-group">
                     <label for="Transaction_CategoryId">Категория</label>
-                    @Html.DropDownListFor(m => m.Transaction.CategoryId, new SelectList(Model.Categories, "Id", "Name"), "Без категории", new { @class = "form-control inp-short" })
+                    @Html.DropDownListFor(m => m.Transaction.CategoryId, new SelectList(Model.Categories, "Id", "Name"), new { @class = "form-control inp-short" })
                     <a href="@Url.Action("UserCategories", "Category" )" class="glyphicon glyphicon-cog glyph-btn glyph-btn-lg"></a>
                 </div>
 
