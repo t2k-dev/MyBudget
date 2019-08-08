@@ -16,8 +16,7 @@ namespace MyBudget.Models
 
     public class GraphPie
     {
-        public List<GraphItem> GraphDataList { get; set; }
-        //private List<GraphItem> graphDataList;
+        public List<GraphItem> GraphDataList { get; set; }        
         
         public GraphPie(string UserGuid, int Term)
         {
@@ -60,19 +59,6 @@ namespace MyBudget.Models
                     i++;
                 }
             }
-
-            /*Для "Без категории"*/
-            GraphItem NullItem = new GraphItem();
-            NullItem.Amount = transactions.Where(t => (t.CategoryId == null)&&(t.IsSpending==true)).ToList().Sum(s => s.Amount);
-            if (NullItem.Amount > 0)
-            {
-                NullItem.Caption = "Без категории";
-                NullItem.Color = arrColors[i];
-                GraphDataList.Add(NullItem);
-                i++;
-            }
-
-
         }
 
         //Строка значений
