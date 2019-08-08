@@ -1,9 +1,13 @@
-﻿using MyBudget.Models;
+﻿using MyBudget.BusinessLogic;
+using MyBudget.FiltersApi;
+using MyBudget.Models;
+using MyBudget.Models.ApiDTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace MyBudget.Controllers.API
@@ -17,7 +21,7 @@ namespace MyBudget.Controllers.API
             _context = new ApplicationDbContext();
         }
 
-        [HttpGet]        
+        [HttpGet]
         public IHttpActionResult Goals(string Id)
         {
             try
@@ -31,32 +35,102 @@ namespace MyBudget.Controllers.API
             }
             catch (Exception)
             {
-                
+
             }
             return BadRequest();
         }
 
         [HttpPost]
-        public IHttpActionResult AddGoal([FromBody] Goal goal)
+        [ValidateModel]
+        public async Task<IHttpActionResult> AddGoal([FromBody] GoalCreateRequestDTO model)
         {
             try
             {
+                if (model == null)
+                    return BadRequest("You've sent an empty model");
+
+                var goal = new Goal()
+                {
+                    GoalName = model.GoalName,
+                    Amount = model.Amount,
+                    Type = model.Type,
+                    UserId = model.UserId,
+                    IsActive = true,
+                    CurAmount = model.CurAmount ?? 0,
+                    CompleteDate = model.CompleteDate ?? null
+                };
+
                 _context.Goals.Add(goal);
-                _context.SaveChanges();
-                
-                //TODO: надо сделать 201 code
-                return Ok(goal.Id);
+
+                // Добавить транзакции
+                if (goal.Type == Goal.TypeCredit) //Дать в долг
+                {
+                    Transaction transaction = new Transaction
+                    {
+                        Amount = goal.Amount,
+                        CategoryId = _context.Categories.SingleOrDefault(c => c.CreatedBy == "SYS_4").Id,
+                        IsSpending = true,
+                        Name = "Дать в долг \"" + goal.GoalName + "\"",
+                        UserId = model.UserId,
+                        TransDate = DateTime.Now,
+                        IsPlaned = false
+                    };
+                    _context.Transactions.Add(transaction);
+                }
+                else if (goal.Type == Goal.TypeDebt) //Взять в долг
+                {
+                    Transaction transaction = new Transaction
+                    {
+                        Amount = goal.Amount,
+                        CategoryId = _context.Categories.SingleOrDefault(c => c.CreatedBy == "SYS_6").Id,
+                        IsSpending = false,
+                        Name = "Взять в долг \"" + goal.GoalName + "\"",
+                        UserId = model.UserId,
+                        TransDate = DateTime.Now,
+                        IsPlaned = false
+                    };
+                    _context.Transactions.Add(transaction);
+                }
+
+                await _context.SaveChangesAsync();
+
+                return Created("", goal.Id);
             }
             catch (Exception ex)
             {
-                return BadRequest($"Exception:{ex.Message}");
-            }            
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        [ValidateModel]
+        [Route("api/goals/{id}")]
+        public async Task<IHttpActionResult> EditGoal(int id, [FromBody] GoalUpdateRequesDTO model)
+        {
+            try
+            {
+                var GoalInDb = _context.Goals.SingleOrDefault(g => g.Id == id);
+                if (GoalInDb == null)
+                    return NotFound();
+
+                GoalInDb.GoalName = model.GoalName ?? GoalInDb.GoalName;
+                GoalInDb.Amount = model.Amount ?? GoalInDb.Amount;
+                GoalInDb.CurAmount = model.CurAmount ?? GoalInDb.CurAmount;
+                GoalInDb.CompleteDate = model.CompleteDate ?? GoalInDb.CompleteDate;
+
+                await _context.SaveChangesAsync();
+                return Ok($"Goal id = {id} is successfully modified");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
-        public IHttpActionResult DeleteGoal(int id)
-        {
-            string errorMessage = null;
+        [Route("api/goals/{id}")]
+        public async Task<IHttpActionResult> DeleteGoal(int id)
+        {            
             try
             {
                 var goal = _context.Goals.SingleOrDefault(t => t.Id == id);
@@ -64,17 +138,35 @@ namespace MyBudget.Controllers.API
                     return NotFound();
 
                 _context.Goals.Remove(goal);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
 
                 return Ok($"Goal id = {id} is successfully deleted");
             }
             catch (Exception ex)
             {
-                errorMessage = ex.Message;
-            }
-            return BadRequest(errorMessage);
+                return BadRequest(ex.Message);
+            }         
         }
 
+        [HttpGet]
+        [Route("api/goals/{id}/payGoal")]
+        public IHttpActionResult PayGoal(int id, double amount)
+        {
+            try
+            {
+                GoalService goalService = new GoalService(id);
+                goalService.PutMoney(amount);
 
+                return Ok();
+            }
+            catch (NullReferenceException)
+            {
+                return NotFound();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
