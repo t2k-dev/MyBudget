@@ -68,7 +68,7 @@ namespace MyBudget.Controllers.API
                     Transaction transaction = new Transaction
                     {
                         Amount = goal.Amount,
-                        CategoryId = _context.Categories.SingleOrDefault(c => c.CreatedBy == "SYS_4").Id,
+                        CategoryId = Category.GiveCredit,
                         IsSpending = true,
                         Name = "Дать в долг \"" + goal.GoalName + "\"",
                         UserId = model.UserId,
@@ -82,7 +82,7 @@ namespace MyBudget.Controllers.API
                     Transaction transaction = new Transaction
                     {
                         Amount = goal.Amount,
-                        CategoryId = _context.Categories.SingleOrDefault(c => c.CreatedBy == "SYS_6").Id,
+                        CategoryId = Category.TakeDebt,
                         IsSpending = false,
                         Name = "Взять в долг \"" + goal.GoalName + "\"",
                         UserId = model.UserId,
@@ -130,7 +130,7 @@ namespace MyBudget.Controllers.API
         [HttpDelete]
         [Route("api/goals/{id}")]
         public async Task<IHttpActionResult> DeleteGoal(int id)
-        {            
+        {
             try
             {
                 var goal = _context.Goals.SingleOrDefault(t => t.Id == id);
@@ -145,7 +145,7 @@ namespace MyBudget.Controllers.API
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-            }         
+            }
         }
 
         [HttpGet]

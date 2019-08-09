@@ -118,7 +118,7 @@ namespace MyBudget.Controllers
                     Transaction transaction = new Transaction
                     {
                         Amount = goal.Amount,
-                        CategoryId = _context.Categories.SingleOrDefault(c=> c.CreatedBy == "SYS_4").Id,
+                        CategoryId = Category.GiveCredit,
                         IsSpending = true,
                         Name = "Дать в долг \"" + goal.GoalName + "\"",
                         UserId = User.Identity.GetUserId(),
@@ -133,7 +133,7 @@ namespace MyBudget.Controllers
                     Transaction transaction = new Transaction
                     {
                         Amount = goal.Amount,
-                        CategoryId = _context.Categories.SingleOrDefault(c => c.CreatedBy == "SYS_6").Id,
+                        CategoryId = Category.TakeDebt,
                         IsSpending = false,
                         Name = "Взять в долг \"" + goal.GoalName + "\"",
                         UserId = User.Identity.GetUserId(),
