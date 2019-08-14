@@ -11,10 +11,17 @@ namespace MyBudget.BusinessLogic
     /// </summary>
     public class CategoryService
     {
+        #region ctors & fields
+
         private ApplicationDbContext _context;
         private Category _category;
         private int _categoryId;
         private string _userId;
+
+        public CategoryService()
+        {
+            _context = new ApplicationDbContext();
+        }
 
         public CategoryService(int categoryId, string userId)
         {
@@ -26,6 +33,8 @@ namespace MyBudget.BusinessLogic
             _categoryId = _category.Id;
             _userId = userId;
         }
+        
+        #endregion
 
         /// <summary>
         /// Set "Без категории" for connected transactions, delete category
@@ -65,5 +74,18 @@ namespace MyBudget.BusinessLogic
                 }
             }
         }
+
+        /// <summary>
+        /// Add default Categories to a new User
+        /// </summary>
+        /// <param name="UserId"></param>
+        public void AddDefaultCategories(string UserId)
+        {
+            var userInDb = _context.Users.Single(t => t.Id == UserId);
+            foreach (Category ct in _context.Categories.Where(c => (c.CreatedBy == null) || (c.IsSystem)).ToList())
+                userInDb.Categories.Add(ct);
+            _context.SaveChanges();
+        }
+
     }
 }

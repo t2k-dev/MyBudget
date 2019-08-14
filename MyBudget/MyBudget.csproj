@@ -220,6 +220,7 @@
     <Compile Include="BusinessLogic\GoalService.cs" />
     <Compile Include="BusinessLogic\GraphService.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\API\AccountController.cs" />
     <Compile Include="Controllers\API\AuthController.cs" />
     <Compile Include="Controllers\API\BaseApiController.cs" />
     <Compile Include="Controllers\API\CategoriesController.cs" />
@@ -286,6 +287,9 @@
     <Compile Include="Models\ApiDTOs\ChangePasswordDTO.cs" />
     <Compile Include="Models\ApiDTOs\GoalCreateRequestDTO.cs" />
     <Compile Include="Models\ApiDTOs\GoalUpdateRequesDTO.cs" />
+    <Compile Include="Models\ApiDTOs\LoginRequestDTO.cs" />
+    <Compile Include="Models\ApiDTOs\LoginResponseDTO.cs" />
+    <Compile Include="Models\ApiDTOs\RegisterRequestDTO.cs" />
     <Compile Include="Models\ApiDTOs\TransactionCreateRequestDTO.cs" />
     <Compile Include="Models\ApiDTOs\TransactionUpdateRequestDTO.cs" />
     <Compile Include="Models\ApiDTOs\UserSettingsUpdateRequestDTO.cs" />
