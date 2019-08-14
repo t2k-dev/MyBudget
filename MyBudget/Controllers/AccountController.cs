@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using MyBudget.Infrastructure;
 using MyBudget.Models;
 
 namespace MyBudget.Controllers
@@ -159,7 +160,7 @@ namespace MyBudget.Controllers
                     using (ApplicationDbContext _context = new ApplicationDbContext())
                     {
                         var userInDb = _context.Users.Single(t => t.UserName == user.UserName);
-                        foreach (Category ct in _context.Categories.Where(c=> (c.CreatedBy==null)||(c.CreatedBy.Contains("SYS"))).ToList())
+                        foreach (Category ct in _context.Categories.Where(c=> (c.CreatedBy==null)||c.IsSystem).ToList())
                             userInDb.Categories.Add(ct);
                         _context.SaveChanges();
                     }

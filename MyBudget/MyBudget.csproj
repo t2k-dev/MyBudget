@@ -221,6 +221,7 @@
     <Compile Include="BusinessLogic\GraphService.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\API\AuthController.cs" />
+    <Compile Include="Controllers\API\BaseApiController.cs" />
     <Compile Include="Controllers\API\CategoriesController.cs" />
     <Compile Include="Controllers\API\GoalsController.cs" />
     <Compile Include="Controllers\API\GraphController.cs" />
@@ -238,6 +239,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\ApplicationUserManager.cs" />
     <Compile Include="Migrations\201805090437170_Initial_Model.cs" />
     <Compile Include="Migrations\201805090437170_Initial_Model.Designer.cs">
       <DependentUpon>201805090437170_Initial_Model.cs</DependentUpon>
@@ -281,16 +283,18 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApiDTOs\CategoryDTO.cs" />
+    <Compile Include="Models\ApiDTOs\ChangePasswordDTO.cs" />
     <Compile Include="Models\ApiDTOs\GoalCreateRequestDTO.cs" />
     <Compile Include="Models\ApiDTOs\GoalUpdateRequesDTO.cs" />
     <Compile Include="Models\ApiDTOs\TransactionCreateRequestDTO.cs" />
     <Compile Include="Models\ApiDTOs\TransactionUpdateRequestDTO.cs" />
     <Compile Include="Models\ApiDTOs\UserSettingsUpdateRequestDTO.cs" />
+    <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Goal.cs" />
     <Compile Include="Models\GraphPie.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Infrastructure\ApplicationDbContext.cs" />
+    <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\MyListServices.cs" />
     <Compile Include="Models\OpeningConfig.cs" />
     <Compile Include="Models\Template.cs" />
@@ -520,6 +524,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\BaseApi\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
