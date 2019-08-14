@@ -597,6 +597,23 @@ code {
 }
 
 /*Графики*/
+.btn-graph-term {
+    display: block;
+    width: 100%;
+    border: 1px solid #395971;
+    color: #fff;
+    background-color: #395971;
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+.btn-default-active {
+    background-color: #fff;
+    color: #395971;
+}
 
 .tbl-pie-legend{
     margin-top:10px;

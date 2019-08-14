@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using MyBudget.Models;
+using MyBudget.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,9 +21,13 @@ namespace MyBudget.Controllers
 
         public ActionResult Pie()
         {
-            string UserGuid = User.Identity.GetUserId();
-            ViewBag.DefCurrency = _context.Users.SingleOrDefault(u=>u.Id==UserGuid).DefCurrency;
-            return View();
+            var userId = User.Identity.GetUserId();
+            var viewModel = new GraphPieViewModel()
+            {
+                UserId = userId,
+                DefCurrency = _context.Users.SingleOrDefault(u => u.Id == userId).DefCurrency
+            };
+            return View(viewModel);
         }
     }
 }

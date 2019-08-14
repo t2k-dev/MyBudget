@@ -60,43 +60,5 @@ namespace MyBudget.Models
                 }
             }
         }
-
-        //Строка значений
-        public string AmountsString()
-        {
-            string sumStr = "";
-            foreach (var item in GraphDataList)
-            {
-                sumStr += item.Amount.ToString() + ",";
-            }
-            sumStr = sumStr.TrimEnd(',');
-            return sumStr;
-        }
-
-        //Строка заголовков
-        public string CaptionsString()
-        {
-            string sumStr = "";
-            foreach (var item in GraphDataList)
-            {
-                sumStr += "'"+item.Caption + "',";
-            }
-            sumStr = sumStr.TrimEnd(',');            
-            return sumStr;
-        }
-
-        //Строка цветов
-        public string ColorsString()
-        {
-            string sumStr = "";
-            foreach (var item in GraphDataList)
-            {
-                sumStr += "'"+item.Color + "',";
-            }
-            sumStr = sumStr.TrimEnd(',');
-            return sumStr;
-        }
-
-
     }
 }

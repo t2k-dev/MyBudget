@@ -22,12 +22,11 @@ namespace MyBudget.Controllers.API
         }
 
         /// <summary>
-        /// Получить данные для графика затрат "Пирог" по категориям
+        /// Get data for "Pie spending graph"
         /// </summary>                
         [Route("api/graph/getSpendingGraph/{userId}/{since}/{till}" )]
         public IHttpActionResult GetSpendingGraph(string userId, string since, string till)
         {
-
             try
             {
                 DateTime sinceParam = DateTime.ParseExact(since, "dd-MM-yyyy", null);
@@ -48,7 +47,31 @@ namespace MyBudget.Controllers.API
             return BadRequest();
         }
 
+        /// <summary>
+        /// Get data for "Pie spending graph" current month only
+        /// </summary>
+        [Route("api/graph/getSpendingGraphCurrentMonth/{userId}")]
+        public IHttpActionResult GetSpendingGraphCurrentMonth(string UserId)
+        {
+            try
+            {
+                DateTime sinceParam = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                DateTime tillParam = sinceParam.AddMonths(1).AddDays(-1);
 
+                var graphService = new GraphService(UserId);
+                List<GraphItem> resultList = graphService.GetSpendingGraphByCategory(sinceParam, tillParam); ;
+
+                if (resultList.Count() < 1)
+                    return NotFound();
+
+                return Ok(resultList);
+            }
+            catch (Exception)
+            {
+
+            }
+            return BadRequest();
+        }
     }
 
 

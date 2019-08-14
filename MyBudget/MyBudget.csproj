@@ -298,6 +298,7 @@
     <Compile Include="Models\Goal.cs" />
     <Compile Include="Models\GraphPie.cs" />
     <Compile Include="Infrastructure\ApplicationDbContext.cs" />
+    <Compile Include="ViewModels\GraphPieViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\MyListServices.cs" />
     <Compile Include="Models\OpeningConfig.cs" />
