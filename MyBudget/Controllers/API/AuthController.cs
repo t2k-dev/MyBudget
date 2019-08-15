@@ -34,33 +34,7 @@ namespace MyBudget.Controllers.API
             public string pass { get; set; }
         }
 
-        [HttpPost]
-        [Route("api/login")]
-        public IHttpActionResult Login([FromBody]LoginReq request)
-        {            
-            try
-            {
-                var user = _context.Users.SingleOrDefault(u => u.UserName == request.usr);
-                if (user == null)
-                    return NotFound();
-
-                LoginDTO result = new LoginDTO
-                {
-                    UserId = user.Id,
-                    CarryOverRests = user.CarryoverRests,
-                    DefCurrency = user.DefCurrency,
-                    UpdateDate = user.UpdateDate,
-                    UseTemplates = user.UseTemplates
-                };
-                
-                return Ok(result);                
-            }
-            catch (Exception)
-            {
-
-            }
-            return BadRequest();
-        }
+        
 
 
         ///<summary>
