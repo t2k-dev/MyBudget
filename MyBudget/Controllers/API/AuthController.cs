@@ -15,27 +15,7 @@ namespace MyBudget.Controllers.API
         public AuthController()
         {
             _context = new ApplicationDbContext();
-        }
-
-        class LoginDTO
-        {
-            public string UserId { get; set; }
-
-            /*Натройки*/
-            public string DefCurrency { get; set; }
-            public DateTime? UpdateDate { get; set; }
-            public bool CarryOverRests { get; set; }
-            public bool UseTemplates { get; set; }
-        }
-
-        public class LoginReq
-        {
-            public string usr { get; set; }
-            public string pass { get; set; }
-        }
-
-        
-
+        }      
 
         ///<summary>
         ///Получаем настройки пользователя

@@ -36,7 +36,7 @@ namespace MyBudget.Controllers.API
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IPasswordHasher hasher)
         {
-            UserManager = userManager;
+            _userManager = userManager;
             SignInManager = signInManager;
         }
 
@@ -52,17 +52,7 @@ namespace MyBudget.Controllers.API
             }
         }
 
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
+
 
         /// <summary>
         /// Register new User
@@ -78,7 +68,7 @@ namespace MyBudget.Controllers.API
                     return BadRequest("You've sent an empty model");
 
                 var user = new ApplicationUser { UserName = model.Username, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     CategoryService categoryService = new CategoryService();
