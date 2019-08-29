@@ -289,9 +289,11 @@
     <Compile Include="Models\ApiDTOs\GoalUpdateRequesDTO.cs" />
     <Compile Include="Models\ApiDTOs\LoginRequestDTO.cs" />
     <Compile Include="Models\ApiDTOs\LoginResponseDTO.cs" />
+    <Compile Include="Models\ApiDTOs\NewLoginResponseDTO.cs" />
     <Compile Include="Models\ApiDTOs\RegisterRequestDTO.cs" />
-    <Compile Include="Models\ApiDTOs\TransactionCreateRequestDTO.cs" />
-    <Compile Include="Models\ApiDTOs\TransactionUpdateRequestDTO.cs" />
+    <Compile Include="Models\ApiDTOs\Transactions\TransactionCreateRequestDTO.cs" />
+    <Compile Include="Models\ApiDTOs\Transactions\TransactionListItem.cs" />
+    <Compile Include="Models\ApiDTOs\Transactions\TransactionUpdateRequestDTO.cs" />
     <Compile Include="Models\ApiDTOs\UserSettingsUpdateRequestDTO.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Category.cs" />
@@ -370,7 +372,6 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
-    <Content Include="favicon.ico" />
     <Content Include="fonts\caticons\holidays.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -457,6 +458,7 @@
     <Content Include="Content\bootstrap\badges.less" />
     <Content Include="Content\bootstrap\alerts.less" />
     <Content Include="Scripts\Chart.bundle.js" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\graph.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />

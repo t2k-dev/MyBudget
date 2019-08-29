@@ -17,6 +17,9 @@ using MyBudget.FiltersApi;
 using MyBudget.Models;
 using MyBudget.Models.ApiDTOs;
 using MyBudget.Infrastructure;
+using static MyBudget.Models.ApiDTOs.NewLoginResponseDTO;
+using System.Collections.Generic;
+using MyBudget.Models.ApiDTOs.Transactions;
 
 namespace MyBudget.Controllers.API
 {
@@ -173,5 +176,104 @@ namespace MyBudget.Controllers.API
             }
         }
 
+        [HttpPost]
+        [ValidateModel]
+        [Route("api/newLogin")]
+        public IHttpActionResult NewLogin([FromBody]LoginRequestDTO model)
+        {
+            try
+            {
+                if (model == null)
+                    return BadRequest("You've sent an empty model");
+
+                int statusCode = 200;
+
+                // Проверка пользователя
+                var user = _context.Users.SingleOrDefault(u => u.UserName == model.usr);
+                if (user == null)
+                {
+                    statusCode = 401;
+                    LoginResponseDTO erroResult = new LoginResponseDTO
+                    {
+                        Status = 401
+                    };
+                    return Ok(erroResult);
+                }
+                // Проверка пароля
+                if (_hasher.VerifyHashedPassword(user.PasswordHash, model.pass) == PasswordVerificationResult.Success)
+                {
+                    // Ежемесячные операции
+                    //var monthlyOpsService = new MonthlyOpsService(user.Id);
+                    //monthlyOpsService.ExecuteMonthlyOps();
+                    var userSettings = new UserSettingsModel
+                    {
+                        CarryOverRests = user.CarryoverRests,
+                        DefCurrency = user.DefCurrency,
+                        UpdateDate = user.UpdateDate,
+                        UseTemplates = user.UseTemplates
+                    };
+
+                    var categories = _context.Users.Find(user.Id).Categories.ToList();
+                    List<CategoryDTO> ReturnCatList = new List<CategoryDTO>();
+                    foreach (var item in categories)
+                    {
+                        ReturnCatList.Add(new CategoryDTO
+                        {
+                            Id = item.Id,
+                            Name = item.Name,
+                            IsSpendingCategory = item.IsSpendingCategory,
+                            IsSystem = item.IsSystem,
+                            CreatedBy = item.CreatedBy,
+                            Icon = item.Icon
+                        });
+
+                    }
+                    var transactions = _context.Transactions.Where(t => t.UserId == user.Id && t.TransDate.Year == DateTime.Now.Year && t.TransDate.Month == DateTime.Now.Month).ToList();
+                    List<TransactionListItem> transactionsList = new List<TransactionListItem>();
+                    foreach (var transaction in transactions)
+                    {
+                        TransactionListItem listItem = new TransactionListItem()
+                        {
+                            Id = transaction.Id,
+                            Amount = transaction.Amount,
+                            CategoryId = transaction.CategoryId,
+                            IsPlaned = transaction.IsPlaned,
+                            IsSpending = transaction.IsSpending,
+                            Name = transaction.Name,
+                            TransDate = transaction.TransDate,
+                            UserId = transaction.UserId
+                        };
+                        transactionsList.Add(listItem);
+                    }
+                    
+
+                    NewLoginResponseDTO result = new NewLoginResponseDTO
+                    {
+                        Status = statusCode,
+                        UserId = user.Id,
+                        UserSettings = userSettings,
+                        Categories = ReturnCatList,
+                        Transactions = transactionsList
+                    };
+
+                    return Ok(result);
+                }
+                else
+                {
+                    statusCode = 401;
+                    LoginResponseDTO erroResult = new LoginResponseDTO
+                    {
+                        Status = 401
+                    };
+                    return Ok(erroResult);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

@@ -19,6 +19,7 @@ namespace MyBudget.Models
         public DateTime TransDate { get; set; }
 
         public Category Category { get; set; }
+
         public int CategoryId { get; set; }
 
         [Required]
@@ -29,6 +30,7 @@ namespace MyBudget.Models
         public bool IsPlaned { get; set; }
 
         public ApplicationUser User { get; set; }
+
         [Required]
         [MaxLength(128)]
         public string UserId { get; set; }
