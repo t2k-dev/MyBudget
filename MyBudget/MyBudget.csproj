@@ -282,6 +282,10 @@
     <Compile Include="Migrations\201908051733236_TemplateModelAdded.Designer.cs">
       <DependentUpon>201908051733236_TemplateModelAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909021614363_TemplateAdded.cs" />
+    <Compile Include="Migrations\201909021614363_TemplateAdded.Designer.cs">
+      <DependentUpon>201909021614363_TemplateAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApiDTOs\CategoryDTO.cs" />
@@ -576,6 +580,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908051733236_TemplateModelAdded.resx">
       <DependentUpon>201908051733236_TemplateModelAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909021614363_TemplateAdded.resx">
+      <DependentUpon>201909021614363_TemplateAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

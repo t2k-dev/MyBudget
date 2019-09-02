@@ -15,6 +15,7 @@ namespace MyBudget.Models
         public DbSet<Category> Categories { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<Goal> Goals { get; set; }
+        public DbSet<Template> Templates { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
