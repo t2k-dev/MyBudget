@@ -159,5 +159,17 @@ namespace MyBudget.Controllers
 
             return RedirectToAction("TemplateList", "Template");
         }
+
+        public ActionResult Delete(int id)
+        {
+            var template = _context.Templates.SingleOrDefault(t => t.Id == id);
+            if (template == null)
+                return HttpNotFound();
+
+            _context.Templates.Remove(template);
+
+            _context.SaveChanges();
+            return RedirectToAction("TemplateList", "Template");
+        }
     }
 }

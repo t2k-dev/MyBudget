@@ -56,7 +56,7 @@
                                         @template.Name 
                                     <div class="cat-name">  @template.Category.Name</div></td>
                                     <td class="text-right amt @amtClass">@amtChar @template.Amount.ToString("### ### ### ###") @Model.DefCurrency</td>
-                                    <td><span>@Html.ActionLink(" ", "DeleteFromMyCategories", "Category", new { id = template.Id }, new { @class = "glyphicon glyphicon-trash glyph-btn" })</span></td>
+                                    <td><span>@Html.ActionLink(" ", "Delete", "Template", new { id = template.Id }, new { @class = "glyphicon glyphicon-trash glyph-btn" })</span></td>
                                 </tr>
                                 }
 

@@ -235,6 +235,7 @@
     <Compile Include="Controllers\GraphController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TemplateController.cs" />
     <Compile Include="Controllers\TransactionsController.cs" />
     <Compile Include="Dtos\TransactionDto.cs" />
     <Compile Include="FiltersApi\ValidateModelAttribute.cs" />
@@ -316,6 +317,8 @@
     <Compile Include="ViewModels\CategoryFormViewModel.cs" />
     <Compile Include="ViewModels\GoalFormViewModel.cs" />
     <Compile Include="ViewModels\MyListViewModel.cs" />
+    <Compile Include="ViewModels\TemplateFormViewModel.cs" />
+    <Compile Include="ViewModels\TemplateListViewModel.cs" />
     <Compile Include="ViewModels\TransactionFormViewModel.cs" />
     <Compile Include="ViewModels\UserCategoriesViewModel.cs" />
   </ItemGroup>
@@ -533,6 +536,8 @@
     <Content Include="Views\Category\UserCategories.cshtml" />
     <Content Include="Views\Graph\Pie.cshtml" />
     <Content Include="Views\Manage\OpeningConfig.cshtml" />
+    <Content Include="Views\Template\TemplateForm.cshtml" />
+    <Content Include="Views\Template\TemplateList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
