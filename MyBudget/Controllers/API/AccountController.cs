@@ -143,8 +143,8 @@ namespace MyBudget.Controllers.API
                 if (_hasher.VerifyHashedPassword(user.PasswordHash, model.pass) == PasswordVerificationResult.Success)
                 {
                     // Ежемесячные операции
-                    //var monthlyOpsService = new MonthlyOpsService(user.Id);
-                    //monthlyOpsService.ExecuteMonthlyOps();
+                    var monthlyOpsService = new MonthlyOpsService(user.Id);
+                    monthlyOpsService.ExecuteMonthlyOps();
 
                     LoginResponseDTO result = new LoginResponseDTO
                     {
@@ -203,14 +203,16 @@ namespace MyBudget.Controllers.API
                 if (_hasher.VerifyHashedPassword(user.PasswordHash, model.pass) == PasswordVerificationResult.Success)
                 {
                     // Ежемесячные операции
-                    //var monthlyOpsService = new MonthlyOpsService(user.Id);
-                    //monthlyOpsService.ExecuteMonthlyOps();
+                    var monthlyOpsService = new MonthlyOpsService(user.Id);
+                    monthlyOpsService.ExecuteMonthlyOps();
+
                     var userSettings = new UserSettingsModel
                     {
                         CarryOverRests = user.CarryoverRests,
                         DefCurrency = user.DefCurrency,
                         UpdateDate = user.UpdateDate,
-                        UseTemplates = user.UseTemplates
+                        UseTemplates = user.UseTemplates,
+                        UserId = user.Id                        
                     };
 
                     var categories = _context.Users.Find(user.Id).Categories.ToList();
@@ -249,8 +251,7 @@ namespace MyBudget.Controllers.API
 
                     NewLoginResponseDTO result = new NewLoginResponseDTO
                     {
-                        Status = statusCode,
-                        UserId = user.Id,
+                        Status = statusCode,                        
                         UserSettings = userSettings,
                         Categories = ReturnCatList,
                         Transactions = transactionsList

@@ -1,5 +1,6 @@
 ﻿using ClosedXML.Excel;
 using Microsoft.AspNet.Identity;
+using MyBudget.BusinessLogic;
 using MyBudget.Models;
 using MyBudget.ViewModels;
 using System;
@@ -41,14 +42,8 @@ namespace MyBudget.Controllers
                 dt = DateTime.ParseExact(id, "MMyyyy", CultureInfo.InvariantCulture, DateTimeStyles.None);
 
             //Ежемесячные платежи
-            if (UpdateDateExpired(user.UpdateDate))
-            {
-                if (user.CarryoverRests)                
-                    AddRestTransaction(UserGuid);                                    
-
-                user.UpdateDate = DateTime.Now;
-                _context.SaveChanges();
-            }
+            var monthlyOpsService = new MonthlyOpsService(UserGuid);
+            monthlyOpsService.ExecuteMonthlyOps();
 
             var viewModel = new MyListViewModel
             {                
