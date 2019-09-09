@@ -229,6 +229,7 @@
     <Compile Include="Controllers\API\GraphController.cs" />
     <Compile Include="Controllers\API\ManageController.cs" />
     <Compile Include="Controllers\API\MobTransactionsController.cs" />
+    <Compile Include="Controllers\API\TemplateController.cs" />
     <Compile Include="Controllers\API\TransactionsController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\GoalsController.cs" />
@@ -297,6 +298,7 @@
     <Compile Include="Models\ApiDTOs\LoginResponseDTO.cs" />
     <Compile Include="Models\ApiDTOs\NewLoginResponseDTO.cs" />
     <Compile Include="Models\ApiDTOs\RegisterRequestDTO.cs" />
+    <Compile Include="Models\ApiDTOs\TemplateCreateRequestDTO.cs" />
     <Compile Include="Models\ApiDTOs\Transactions\TransactionCreateRequestDTO.cs" />
     <Compile Include="Models\ApiDTOs\Transactions\TransactionListItem.cs" />
     <Compile Include="Models\ApiDTOs\Transactions\TransactionUpdateRequestDTO.cs" />
