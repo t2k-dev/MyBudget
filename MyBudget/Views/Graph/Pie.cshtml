@@ -1,6 +1,6 @@
 ﻿@model MyBudget.ViewModels.GraphPieViewModel
 @{
-    ViewBag.Title = "Pie";
+    ViewBag.Title = "График расходов";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="row">
@@ -16,7 +16,7 @@
                     
             </div>
         </div>
-
+        <div id="no-data-text" class="no-graph">За указанный период данных нет</div>
         <div id="canvas-holder" style="width:100%;">
             <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
                 <div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">

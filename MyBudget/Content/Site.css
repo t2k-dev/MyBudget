@@ -629,7 +629,11 @@ code {
     width: 2rem;
     height: 1rem;
 }
-
+.no-graph {
+    text-align: center;
+    margin-top: 2rem;
+    display:none;
+}
 /*Цели долги*/
 #goal-date-w {    
     margin: 0 auto;

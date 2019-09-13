@@ -71,21 +71,24 @@ function loadPie(term) {
         url: urlString,
         method: "GET",
         success: function (result) {
-            $('#graphLegend tbody').remove();        
+            $('#no-data-text').hide();
+            $('#graphLegend').show();
+            $('#canvas-holder').show();
 
+            $('#graphLegend tbody').remove();                    
             config.data.datasets.splice(0, 1);
             var newDataset = {
                 backgroundColor: [],
                 data: [],
                 label: 'New dataset',
             };
-            config.data.labels.splice(0);            
+            config.data.labels.splice(0);
             var DefCurrency = $("#DefCurrency").val();
-            $.each(result, function (i, item) {                
+            $.each(result, function (i, item) {
                 newDataset.data.push(item.Amount);
                 newDataset.backgroundColor.push(item.Color);
                 config.data.labels.push(item.Caption);
-                
+
                 var $tr = $('<tr>').append(
                     $('<td>').append($("<div class='leg-marker' style='background-color:" + item.Color + "'>")),
                     $('<td>').text(item.Caption),
@@ -93,11 +96,15 @@ function loadPie(term) {
                 );
 
                 $tr.appendTo('#graphLegend');
-                
+
             })
             config.data.datasets.push(newDataset);
-            window.myPie.update();
-            
+            window.myPie.update();            
+        },
+        error: function (data) {
+            $('#no-data-text').show();
+            $('#graphLegend').hide();
+            $('#canvas-holder').hide();            
         }
     })
 
