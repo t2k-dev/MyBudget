@@ -20,7 +20,10 @@
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="themes"><span class="glyphicon glyphicon-user" style="margin-right:3px;"></span> @User.Identity.GetUserName() <span class="caret"></span></a>
             <div class="dropdown-menu" aria-labelledby="themes">
                 <a class="dropdown-item" href="@Url.Action("Index", "Manage")">Мой кабинет</a>
+                <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="@Url.Action("UserCategories", "Category")">Категории</a>
+                <a class="dropdown-item" href="@Url.Action("TemplateList", "Template")">Шаблоны платежей</a>
+
             </div>
         </li>
         <li><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()"><span class="glyphicon glyphicon-log-out" style="margin-right:3px;"></span> Выйти</a></li>

@@ -6,8 +6,7 @@
 
 
     <div class="row">
-        <div class="col-md-6 offset-md-3">
-            <h3 class="text-center">Ежемесячные платежи</h3>
+        <div class="col-md-6 offset-md-3">            
             <div class="container">
                 <div class="row" style="margin-bottom:0.4rem;">
                     <div class="col-4 text-left">
@@ -29,37 +28,44 @@
                             <col style="width: 20px">
 
                             <tbody>
-                                @foreach (var template in Model.MyTemplates)
-                                {
-                                    string amtClass, amtChar;
-                                    if (template.IsSpending)
+                                @if(Model.MyTemplates.Count > 0)
+                                { 
+                                    foreach (var template in Model.MyTemplates)
                                     {
-                                        amtChar = "- ";
-                                        amtClass = "text-danger";
-                                    }
-                                    else
-                                    {
-                                        amtChar = "+ ";
-                                        amtClass = "text-success";
-
-                                    }
-
-                                <tr>
-                                    <td class="day-cell">@template.Day</td>
-                                    <td>
-                                        @{
-                                            if (String.IsNullOrEmpty(template.Name))
-                                            {
-                                                template.Name = "---";
-                                            }
+                                        string amtClass, amtChar;
+                                        if (template.IsSpending)
+                                        {
+                                            amtChar = "- ";
+                                            amtClass = "text-danger";
                                         }
-                                        @template.Name 
-                                    <div class="cat-name">  @template.Category.Name</div></td>
-                                    <td class="text-right amt @amtClass">@amtChar @template.Amount.ToString("### ### ### ###") @Model.DefCurrency</td>
-                                    <td><span>@Html.ActionLink(" ", "Delete", "Template", new { id = template.Id }, new { @class = "glyphicon glyphicon-trash glyph-btn" })</span></td>
+                                        else
+                                        {
+                                            amtChar = "+ ";
+                                            amtClass = "text-success";
+
+                                        }                                
+                                     <tr>
+                                        <td class="day-cell">@template.Day</td>
+                                        <td>
+                                            @{
+                                                if (String.IsNullOrEmpty(template.Name))
+                                                {
+                                                    template.Name = "---";
+                                                }
+                                            }
+                                            @template.Name 
+                                        <div class="cat-name">  @template.Category.Name</div></td>
+                                        <td class="text-right amt @amtClass">@amtChar @template.Amount.ToString("### ### ### ###") @Model.DefCurrency</td>
+                                        <td><span>@Html.ActionLink(" ", "Delete", "Template", new { id = template.Id }, new { @class = "glyphicon glyphicon-trash glyph-btn" })</span></td>
+                                    </tr>
+                                    }
+                                }
+                                else{
+                                <tr class="no-records">
+                                    <td class="text-center">У Вас пока ещё нет шаблонов</td>
                                 </tr>
                                 }
-
+                                                    
 
                             </tbody>
                         </table>
