@@ -68,6 +68,35 @@ namespace MyBudget.BusinessLogic
             _context.SaveChanges();
         }
 
+        private void AddTemplates()
+        {
+            var templates = _context.Templates.Where(t => t.UserId == _user.Id).ToList();
+
+            if (templates.Count == 0)
+            {
+                return;
+            }
+
+
+            foreach (var template in templates)
+            {
+                DateTime transDate = new  DateTime(DateTime.Now.Year, DateTime.Now.Month, template.Day);                
+                var transaction = new Transaction
+                {
+                    Amount = template.Amount,
+                    IsPlaned = true,
+                    IsSpending = template.IsSpending,
+                    Name = template.Name,
+                    UserId = _user.Id,
+                    TransDate = transDate,
+                    CategoryId = template.CategoryId
+                };
+
+                _context.Transactions.Add(transaction);
+            }
+            _context.SaveChanges();
+        }
+
         #endregion
         public void ExecuteMonthlyOps()
         {
@@ -75,6 +104,7 @@ namespace MyBudget.BusinessLogic
             {
                 if (_user.CarryoverRests)
                     AddRestTransaction();
+                AddTemplates();
 
                 _user.UpdateDate = DateTime.Now;
                 _context.SaveChanges();
