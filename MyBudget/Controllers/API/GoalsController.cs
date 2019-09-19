@@ -2,6 +2,7 @@
 using MyBudget.FiltersApi;
 using MyBudget.Models;
 using MyBudget.Models.ApiDTOs;
+using MyBudget.Models.ApiDTOs.Goals;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,14 +27,30 @@ namespace MyBudget.Controllers.API
         {
             try
             {
-                var GoalsList = _context.Goals.Where(m => m.UserId == Id).ToList();
+                var GoalsList = _context.Goals.Where(g => g.UserId == Id).ToList();
 
                 if (GoalsList.Count() < 1)
                     return NotFound();
 
-                return Ok(GoalsList);
+                List<GoalsListItemDTO> resultList = new List<GoalsListItemDTO>();
+                foreach (var goal in GoalsList)
+                {
+                    GoalsListItemDTO itemDTO = new GoalsListItemDTO()
+                    {
+                        Id = goal.Id,
+                        GoalName = goal.GoalName,
+                        Type = goal.Type,
+                        Amount = goal.Amount,
+                        CurAmount = goal.CurAmount,
+                        IsActive = goal.IsActive,
+                        UserId = goal.UserId,
+                        CompleteDate = goal.CompleteDate == null ? null : goal.CompleteDate.Value.ToString("yyyy.MM.dd")
+                    };
+                    resultList.Add(itemDTO);
+                }
+                return Ok(resultList);
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
             }

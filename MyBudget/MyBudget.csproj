@@ -293,6 +293,7 @@
     <Compile Include="Models\ApiDTOs\CategoryDTO.cs" />
     <Compile Include="Models\ApiDTOs\ChangePasswordDTO.cs" />
     <Compile Include="Models\ApiDTOs\GoalCreateRequestDTO.cs" />
+    <Compile Include="Models\ApiDTOs\Goals\GoalsListItemDTO.cs" />
     <Compile Include="Models\ApiDTOs\GoalUpdateRequesDTO.cs" />
     <Compile Include="Models\ApiDTOs\LoginRequestDTO.cs" />
     <Compile Include="Models\ApiDTOs\LoginResponseDTO.cs" />
