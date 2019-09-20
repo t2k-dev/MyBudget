@@ -194,7 +194,7 @@ function loadTable() {
                         /*Кнопка "запланировано"*/
                         $('<td class="text-center js-switch ' + op_class + '">').append($('<span class="glyphicon glyphicon-ok glyph-btn occured"></span>')),
                         /*Наименование*/
-                        $("<td>").text(item.Name).append($('<div class="cat-name">').text(item.CategoryName)).on("click", function () {
+                        $("<td class='td-name'>").text(item.Name).append($('<div class="cat-name">').text(item.CategoryName)).on("click", function () {
                             window.location.href = "/Transactions//Edit/" + item.Id;
                         }),
 
@@ -278,7 +278,7 @@ function loadTable() {
                 });
             } else {
                 /*Если нет транзакций*/
-                $tr = $("<tr class='no-records'>").append($("<td class='text-center' colspan ='4'>").text("В этом месяце ещё нет платежей"));
+                $tr = $("<tr class='no-records'>").append($("<td colspan ='4'>").text("В этом месяце ещё нет платежей"));
                 $tr.appendTo('#transactions_table');
 
                 $('#balten').CssClass = 'zz';

@@ -48,7 +48,10 @@ namespace MyBudget.Controllers
 
             string UserGuid = User.Identity.GetUserId();
 
-            var categories = _context.Users.Find(UserGuid).Categories.Where(c => c.IsSpendingCategory == IsSpending).ToList();            
+            var categories = _context.Users.Find(UserGuid).Categories
+                .Where(c => c.IsSpendingCategory == IsSpending
+                    && (!c.IsSystem || (c.Id == Category.SpendingCategoryDefault || c.Id == Category.IncomeCategoryDefault)))
+                .ToList();            
             var defCategory = categories.First(c => c.Id == NoCategoryId);
 
 
@@ -64,7 +67,7 @@ namespace MyBudget.Controllers
 
             // Список дней
             List<int> days = new List<int>();
-            for (int i = 1; i <= 31; i++)
+            for (int i = 1; i <= 28; i++)
             {
                 days.Add(i);
             }
@@ -91,17 +94,28 @@ namespace MyBudget.Controllers
 
             int DefCatId = template.IsSpending ? Category.SpendingCategoryDefault : Category.IncomeCategoryDefault;
 
-            var categories = _context.Users.Find(UserGuid).Categories.Where(c => c.IsSpendingCategory == template.IsSpending).ToList();
+            var categories = _context.Users.Find(UserGuid).Categories
+                .Where(c => c.IsSpendingCategory == template.IsSpending 
+                        && (!c.IsSystem || (c.Id == Category.SpendingCategoryDefault || c.Id == Category.IncomeCategoryDefault)))
+                .ToList();
             var defCategory = categories.First(c => c.Id == DefCatId);
             categories.Remove(defCategory);
             categories = categories.OrderBy(c => c.Name).ToList();
             categories.Insert(0, defCategory);
 
+            // Список дней
+            List<int> days = new List<int>();
+            for (int i = 1; i <= 28; i++)
+            {
+                days.Add(i);
+            }
+
             var viewModel = new TemplateFormViewModel
             {
                 Template = template,
                 Categories = categories,                
-                DefCurrency = defCurrency
+                DefCurrency = defCurrency,
+                Days = new SelectList(days)
             };
 
             return View("TemplateForm", viewModel);
