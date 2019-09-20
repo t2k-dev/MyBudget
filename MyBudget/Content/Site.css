@@ -605,11 +605,27 @@ code {
     background-image: none;
     border-color: #43ac6a
 }
-.cat-tbl{margin-top:1rem;}
+.cat-tbl{}
+.cat-tbl th {
+    user-select:none;
+    border-top: none;
+}
+.cat-tbl th.border-red {    
+    border-bottom: 2px solid #F04124;
+}
+.cat-tbl th.border-green {
+    border-bottom: 2px solid #43ac6a;
+}
+.cat-tbl tr.no-record {
+    background-color: transparent !important;
+}
+
 .cat-add-btn-wr {
     text-align: center;
     margin-bottom: 2rem;
 }
+
+
 
 /*Графики*/
 .btn-graph-term {

@@ -471,6 +471,7 @@
     <Content Include="Scripts\Chart.bundle.js" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
+    <Content Include="Scripts\custom\categories.js" />
     <Content Include="Scripts\custom\templateList.js" />
     <Content Include="Scripts\graph.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
