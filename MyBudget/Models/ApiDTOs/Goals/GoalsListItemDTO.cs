@@ -21,6 +21,6 @@ namespace MyBudget.Models.ApiDTOs.Goals
 
         public string UserId { get; set; }
 
-        public string CompleteDate { get; set; }
+        public DateTime? CompleteDate { get; set; }
     }
 }

@@ -44,7 +44,7 @@ namespace MyBudget.Controllers.API
                         CurAmount = goal.CurAmount,
                         IsActive = goal.IsActive,
                         UserId = goal.UserId,
-                        CompleteDate = goal.CompleteDate == null ? null : goal.CompleteDate.Value.ToString("yyyy.MM.dd")
+                        CompleteDate = goal.CompleteDate
                     };
                     resultList.Add(itemDTO);
                 }
