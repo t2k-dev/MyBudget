@@ -5,20 +5,20 @@
 }
 <div class="row">
     <div class="col-md-4 offset-md-4 frm1">
-        
+
         @if (Model.Goal.Id != 0)
         {
             <h3 class="form-title">Редактировать</h3>
         }
-        else if (Model.Goal.Type==1)
+        else if (Model.Goal.Type == 1)
         {
             <h3 class="form-title">Новая цель</h3>
         }
-        else if (Model.Goal.Type==2)
+        else if (Model.Goal.Type == 2)
         {
             <h3 class="form-title">Взять в долг</h3>
         }
-        else if (Model.Goal.Type==3)
+        else if (Model.Goal.Type == 3)
         {
             <h3 class="form-title">Дать в долг</h3>
         }
@@ -42,7 +42,7 @@
                 @Html.TextBoxFor(m => m.Goal.CurAmount, new { @class = "form-control-lg amt-inp jq-money", autocomplete = "off", maxlength = "13", type = "tel" })
                 <span class="cur-inp">@Model.DefCurrency</span>
                 @Html.ValidationMessageFor(m => m.Goal.CurAmount, "", new { @class = "text-danger" })
-                
+
             </div>
             <div class="form-check">
 
@@ -53,7 +53,7 @@
 
                     if (@Model.Goal.CompleteDate == null)
                     {
-                        displayVal = "none";                        
+                        displayVal = "none";
                     }
                     else
                     {
@@ -65,8 +65,8 @@
                 }
 
                 <input type="checkbox" class="form-check-input" id="chDate" @checkedVal>
-                <label for="chDate" style="width:100%">Дата окончания</label>                
-                <div id="goal-date-w" style="display:@displayVal" >
+                <label for="chDate" style="width:100%">Дата окончания</label>
+                <div id="goal-date-w" style="display:@displayVal">
                     <input type="text" name="Goal.CompleteDate" id="sandbox-container" value="@ValCD" class="form-control lil-dp" spellcheck="false" autocomplete="off" readonly>
                     <p class="hlp-text" style="margin-top: 0.5rem;">
                         * за месяц до окончания этой даты на главном экране появится подсказка.
@@ -75,9 +75,10 @@
             </div>
 
 
-            @Html.HiddenFor(m=> m.Goal.Id)
+            @Html.HiddenFor(m => m.Goal.Id)
             @Html.HiddenFor(m => m.Goal.UserId)
             @Html.HiddenFor(m => m.Goal.Type)
+            @Html.HiddenFor(m => m.Goal.IsActive)
             <hr />
             <div class="col-md-10 offset-md-1 btn-cntnr text-center ">
                 <button type="submit" class="btn btn-success form-btn">Сохранить</button>

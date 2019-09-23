@@ -31,6 +31,9 @@ namespace MyBudget.BusinessLogic
 
             _goal.CurAmount += amount;
 
+            if (_goal.Amount == _goal.CurAmount)
+                _goal.IsActive = false;
+
             int categoryId = 0;
             if (_goal.Type == Goal.TypeDebt)
                 categoryId = Category.PayCredit;

@@ -84,14 +84,17 @@
                 <div class="card-body">
                     @foreach (var goal in Model.MyGoals.Where(x => x.Type == 1))
                     {
-                        <div class="crd-itm">
+                        string opacityClass = goal.IsActive == false ? "goalIsFinished" : "";
+
+                        <div class="crd-itm @opacityClass">
                             <div class="crd-content">
                                 <button data-goal-id="@goal.Id" type="button" class="btn btn-link glyphicon glyphicon-trash del-btn-crd js-del-goal" data-toggle="modal" data-target="#DelTemplateModal"></button>
 
                                 <a class="crd-caption" href="@Url.Action("Edit", "Goals", new { id = goal.Id})">@goal.GoalName </a>
-
-                                <button type="button" class="btn btn-link js-pay-goal pay-goal" data-toggle="modal" data-target="#myModal" data-goal-id="@goal.Id" data-goal-Amount="@goal.Amount" data-goal-CurrentAmount="@goal.CurAmount" data-catType="SYS_5"></button>
-
+                                @if (goal.IsActive == true)
+                                {
+                                    <button type="button" class="btn btn-link js-pay-goal pay-goal" data-toggle="modal" data-target="#myModal" data-goal-id="@goal.Id" data-goal-Amount="@goal.Amount" data-goal-CurrentAmount="@goal.CurAmount" data-catType="SYS_5"></button>
+                                }
                                 <div class="crd-bot">
                                     @{
                                         string cA;
@@ -125,13 +128,16 @@
                 <div class="card-body">
                     @foreach (var debt in Model.MyGoals.Where(x => x.Type == 2))
                     {
-                        <div class="crd-itm">
+                        string opacityClass = debt.IsActive == false ? "goalIsFinished" : "";
+                        <div class="crd-itm @opacityClass">
                             <div class="crd-content">
                                 <button data-goal-id="@debt.Id" type="button" class="btn btn-link glyphicon glyphicon-trash del-btn-crd js-del-goal" data-toggle="modal" data-target="#DelTemplateModal"></button>
 
                                 <a class="crd-caption" href="@Url.Action("Edit", "Goals", new { id = debt.Id})">@debt.GoalName </a>
-
-                                <button type="button" class="btn btn-link js-pay-goal pay-goal" data-toggle="modal" data-target="#myModal" data-goal-id="@debt.Id"  data-goal-Amount="@debt.Amount" data-goal-CurrentAmount="@debt.CurAmount"  data-catType="SYS_3"></button>
+                                @if (debt.IsActive == true)
+                                {
+                                    <button type="button" class="btn btn-link js-pay-goal pay-goal" data-toggle="modal" data-target="#myModal" data-goal-id="@debt.Id"  data-goal-Amount="@debt.Amount" data-goal-CurrentAmount="@debt.CurAmount"  data-catType="SYS_3"></button>
+                                }
 
                                 <div class="crd-bot">
                                     @{
@@ -167,12 +173,15 @@
                 <div class="card-body">
                     @foreach (var debt in Model.MyGoals.Where(x => x.Type == 3))
                     {
-                        <div class="crd-itm">
+                        string opacityClass = debt.IsActive == false ? "goalIsFinished" : "";
+                        <div class="crd-itm @opacityClass">
                             <div class="crd-content">
                                 <button data-goal-id="@debt.Id" type="button" class="btn btn-link glyphicon glyphicon-trash del-btn-crd js-del-goal" data-toggle="modal" data-target="#DelTemplateModal"></button>
                                 <a class="crd-caption" href="@Url.Action("Edit", "Goals", new { id = debt.Id})">@debt.GoalName </a>
-
-                                <button type="button" class="btn btn-link js-pay-goal pay-goal" data-toggle="modal" data-target="#myModal" data-goal-id="@debt.Id"  data-goal-Amount="@debt.Amount" data-goal-CurrentAmount="@debt.CurAmount"  data-catType="SYS_1"></button>
+                                @if (debt.IsActive == true)
+                                {
+                                    <button type="button" class="btn btn-link js-pay-goal pay-goal" data-toggle="modal" data-target="#myModal" data-goal-id="@debt.Id"  data-goal-Amount="@debt.Amount" data-goal-CurrentAmount="@debt.CurAmount"  data-catType="SYS_1"></button>
+                                }
                                 <div class="crd-bot">
                                     @{
                                         string cA;

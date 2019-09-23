@@ -47,7 +47,9 @@ namespace MyBudget.Controllers
 
             var viewModel = new MyListViewModel
             {                
-                MyGoals = _context.Goals.Where(m => m.UserId == UserGuid).ToList(),
+                MyGoals = _context.Goals.Where(g => g.UserId == UserGuid)
+                    .OrderByDescending(g => g.IsActive)
+                    .ThenBy(g => g.GoalName).ToList(),
                 ListDate = dt.ToString("Y", new CultureInfo("ru-RU")),
                 DefCurrency = user.DefCurrency
             };

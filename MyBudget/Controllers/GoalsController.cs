@@ -26,7 +26,8 @@ namespace MyBudget.Controllers
             var goal = new Goal
             {
                 Type = 1, /*Цель*/
-                UserId = UserGuid
+                UserId = UserGuid,
+                IsActive = true
             };
 
             var viewModel = new GoalFormViewModel
@@ -45,7 +46,8 @@ namespace MyBudget.Controllers
             var goal = new Goal
             {
                 Type = 2, /*Взять в долг*/
-                UserId = UserGuid
+                UserId = UserGuid,
+                IsActive = true
             };
 
             var viewModel = new GoalFormViewModel
@@ -65,7 +67,8 @@ namespace MyBudget.Controllers
             var goal = new Goal
             {
                 Type = 3, /*Дать в долг*/
-                UserId = UserGuid
+                UserId = UserGuid,
+                IsActive = true
             };
 
             var viewModel = new GoalFormViewModel
