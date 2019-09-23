@@ -68,11 +68,15 @@
     });
     
     /*Пополнить цель/долг*/
-    $('.js-pay-goal').on("click", function () {
-
+    $('.js-pay-goal').on("click", function () {        
         $('#Amount').removeClass('input-validation-error')
         $('#putOnId').val($(this).attr("data-goal-id"));
-        $('#catType').val($(this).attr("data-catType"));        
+        $('#catType').val($(this).attr("data-catType")); 
+        $('#putMoneyAmount').val($(this).attr("data-goal-Amount") - $(this).attr("data-goal-CurrentAmount"));
+
+        $('#Amount').val('');        
+        $('#btnPutMoney').prop('disabled', true);
+        $('#wromgAmountMessage').css('display', 'none');        
     }); 
 
     /* Модальное окно "Удалить цель, долг" */
@@ -90,7 +94,7 @@
         $amt.val(num.toLocaleString("ru-RU"));
     }
 
-    $amt.on("keyup", function (event) {
+    $amt.on("keyup", function (event) {        
         var selection = window.getSelection().toString();
         if (selection !== '') { return; }
 
@@ -104,6 +108,25 @@
         $this.val(function () {
             return (input === 0) ? "" : input.toLocaleString("ru-RU");
         });
+
+        /*Валидация суммы пополнения*/
+        var putMoneyAmount = $('#putMoneyAmount').val();
+
+        if (input > putMoneyAmount) {
+            $('#btnPutMoney').prop('disabled', true);
+            $('#wromgAmountMessage').css('display', '');
+            $('#wromgAmountMessage').text('Невозможно пополнить на сумму больше чем ' + amountToString(putMoneyAmount) + ' ' + $(DefCurr).val());            
+        }
+        else {
+            $('#btnPutMoney').prop('disabled', false);
+            $('#wromgAmountMessage').css('display', 'none');
+        }
+        if (input == 0) {
+            $('#btnPutMoney').prop('disabled', true);
+            $('#wromgAmountMessage').css('display', 'none');            
+        }
+
+        
     });
 
     $('form').submit(function () {
@@ -360,3 +383,9 @@ function countBalance() {
         $balten_pl.text(bal_pl);    
 
 };
+
+function amountToString(string) {
+    var errorSumm = string;
+    errorSumm = parseInt(errorSumm, 10);    
+    return errorSumm.toLocaleString("ru-RU");
+}

@@ -90,7 +90,7 @@
 
                                 <a class="crd-caption" href="@Url.Action("Edit", "Goals", new { id = goal.Id})">@goal.GoalName </a>
 
-                                <button type="button" class="btn btn-link js-pay-goal pay-goal" data-toggle="modal" data-target="#myModal" data-goal-id="@goal.Id" data-catType="SYS_5"></button>
+                                <button type="button" class="btn btn-link js-pay-goal pay-goal" data-toggle="modal" data-target="#myModal" data-goal-id="@goal.Id" data-goal-Amount="@goal.Amount" data-goal-CurrentAmount="@goal.CurAmount" data-catType="SYS_5"></button>
 
                                 <div class="crd-bot">
                                     @{
@@ -131,7 +131,7 @@
 
                                 <a class="crd-caption" href="@Url.Action("Edit", "Goals", new { id = debt.Id})">@debt.GoalName </a>
 
-                                <button type="button" class="btn btn-link js-pay-goal pay-goal" data-toggle="modal" data-target="#myModal" data-goal-id="@debt.Id" data-catType="SYS_3"></button>
+                                <button type="button" class="btn btn-link js-pay-goal pay-goal" data-toggle="modal" data-target="#myModal" data-goal-id="@debt.Id"  data-goal-Amount="@debt.Amount" data-goal-CurrentAmount="@debt.CurAmount"  data-catType="SYS_3"></button>
 
                                 <div class="crd-bot">
                                     @{
@@ -172,7 +172,7 @@
                                 <button data-goal-id="@debt.Id" type="button" class="btn btn-link glyphicon glyphicon-trash del-btn-crd js-del-goal" data-toggle="modal" data-target="#DelTemplateModal"></button>
                                 <a class="crd-caption" href="@Url.Action("Edit", "Goals", new { id = debt.Id})">@debt.GoalName </a>
 
-                                <button type="button" class="btn btn-link js-pay-goal pay-goal" data-toggle="modal" data-target="#myModal" data-goal-id="@debt.Id" data-catType="SYS_1"></button>
+                                <button type="button" class="btn btn-link js-pay-goal pay-goal" data-toggle="modal" data-target="#myModal" data-goal-id="@debt.Id"  data-goal-Amount="@debt.Amount" data-goal-CurrentAmount="@debt.CurAmount"  data-catType="SYS_1"></button>
                                 <div class="crd-bot">
                                     @{
                                         string cA;
@@ -236,9 +236,13 @@
                             </div>
                             <input type="hidden" id="putOnId" name="putOnId" />
                             <input type="hidden" id="catType" name="catType" />
+                            <input type="hidden" id="putMoneyAmount" name="putMoneyAmount" />
+                        </div>
+                        <div class="form-group">
+                            <span id="wromgAmountMessage" style="display:none" class="field-validation-error text-danger">Невозможно пополнить на сумму больше чем 5 000 Т</span>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" id="btnPutMoney" class="btn btn-success" style="margin:0 auto;padding:0.5rem 3rem;">Пополнить</button>
+                            <button disabled type="submit" id="btnPutMoney" class="btn btn-success" style="margin:0 auto;padding:0.5rem 3rem;">Пополнить</button>
                         </div>
                     </div>
                 }
@@ -275,7 +279,6 @@
         </div>
     </div>
 </div>
-
 
 <!--Удаление транзакции-->
 <div class="modal fade" id="DelTransactionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -405,7 +408,7 @@
 
 @section scripts
 {
-    <script src="~/Scripts/myBudget.js"></script>
+    <script src="~/Scripts/custom/myBudget.js"></script>
     <!--<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>-->
 
 }
