@@ -111,6 +111,10 @@ namespace MyBudget.Controllers
                 return View("GoalForm", viewModel);
             }
 
+            if (goal.CurAmount == goal.Amount)
+                goal.IsActive = false;
+            else
+                goal.IsActive = true;
 
             if (goal.Id == 0)
             {
@@ -146,10 +150,6 @@ namespace MyBudget.Controllers
                     _context.Transactions.Add(transaction);
 
                 }
-
-
-
-
             }
             else /*Редактирование*/
             {

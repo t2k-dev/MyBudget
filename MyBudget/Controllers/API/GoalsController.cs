@@ -66,6 +66,12 @@ namespace MyBudget.Controllers.API
                 if (model == null)
                     return BadRequest("You've sent an empty model");
 
+                if (model.CurAmount == model.Amount)
+                    model.IsActive = false;
+                else
+                    model.IsActive = true;
+
+
                 var goal = new Goal()
                 {
                     GoalName = model.GoalName,
@@ -126,6 +132,11 @@ namespace MyBudget.Controllers.API
         {
             try
             {
+                if (model.CurAmount == model.Amount)
+                    model.IsActive = false;
+                else
+                    model.IsActive = true;
+
                 var GoalInDb = _context.Goals.SingleOrDefault(g => g.Id == id);
                 if (GoalInDb == null)
                     return NotFound();

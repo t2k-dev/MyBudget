@@ -21,5 +21,6 @@ namespace MyBudget.Models.ApiDTOs
         public string UserId { get; set; }
         public double? CurAmount { get; set; }
         public DateTime? CompleteDate { get; set; }
+        public bool IsActive { get; set; }
     }
 }

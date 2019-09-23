@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyBudget.Models.Helpers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace MyBudget.Models
         [Display(Name = "Сумма")]
         public double Amount { get; set; } /*Общая сумма*/
 
+        [ValidateCurrentAmountAttribute(ErrorMessage = "Текущая сумма не может быть больше полной суммы")]
         public double CurAmount { get; set; } /*Накопленная сумма*/
 
         public bool IsActive { get; set; }
