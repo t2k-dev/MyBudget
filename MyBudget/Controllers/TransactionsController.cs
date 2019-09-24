@@ -144,6 +144,8 @@ namespace MyBudget.Controllers
                 return View("TransactionForm", viewModel);
             }
 
+            transaction.Name = StringUtils.DeleteSpaces(transaction.Name);
+
             if (transaction.Id == 0)
             {                
                 _context.Transactions.Add(transaction);

@@ -220,6 +220,7 @@
     <Compile Include="BusinessLogic\GoalService.cs" />
     <Compile Include="BusinessLogic\GraphService.cs" />
     <Compile Include="BusinessLogic\MonthlyOpsService.cs" />
+    <Compile Include="BusinessLogic\StringUtils.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\API\AccountController.cs" />
     <Compile Include="Controllers\API\AuthController.cs" />
