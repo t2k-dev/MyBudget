@@ -145,6 +145,7 @@ namespace MyBudget.Controllers.API
                 GoalInDb.Amount = model.Amount ?? GoalInDb.Amount;
                 GoalInDb.CurAmount = (double)model.CurAmount;
                 GoalInDb.CompleteDate = model.CompleteDate;
+                GoalInDb.IsActive = (bool)model.IsActive;
 
                 await _context.SaveChangesAsync();
                 return Ok($"Goal id = {id} is successfully modified");
