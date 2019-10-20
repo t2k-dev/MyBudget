@@ -291,6 +291,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ApiDTOs\Account\ForgotPasswordRequestDTO.cs" />
     <Compile Include="Models\ApiDTOs\CategoryDTO.cs" />
     <Compile Include="Models\ApiDTOs\ChangePasswordDTO.cs" />
     <Compile Include="Models\ApiDTOs\GoalCreateRequestDTO.cs" />

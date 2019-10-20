@@ -20,26 +20,24 @@ using MyBudget.Infrastructure;
 using static MyBudget.Models.ApiDTOs.NewLoginResponseDTO;
 using System.Collections.Generic;
 using MyBudget.Models.ApiDTOs.Transactions;
+using MyBudget.Models.ApiDTOs.Account;
 
 namespace MyBudget.Controllers.API
 {
-    public class AccountController : ApiController
+    public class AccountController : BaseApiController
     {
-        private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
+        private ApplicationSignInManager _signInManager;        
         private ApplicationDbContext _context;
         private PasswordHasher _hasher;
 
         public AccountController()
         {
-            _context = new ApplicationDbContext();
-            _userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(_context));
+            _context = new ApplicationDbContext();            
             _hasher = new PasswordHasher();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IPasswordHasher hasher)
-        {
-            _userManager = userManager;
+        {            
             SignInManager = signInManager;
         }
 
@@ -71,7 +69,7 @@ namespace MyBudget.Controllers.API
                     return BadRequest("You've sent an empty model");
 
                 var user = new ApplicationUser { UserName = model.Username, Email = model.Email };
-                var result = await _userManager.CreateAsync(user, model.Password);
+                var result = await AppUserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     CategoryService categoryService = new CategoryService();
@@ -270,6 +268,47 @@ namespace MyBudget.Controllers.API
                 }
 
 
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost]
+        [ValidateModel]
+        [Route("api/forgotPassword")]
+        public async Task<IHttpActionResult> ForgotPassword(ForgotPasswordRequestDTO model)
+        {
+            try
+            {
+                if (model == null)
+                    return BadRequest("You've sent an empty model");
+
+                var user = new ApplicationUser();
+
+                if (!string.IsNullOrEmpty(model.Email))
+                {
+                    user = AppUserManager.FindByEmail(model.Email);
+                }
+                else if (!string.IsNullOrEmpty(model.Username))
+                {
+                    user = AppUserManager.FindByName(model.Username);
+                }
+
+                if (user == null)
+                    return NotFound();
+                
+                string code = await AppUserManager.GeneratePasswordResetTokenAsync(user.Id);
+                string newPassord = StringUtils.GeneratePassword();
+
+                var resetResul = await AppUserManager.ResetPasswordAsync(user.Id, code, newPassord);                
+
+                await AppUserManager.SendEmailAsync(user.Id, "Сброс пароля для MuBudget", $"Ваш временный пароль: {newPassord}");
+
+
+                return Ok();
             }
             catch (Exception ex)
             {
